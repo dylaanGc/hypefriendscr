@@ -90,19 +90,8 @@ const products = [
     class: "tee",
     image: "img/tee-mono.jpg.jpeg",
     desc: "Camiseta minimalista Hypefriends."
-     
   }
 
-   {
-    id: 9,
-    name: "SHORT CORTEIZ",
-    price: 35000,
-    stock: 1,
-    category: "short",
-    class: "short",
-    image: "img/short-white.jpg.jpeg",
-    desc: "Demin short corteiz."
-  },
 ];
 
 
