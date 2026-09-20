@@ -100,7 +100,7 @@ const products = [
     stock: 1,
     category: "short",
     class: "short",
-    image: "img/short-withe.jpg.jpeg",
+    image: "img/short-white.jpg.jpeg",
     desc: "Demin short corteiz."
   },
 ];
