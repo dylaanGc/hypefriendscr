@@ -1,5 +1,5 @@
 const products = [
-  {id:1,name:"ESSENTIAL HOODIE BLACK",price:45000,stock:12,category:"hoodie",class:"hoodie",desc:"Hoodie heavyweight de edición limitada."},
+  {id:1,name:"SUPREME MAISON MARGIELA",price:25000,stock:1,category:"hoodie",class:"hoodie",desc:"Hoodie Supreme Maison Margiela de edición limitada."},
   {id:2,name:"HYPE TEE WHITE",price:28000,stock:20,category:"tee",class:"tee",desc:"Camiseta premium con corte urbano."},
   {id:3,name:"HF CAP 001",price:25000,stock:8,category:"cap",class:"cap",desc:"Gorra estructurada para uso diario."},
   {id:4,name:"ESSENTIAL HOODIE GREY",price:45000,stock:6,category:"hoodie",class:"hoodie",desc:"Edición Essentials con unidades limitadas."},
