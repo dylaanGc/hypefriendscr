@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090909" />
+  <title>HYPEFRIENDS — Streetwear & Drops Exclusivos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="toast"></div>
+
+  <header class="site-header">
+    <button class="icon-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+    <a href="#inicio" class="logo">HYPEFRIENDS</a>
+    <button class="icon-btn" id="searchBtn" aria-label="Buscar">⌕</button>
+  </header>
+
+  <div class="announcement">ENVÍO GRATIS EN TODO EL GAM</div>
+
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <span class="logo">HYPEFRIENDS</span>
+      <button class="icon-btn" id="closeMenu">×</button>
+    </div>
+    <nav>
+      <a href="#inicio" class="nav-link">Inicio</a>
+      <a href="#catalogo" class="nav-link">Catálogo</a>
+      <a href="#drops" class="nav-link">Drops</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </nav>
+    <div class="drawer-footer">STREETWEAR Y DROPS EXCLUSIVOS.</div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <section class="search-panel" id="searchPanel">
+    <input id="searchInput" type="search" placeholder="Buscar producto..." autocomplete="off" />
+    <button class="icon-btn" id="closeSearch">×</button>
+  </section>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">COLECCIÓN LIMITADA</p>
+        <h1>DEFINE<br>TU ESTILO</h1>
+        <p>Piezas de edición limitada. Cantidades exactas. Sin reposición.</p>
+        <a href="#catalogo" class="text-link">VER CATÁLOGO <span>→</span></a>
+      </div>
+      <div class="hero-noise"></div>
+    </section>
+
+    <section class="editorial-strip" aria-label="Estilo Hypefriends">
+      <div class="editorial person p1"><span>HYPE</span></div>
+      <div class="editorial person p2"><span>FRIENDS</span></div>
+      <div class="editorial person p3"><span>DROP 001</span></div>
+      <div class="editorial person p4"><span>2026</span></div>
+    </section>
+
+    <section class="section" id="drops">
+      <p class="eyebrow">DROPS EXCLUSIVOS</p>
+      <h2>PRÓXIMOS LANZAMIENTOS</h2>
+      <div class="drop-grid">
+        <article class="drop-card">
+          <div class="drop-image drop-one"></div>
+          <div class="drop-info">
+            <p class="drop-status">PRÓXIMAMENTE</p>
+            <h3>HYPEFRIENDS DROP 001</h3>
+            <p>Streetwear esencial. Producción limitada.</p>
+            <div class="countdown" data-date="2026-10-01T18:00:00-06:00">
+              <div><b id="days">00</b><small>DÍAS</small></div>
+              <div><b id="hours">00</b><small>HORAS</small></div>
+              <div><b id="minutes">00</b><small>MIN</small></div>
+            </div>
+            <button class="btn outline" id="notifyBtn">RECORDARME</button>
+          </div>
+        </article>
+
+        <article class="drop-card">
+          <div class="drop-image drop-two"></div>
+          <div class="drop-info">
+            <p class="drop-status">EDICIÓN LIMITADA</p>
+            <h3>HYPEFRIENDS ESSENTIALS</h3>
+            <p>Unidades numeradas. Sin reposición.</p>
+            <button class="btn dark" onclick="document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'})">VER COLECCIÓN</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section catalog-section" id="catalogo">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SHOP</p>
+          <h2>CATÁLOGO</h2>
+        </div>
+        <button class="cart-button" id="cartBtn">BOLSA <span id="cartCount">0</span></button>
+      </div>
+      <div class="filters">
+        <button class="filter active" data-filter="all">TODO</button>
+        <button class="filter" data-filter="hoodie">HOODIES</button>
+        <button class="filter" data-filter="tee">CAMISETAS</button>
+        <button class="filter" data-filter="cap">GORRAS</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <section class="newsletter" id="contacto">
+    <p class="eyebrow">HYPEFRIENDS</p>
+    <h2>ENTÉRATE DEL PRÓXIMO DROP</h2>
+    <form id="newsletterForm">
+      <input type="email" id="email" placeholder="TU CORREO ELECTRÓNICO" required />
+      <button class="btn dark" type="submit">SUSCRIBIRME</button>
+    </form>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-logo">HYPEFRIENDS</div>
+      <p>Streetwear y drops exclusivos.</p>
+    </div>
+    <div>
+      <p class="footer-label">INFORMACIÓN</p>
+      <p>Política de envíos · Cambios y devoluciones · Términos</p>
+    </div>
+    <div>
+      <p class="footer-label">NAVEGACIÓN</p>
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#drops">Drops</a>
+    </div>
+  </footer>
+
+  <div class="cart" id="cart">
+    <div class="cart-head">
+      <h2>TU BOLSA</h2>
+      <button class="icon-btn" id="closeCart">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-bottom">
+      <div class="total-row"><span>Subtotal</span><strong id="cartTotal">₡0</strong></div>
+      <button class="btn checkout" id="checkoutBtn">CONTINUAR AL PAGO</button>
+    </div>
+  </div>
+
+  <div class="product-modal" id="productModal">
+    <div class="modal-card">
+      <button class="icon-btn modal-close" id="modalClose">×</button>
+      <div id="modalImage" class="modal-image"></div>
+      <div class="modal-copy">
+        <p class="eyebrow">HYPEFRIENDS</p>
+        <h2 id="modalName"></h2>
+        <p id="modalDescription"></p>
+        <strong id="modalPrice"></strong>
+        <div class="sizes" id="sizes"></div>
+        <button class="btn dark" id="modalAddBtn">AGREGAR A LA BOLSA</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
