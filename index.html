@@ -2,164 +2,769 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#090909" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="theme-color"
+    content="#090909"
+  />
+
+  <meta
+    name="description"
+    content="HYPEFRIENDS — Streetwear y drops exclusivos."
+  />
+
   <title>HYPEFRIENDS — Streetwear & Drops Exclusivos</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  />
 </head>
+
 <body>
+
+  <!-- =========================================
+       TOAST / MENSAJES
+  ========================================== -->
+
   <div id="toast"></div>
 
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
   <header class="site-header">
-    <button class="icon-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
-    <a href="#inicio" class="logo">HYPEFRIENDS</a>
-    <button class="icon-btn" id="searchBtn" aria-label="Buscar">⌕</button>
+
+    <button
+      class="icon-btn"
+      id="menuBtn"
+      aria-label="Abrir menú"
+      type="button"
+    >
+      ☰
+    </button>
+
+    <a
+      href="#inicio"
+      class="logo"
+    >
+      HYPEFRIENDS
+    </a>
+
+    <button
+      class="icon-btn"
+      id="searchBtn"
+      aria-label="Buscar"
+      type="button"
+    >
+      ⌕
+    </button>
+
   </header>
 
-  <div class="announcement">ENVÍO GRATIS DESPUES DE ₡50,000 EN TODO EL GAM</div>
 
-  <aside class="drawer" id="drawer">
+  <!-- =========================================
+       ANUNCIO
+  ========================================== -->
+
+  <div class="announcement">
+    ENVÍO GRATIS DESPUES DE ₡50,000 EN TODO EL GAM
+  </div>
+
+
+  <!-- =========================================
+       MENÚ LATERAL
+  ========================================== -->
+
+  <aside
+    class="drawer"
+    id="drawer"
+  >
+
     <div class="drawer-head">
-      <span class="logo">HYPEFRIENDS</span>
-      <button class="icon-btn" id="closeMenu">×</button>
-    </div>
-    <nav>
-      <a href="#inicio" class="nav-link">Inicio</a>
-      <a href="#catalogo" class="nav-link">Catálogo</a>
-      <a href="#drops" class="nav-link">Drops</a>
-      <a href="#contacto" class="nav-link">Contacto</a>
-    </nav>
-    <div class="drawer-footer">STREETWEAR Y DROPS EXCLUSIVOS.</div>
-  </aside>
-  <div class="overlay" id="overlay"></div>
 
-  <section class="search-panel" id="searchPanel">
-    <input id="searchInput" type="search" placeholder="Buscar producto..." autocomplete="off" />
-    <button class="icon-btn" id="closeSearch">×</button>
+      <span class="logo">
+        HYPEFRIENDS
+      </span>
+
+      <button
+        class="icon-btn"
+        id="closeMenu"
+        aria-label="Cerrar menú"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <nav>
+
+      <a
+        href="#inicio"
+        class="nav-link"
+      >
+        Inicio
+      </a>
+
+      <a
+        href="#catalogo"
+        class="nav-link"
+      >
+        Catálogo
+      </a>
+
+      <a
+        href="#drops"
+        class="nav-link"
+      >
+        Drops
+      </a>
+
+      <a
+        href="#contacto"
+        class="nav-link"
+      >
+        Contacto
+      </a>
+
+    </nav>
+
+
+    <div class="drawer-footer">
+      STREETWEAR Y DROPS EXCLUSIVOS.
+    </div>
+
+  </aside>
+
+
+  <!-- =========================================
+       OVERLAY
+  ========================================== -->
+
+  <div
+    class="overlay"
+    id="overlay"
+  ></div>
+
+
+  <!-- =========================================
+       BUSCADOR
+  ========================================== -->
+
+  <section
+    class="search-panel"
+    id="searchPanel"
+    aria-label="Buscar productos"
+  >
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Buscar producto..."
+      autocomplete="off"
+    />
+
+    <button
+      class="icon-btn"
+      id="closeSearch"
+      aria-label="Cerrar búsqueda"
+      type="button"
+    >
+      ×
+    </button>
+
   </section>
+
+
+  <!-- =========================================
+       CONTENIDO PRINCIPAL
+  ========================================== -->
 
   <main>
-    <section class="hero" id="inicio">
+
+
+    <!-- =======================================
+         HERO
+    ======================================== -->
+
+    <section
+      class="hero"
+      id="inicio"
+    >
+
       <div class="hero-copy">
-        <p class="eyebrow">COLECCIÓN LIMITADA</p>
-        <h1>DEFINE<br>TU ESTILO</h1>
-        <p>Piezas de edición limitada. Cantidades exactas. Sin reposición.</p>
-        <a href="#catalogo" class="text-link">VER CATÁLOGO <span>→</span></a>
+
+        <p class="eyebrow">
+          COLECCIÓN LIMITADA
+        </p>
+
+        <h1>
+          DEFINE<br />
+          TU ESTILO
+        </h1>
+
+        <p>
+          Piezas de edición limitada.
+          Cantidades exactas.
+          Sin reposición.
+        </p>
+
+        <a
+          href="#catalogo"
+          class="text-link"
+        >
+          VER CATÁLOGO
+          <span>→</span>
+        </a>
+
       </div>
+
       <div class="hero-noise"></div>
+
     </section>
 
-    <section class="editorial-strip" aria-label="Estilo Hypefriends">
-      <div class="editorial person p1"><span>HYPE</span></div>
-      <div class="editorial person p2"><span>FRIENDS</span></div>
-      <div class="editorial person p3"><span>DROP 001</span></div>
-      <div class="editorial person p4"><span>2026</span></div>
+
+    <!-- =======================================
+         EDITORIAL
+    ======================================== -->
+
+    <section
+      class="editorial-strip"
+      aria-label="Estilo Hypefriends"
+    >
+
+      <div class="editorial person p1">
+        <span>HYPE</span>
+      </div>
+
+      <div class="editorial person p2">
+        <span>FRIENDS</span>
+      </div>
+
+      <div class="editorial person p3">
+        <span>DROP 001</span>
+      </div>
+
+      <div class="editorial person p4">
+        <span>2026</span>
+      </div>
+
     </section>
 
-    <section class="section" id="drops">
-      <p class="eyebrow">DROPS EXCLUSIVOS</p>
-      <h2>PRÓXIMOS LANZAMIENTOS</h2>
+
+    <!-- =======================================
+         DROPS
+    ======================================== -->
+
+    <section
+      class="section"
+      id="drops"
+    >
+
+      <p class="eyebrow">
+        DROPS EXCLUSIVOS
+      </p>
+
+      <h2>
+        PRÓXIMOS LANZAMIENTOS
+      </h2>
+
+
       <div class="drop-grid">
+
+
+        <!-- DROP 1 -->
+
         <article class="drop-card">
+
           <div class="drop-image drop-one"></div>
+
           <div class="drop-info">
-            <p class="drop-status">PRÓXIMAMENTE</p>
-            <h3>HYPEFRIENDS DROP 001</h3>
-            <p>Streetwear esencial. Producción limitada.</p>
-            <div class="countdown" data-date="2026-10-01T18:00:00-06:00">
-              <div><b id="days">00</b><small>DÍAS</small></div>
-              <div><b id="hours">00</b><small>HORAS</small></div>
-              <div><b id="minutes">00</b><small>MIN</small></div>
+
+            <p class="drop-status">
+              PRÓXIMAMENTE
+            </p>
+
+            <h3>
+              HYPEFRIENDS DROP 001
+            </h3>
+
+            <p>
+              Streetwear esencial.
+              Producción limitada.
+            </p>
+
+
+            <div
+              class="countdown"
+              data-date="2026-10-01T18:00:00-06:00"
+            >
+
+              <div>
+                <b id="days">00</b>
+                <small>DÍAS</small>
+              </div>
+
+              <div>
+                <b id="hours">00</b>
+                <small>HORAS</small>
+              </div>
+
+              <div>
+                <b id="minutes">00</b>
+                <small>MIN</small>
+              </div>
+
             </div>
-            <button class="btn outline" id="notifyBtn">RECORDARME</button>
+
+
+            <button
+              class="btn outline"
+              id="notifyBtn"
+              type="button"
+            >
+              RECORDARME
+            </button>
+
           </div>
+
         </article>
+
+
+        <!-- DROP 2 -->
 
         <article class="drop-card">
+
           <div class="drop-image drop-two"></div>
+
           <div class="drop-info">
-            <p class="drop-status">EDICIÓN LIMITADA</p>
-            <h3>HYPEFRIENDS ESSENTIALS</h3>
-            <p>Unidades numeradas. Sin reposición.</p>
-            <button class="btn dark" onclick="document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'})">VER COLECCIÓN</button>
+
+            <p class="drop-status">
+              EDICIÓN LIMITADA
+            </p>
+
+            <h3>
+              HYPEFRIENDS ESSENTIALS
+            </h3>
+
+            <p>
+              Unidades numeradas.
+              Sin reposición.
+            </p>
+
+            <button
+              class="btn dark"
+              id="viewCollectionBtn"
+              type="button"
+              onclick="document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'})"
+            >
+              VER COLECCIÓN
+            </button>
+
           </div>
+
         </article>
+
       </div>
+
     </section>
 
-    <section class="section catalog-section" id="catalogo">
+
+    <!-- =======================================
+         CATÁLOGO
+    ======================================== -->
+
+    <section
+      class="section catalog-section"
+      id="catalogo"
+    >
+
+
+      <!-- ENCABEZADO -->
+
       <div class="section-head">
+
         <div>
-          <p class="eyebrow">SHOP</p>
-          <h2>CATÁLOGO</h2>
+
+          <p class="eyebrow">
+            SHOP
+          </p>
+
+          <h2>
+            CATÁLOGO
+          </h2>
+
         </div>
-        <button class="cart-button" id="cartBtn">BOLSA <span id="cartCount">0</span></button>
+
+
+        <button
+          class="cart-button"
+          id="cartBtn"
+          type="button"
+          aria-label="Abrir bolsa"
+        >
+          BOLSA
+
+          <span id="cartCount">
+            0
+          </span>
+
+        </button>
+
       </div>
-      <div class="filters">
-        <button class="filter active" data-filter="all">TODO</button>
-        <button class="filter" data-filter="hoodie">HOODIES</button>
-        <button class="filter" data-filter="tee">CAMISETAS</button>
-        <button class="filter" data-filter="cap">GORRAS</button>
-        <button class="filter" data-filter="cap">SHORTS</button>
-        <button class="filter" data-filter="cap">ACCESORIOS</button>
+
+
+      <!-- =====================================
+           FILTROS
+      ====================================== -->
+
+      <div
+        class="filters"
+        aria-label="Filtrar productos"
+      >
+
+        <button
+          class="filter active"
+          data-filter="all"
+          type="button"
+        >
+          TODO
+        </button>
+
+        <button
+          class="filter"
+          data-filter="hoodie"
+          type="button"
+        >
+          HOODIES
+        </button>
+
+        <button
+          class="filter"
+          data-filter="tee"
+          type="button"
+        >
+          CAMISETAS
+        </button>
+
+        <button
+          class="filter"
+          data-filter="cap"
+          type="button"
+        >
+          GORRAS
+        </button>
+
+        <button
+          class="filter"
+          data-filter="short"
+          type="button"
+        >
+          SHORTS
+        </button>
+
+        <button
+          class="filter"
+          data-filter="accessory"
+          type="button"
+        >
+          ACCESORIOS
+        </button>
+
       </div>
-      <div class="product-grid" id="productGrid"></div>
+
+
+      <!-- =====================================
+           PRODUCTOS
+           
+           app.js genera los productos aquí.
+      ====================================== -->
+
+      <div
+        class="product-grid"
+        id="productGrid"
+      ></div>
+
     </section>
+
   </main>
 
-  <section class="newsletter" id="contacto">
-    <p class="eyebrow">HYPEFRIENDS</p>
-    <h2>ENTÉRATE DEL PRÓXIMO DROP</h2>
-    <form id="newsletterForm">
-      <input type="email" id="email" placeholder="TU CORREO ELECTRÓNICO" required />
-      <button class="btn dark" type="submit">SUSCRIBIRME</button>
+
+  <!-- =========================================
+       NEWSLETTER
+  ========================================== -->
+
+  <section
+    class="newsletter"
+    id="contacto"
+  >
+
+    <p class="eyebrow">
+      HYPEFRIENDS
+    </p>
+
+    <h2>
+      ENTÉRATE DEL PRÓXIMO DROP
+    </h2>
+
+
+    <form
+      id="newsletterForm"
+    >
+
+      <input
+        type="email"
+        id="email"
+        placeholder="TU CORREO ELECTRÓNICO"
+        autocomplete="email"
+        required
+      />
+
+      <button
+        class="btn dark"
+        type="submit"
+      >
+        SUSCRIBIRME
+      </button>
+
     </form>
+
   </section>
 
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
   <footer>
+
     <div>
-      <div class="footer-logo">HYPEFRIENDS</div>
-      <p>Streetwear y drops exclusivos.</p>
+
+      <div class="footer-logo">
+        HYPEFRIENDS
+      </div>
+
+      <p>
+        Streetwear y drops exclusivos.
+      </p>
+
     </div>
+
+
     <div>
-      <p class="footer-label">INFORMACIÓN</p>
-      <p>Política de envíos · Cambios y devoluciones · Términos</p>
+
+      <p class="footer-label">
+        INFORMACIÓN
+      </p>
+
+      <p>
+        Política de envíos ·
+        Cambios y devoluciones ·
+        Términos
+      </p>
+
     </div>
+
+
     <div>
-      <p class="footer-label">NAVEGACIÓN</p>
-      <a href="#inicio">Inicio</a>
-      <a href="#catalogo">Catálogo</a>
-      <a href="#drops">Drops</a>
+
+      <p class="footer-label">
+        NAVEGACIÓN
+      </p>
+
+      <a href="#inicio">
+        Inicio
+      </a>
+
+      <a href="#catalogo">
+        Catálogo
+      </a>
+
+      <a href="#drops">
+        Drops
+      </a>
+
     </div>
+
   </footer>
 
-  <div class="cart" id="cart">
+
+  <!-- =========================================
+       BOLSA / CARRITO
+  ========================================== -->
+
+  <div
+    class="cart"
+    id="cart"
+    aria-label="Bolsa de compras"
+  >
+
     <div class="cart-head">
-      <h2>TU BOLSA</h2>
-      <button class="icon-btn" id="closeCart">×</button>
+
+      <h2>
+        TU BOLSA
+      </h2>
+
+      <button
+        class="icon-btn"
+        id="closeCart"
+        aria-label="Cerrar bolsa"
+        type="button"
+      >
+        ×
+      </button>
+
     </div>
+
+
     <div id="cartItems"></div>
+
+
     <div class="cart-bottom">
-      <div class="total-row"><span>Subtotal</span><strong id="cartTotal">₡0</strong></div>
-      <button class="btn checkout" id="checkoutBtn">CONTINUAR AL PAGO</button>
+
+      <div class="total-row">
+
+        <span>
+          Subtotal
+        </span>
+
+        <strong id="cartTotal">
+          ₡0
+        </strong>
+
+      </div>
+
+
+      <button
+        class="btn checkout"
+        id="checkoutBtn"
+        type="button"
+      >
+        CONTINUAR AL PAGO
+      </button>
+
     </div>
+
   </div>
 
-  <div class="product-modal" id="productModal">
+
+  <!-- =========================================
+       MODAL DEL PRODUCTO
+       
+       IMPORTANTE:
+       La imagen se inserta mediante app.js.
+       El CSS controla que nunca se salga
+       del espacio disponible.
+  ========================================== -->
+
+  <div
+    class="product-modal"
+    id="productModal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Detalle del producto"
+  >
+
     <div class="modal-card">
-      <button class="icon-btn modal-close" id="modalClose">×</button>
-      <div id="modalImage" class="modal-image"></div>
+
+
+      <!-- BOTÓN CERRAR -->
+
+      <button
+        class="icon-btn modal-close"
+        id="modalClose"
+        aria-label="Cerrar producto"
+        type="button"
+      >
+        ×
+      </button>
+
+
+      <!-- =====================================
+           IMAGEN DEL PRODUCTO
+           
+           app.js coloca aquí:
+           
+           <img
+             src="..."
+             alt="..."
+           >
+           
+           El CSS se encarga de:
+           - width: 100%
+           - height: 100%
+           - object-fit: contain
+           - evitar que la imagen se haga gigante
+      ====================================== -->
+
+      <div
+        id="modalImage"
+        class="modal-image"
+      ></div>
+
+
+      <!-- =====================================
+           INFORMACIÓN DEL PRODUCTO
+      ====================================== -->
+
       <div class="modal-copy">
-        <p class="eyebrow">HYPEFRIENDS</p>
-        <h2 id="modalName"></h2>
-        <p id="modalDescription"></p>
-        <strong id="modalPrice"></strong>
-        <div class="sizes" id="sizes"></div>
-        <button class="btn dark" id="modalAddBtn">AGREGAR A LA BOLSA</button>
+
+        <p class="eyebrow">
+          HYPEFRIENDS
+        </p>
+
+
+        <h2 id="modalName">
+        </h2>
+
+
+        <p id="modalDescription">
+        </p>
+
+
+        <strong id="modalPrice">
+        </strong>
+
+
+        <!-- TALLAS -->
+
+        <div
+          class="sizes"
+          id="sizes"
+          aria-label="Seleccionar talla"
+        ></div>
+
+
+        <!-- AGREGAR -->
+
+        <button
+          class="btn dark"
+          id="modalAddBtn"
+          type="button"
+        >
+          AGREGAR A LA BOLSA
+        </button>
+
       </div>
+
     </div>
+
   </div>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
 
   <script src="app.js"></script>
+
 </body>
 </html>
