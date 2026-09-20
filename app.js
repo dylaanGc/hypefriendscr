@@ -1,7 +1,7 @@
 const products = [
   {id:1,name:"SUPREME MAISON MARGIELA",price:25000,stock:1,category:"hoodie",class:"hoodie",desc:"Hoodie Supreme Maison Margiela de edición limitada."},
   {id:2,name:"SUPREME DUCATI",price:28000,stock:1,category:"tee",class:"tee",desc:"Camiseta premium con corte urbano."},
-  {id:3,name:"HF CAP 001",price:25000,stock:8,category:"cap",class:"cap",desc:"Gorra estructurada para uso diario."},
+  {id:3,name:"CAP CHROMEHEARTS",price:15000,stock:1,category:"cap",class:"cap",desc:"Gorra estructurada para uso diario."},
   {id:4,name:"ESSENTIAL HOODIE GREY",price:45000,stock:6,category:"hoodie",class:"hoodie",desc:"Edición Essentials con unidades limitadas."},
   {id:5,name:"DROP TEE 001",price:30000,stock:15,category:"tee",class:"tee",desc:"Drop limitado Hypefriends 001."},
   {id:6,name:"SIGNATURE CAP",price:26000,stock:9,category:"cap",class:"cap",desc:"Gorra Signature Hypefriends."},
