@@ -6,7 +6,7 @@ const products = [
     stock: 12,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-black.jpg",
+   image: "img/hoodie-black.jpg.jpeg",
     desc: "Hoodie heavyweight de edición limitada."
   },
   {
@@ -16,7 +16,7 @@ const products = [
     stock: 20,
     category: "tee",
     class: "tee",
-    image: "img/tee-white.jpg",
+    image: "img/tee-white.jpg.jpeg",
     desc: "Camiseta premium con corte urbano."
   },
   {
@@ -26,7 +26,7 @@ const products = [
     stock: 8,
     category: "cap",
     class: "cap",
-    image: "img/cap-001.jpg",
+    image: "img/cap-001.jpg.jpeg",
     desc: "Gorra estructurada para uso diario."
   },
   {
@@ -36,7 +36,7 @@ const products = [
     stock: 6,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-grey.jpg",
+    image: "img/hoodie-grey.jpg.jpeg",
     desc: "Edición Essentials con unidades limitadas."
   },
   {
@@ -46,7 +46,7 @@ const products = [
     stock: 15,
     category: "tee",
     class: "tee",
-    image: "img/tee-drop-001.jpg",
+    image: "img/tee-drop-001.jpg.jpeg",
     desc: "Drop limitado Hypefriends 001."
   },
   {
@@ -56,7 +56,7 @@ const products = [
     stock: 9,
     category: "cap",
     class: "cap",
-    image: "img/cap-signature.jpg",
+    image: "img/cap-signature.jpg.jpeg",
     desc: "Gorra Signature Hypefriends."
   },
   {
@@ -66,7 +66,7 @@ const products = [
     stock: 5,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-core.jpg",
+    image: "img/hoodie-core.jpg.jpeg",
     desc: "Hoodie premium de gramaje pesado."
   },
   {
@@ -76,7 +76,7 @@ const products = [
     stock: 18,
     category: "tee",
     class: "tee",
-    image: "img/tee-mono.jpg",
+    image: "img/tee-mono.jpg.jpeg",
     desc: "Camiseta minimalista Hypefriends."
   }
 ];
