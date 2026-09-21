@@ -11,7 +11,7 @@ const products = [
     stock: 12,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-black.jpg.jpeg",
+    image: "img/polo.jpg.jpeg",
     desc: "Hoodie heavyweight de edición limitada."
   },
 
@@ -22,7 +22,7 @@ const products = [
     stock: 20,
     category: "tee",
     class: "tee",
-    image: "img/tee-white.jpg.jpeg",
+    image: "img/camisa-ch-azul.jpg.jpeg",
     desc: "Camiseta premium con corte urbano."
   },
 
@@ -55,7 +55,7 @@ const products = [
     stock: 15,
     category: "tee",
     class: "tee",
-    image: "img/tee-drop-001.jpg.jpeg",
+    image: "img/camisa-ch.jpg.jpeg",
     desc: "Drop limitado Hypefriends 001."
   },
 
@@ -88,7 +88,7 @@ const products = [
     stock: 18,
     category: "tee",
     class: "tee",
-    image: "img/tee-mono.jpg.jpeg",
+    image: "img/supreme-ducati.jpg.jpeg",
     desc: "Camiseta minimalista Hypefriends."
   }
 
