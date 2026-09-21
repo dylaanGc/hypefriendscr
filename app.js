@@ -67,13 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     {
       id: 4,
-      name: "ESSENTIAL HOODIE GREY",
+      name: "HOODIE SUPREME MAISON MARGIELA",
       price: 45000,
       stock: 6,
       category: "hoodie",
       class: "hoodie",
       image: "img/maison.jpg.jpg",
-      desc: "Edición Essentials con unidades limitadas."
+      desc: "Supreme Maison Margiela Hoodie."
     },
 
     {
