@@ -1,442 +1,635 @@
 /* ==================================================
-   PRODUCTOS
+   HYPEFRIENDS
+   APP.JS
+   CATÁLOGO COMPLETO
    ================================================== */
 
-const products = [
+document.addEventListener("DOMContentLoaded", () => {
 
-  {
-    id: 1,
-    name: "POLO RALPH LAUREN ",
-    price: 18000,
-    stock: 12,
-    category: "hoodie",
-    class: "hoodie",
-    image: "img/polo.jpg.jpeg",
-    desc: "Polo Paris de edición limitada."
-  },
+  /* ==================================================
+     PRODUCTOS
+     ================================================== */
 
-  {
-    id: 2,
-    name: "CAMISETA CHROME HEARTS",
-    price: 28000,
-    stock: 20,
-    category: "tee",
-    class: "tee",
-    image: "img/camisa-ch-azul.jpg.jpeg",
-    desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
-  },
+  const products = [
 
-  {
-    id: 3,
-    name: "SHORT CORTEIZ ",
-    price: 25000,
-    stock: 8,
-    category: "cap",
-    class: "cap",
-    image: "img/short-corteiz.jpeg",
-    desc: "Corteiz Baggy Denim Shorts Stonewash."
-  },
+    /* =========================
+       CAMISETAS
+       ========================= */
 
-  {
-    id: 4,
-    name: "ESSENTIAL HOODIE GREY",
-    price: 45000,
-    stock: 6,
-    category: "hoodie",
-    class: "hoodie",
-    image: "img/hoodie-grey.jpg.jpeg",
-    desc: "Edición Essentials con unidades limitadas."
-  },
+    {
+      id: 1,
+      name: "POLO RALPH LAUREN",
+      price: 18000,
+      stock: 12,
+      category: "tee",
+      class: "tee",
+      image: "img/polo.jpg.jpeg",
+      desc: "Polo de edición limitada."
+    },
 
-  {
-    id: 5,
-    name: "CAMISETA CHROME HEARTS",
-    price: 30000,
-    stock: 15,
-    category: "tee",
-    class: "tee",
-    image: "img/camisa-ch.jpg.jpeg",
-    desc: "Chrome Hearts Multicolor Long-Sleeve Black."
-  },
+    {
+      id: 2,
+      name: "CAMISETA CHROME HEARTS",
+      price: 28000,
+      stock: 20,
+      category: "tee",
+      class: "tee",
+      image: "img/camisa-ch-azul.jpg.jpeg",
+      desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
+    },
 
-  {
-    id: 6,
-    name: "SIGNATURE CAP",
-    price: 26000,
-    stock: 9,
-    category: "cap",
-    class: "cap",
-    image: "img/cap-signature.jpg.jpeg",
-    desc: "Gorra Signature Hypefriends."
-  },
+    {
+      id: 5,
+      name: "CAMISETA CHROME HEARTS",
+      price: 30000,
+      stock: 15,
+      category: "tee",
+      class: "tee",
+      image: "img/camisa-ch.jpg.jpeg",
+      desc: "Chrome Hearts Multicolor Long-Sleeve Black."
+    },
 
-  {
-    id: 7,
-    name: "CORE HOODIE",
-    price: 48000,
-    stock: 5,
-    category: "hoodie",
-    class: "hoodie",
-    image: "img/hoodie-core.jpg.jpeg",
-    desc: "Hoodie premium de gramaje pesado."
-  },
-
-  {
-    id: 8,
-    name: "CAMISA SUPREME DUCATI",
-    price: 29000,
-    stock: 18,
-    category: "tee",
-    class: "tee",
-    image: "img/supreme-ducati.jpg.jpeg",
-    desc: "Jersey de fútbol Supreme Ducati en negra
-
-."
-  }
-
-];
+    {
+      id: 8,
+      name: "CAMISA SUPREME DUCATI",
+      price: 29000,
+      stock: 18,
+      category: "tee",
+      class: "tee",
+      image: "img/supreme-ducati.jpg.jpeg",
+      desc: "Jersey de fútbol Supreme Ducati en negro."
+    },
 
 
-let currentFilter = "all";
+    /* =========================
+       HOODIES
+       ========================= */
 
-let selectedProduct = null;
+    {
+      id: 4,
+      name: "ESSENTIAL HOODIE GREY",
+      price: 45000,
+      stock: 6,
+      category: "hoodie",
+      class: "hoodie",
+      image: "img/hoodie-grey.jpg.jpeg",
+      desc: "Edición Essentials con unidades limitadas."
+    },
 
-let selectedSize = "M";
+    {
+      id: 7,
+      name: "CORE HOODIE",
+      price: 48000,
+      stock: 5,
+      category: "hoodie",
+      class: "hoodie",
+      image: "img/hoodie-core.jpg.jpeg",
+      desc: "Hoodie premium de gramaje pesado."
+    },
 
 
-/* ==================================================
-   CARRITO
-   ================================================== */
+    /* =========================
+       GORRAS
+       ========================= */
 
-let cart = JSON.parse(
-  localStorage.getItem("hypefriends-cart") || "[]"
-);
+    {
+      id: 6,
+      name: "SIGNATURE CAP",
+      price: 26000,
+      stock: 9,
+      category: "cap",
+      class: "cap",
+      image: "img/cap-signature.jpg.jpeg",
+      desc: "Gorra Signature Hypefriends."
+    },
+
+    {
+      id: 9,
+      name: "HYPEFRIENDS CAP BLACK",
+      price: 25000,
+      stock: 10,
+      category: "cap",
+      class: "cap",
+      image: "img/cap-black.jpeg",
+      desc: "Gorra Hypefriends en color negro."
+    },
 
 
-/* ==================================================
-   FORMATO DE DINERO
-   ================================================== */
+    /* =========================
+       SHORTS
+       ========================= */
 
-const money = n =>
-  "₡" +
-  new Intl.NumberFormat("es-CR").format(n);
+    {
+      id: 3,
+      name: "SHORT CORTEIZ",
+      price: 25000,
+      stock: 8,
+      category: "short",
+      class: "short",
+      image: "img/short-corteiz.jpeg",
+      desc: "Corteiz Baggy Denim Shorts Stonewash."
+    },
+
+    {
+      id: 10,
+      name: "ESSENTIAL SHORT BLACK",
+      price: 24000,
+      stock: 10,
+      category: "short",
+      class: "short",
+      image: "img/short-essential.jpeg",
+      desc: "Short Essential de corte relajado en negro."
+    },
+
+    {
+      id: 11,
+      name: "DENIM BAGGY SHORT",
+      price: 26000,
+      stock: 7,
+      category: "short",
+      class: "short",
+      image: "img/short-denim.jpeg",
+      desc: "Short denim baggy de estilo urbano."
+    },
 
 
-/* ==================================================
-   PRODUCTOS
-   ================================================== */
+    /* =========================
+       ACCESORIOS
+       ========================= */
 
-function renderProducts(list = products) {
+    {
+      id: 12,
+      name: "HYPEFRIENDS TENNIS CHAIN",
+      price: 35000,
+      stock: 8,
+      category: "accessory",
+      class: "accessory",
+      image: "img/cadena-tennis.jpeg",
+      desc: "Cadena Tennis plateada con diseño premium Hypefriends."
+    },
 
-  const grid =
+    {
+      id: 13,
+      name: "HYPEFRIENDS PENDANT",
+      price: 30000,
+      stock: 6,
+      category: "accessory",
+      class: "accessory",
+      image: "img/collar-hypefriends.jpeg",
+      desc: "Dije Hypefriends de tamaño compacto."
+    },
+
+    {
+      id: 14,
+      name: "HYPEFRIENDS CROSSBODY BAG",
+      price: 32000,
+      stock: 9,
+      category: "accessory",
+      class: "accessory",
+      image: "img/bolso-hypefriends.jpeg",
+      desc: "Bolso Crossbody Hypefriends para uso diario."
+    }
+
+  ];
+
+
+  /* ==================================================
+     VARIABLES
+     ================================================== */
+
+  let currentFilter = "all";
+
+  let selectedProduct = null;
+
+  let selectedSize = "M";
+
+
+  /* ==================================================
+     CARRITO
+     ================================================== */
+
+  let cart = JSON.parse(
+    localStorage.getItem("hypefriends-cart") || "[]"
+  );
+
+
+  /* ==================================================
+     DINERO
+     ================================================== */
+
+  const money = number => {
+
+    return "₡" +
+      new Intl.NumberFormat("es-CR").format(number);
+
+  };
+
+
+  /* ==================================================
+     ELEMENTOS
+     ================================================== */
+
+  const productGrid =
     document.getElementById("productGrid");
 
+  const productModal =
+    document.getElementById("productModal");
 
-  const filteredProducts =
-    list.filter(
-      p =>
-        currentFilter === "all" ||
-        p.category === currentFilter
-    );
+  const modalName =
+    document.getElementById("modalName");
+
+  const modalDescription =
+    document.getElementById("modalDescription");
+
+  const modalPrice =
+    document.getElementById("modalPrice");
+
+  const modalImage =
+    document.getElementById("modalImage");
+
+  const sizes =
+    document.getElementById("sizes");
+
+  const cartCount =
+    document.getElementById("cartCount");
+
+  const cartItems =
+    document.getElementById("cartItems");
+
+  const cartTotal =
+    document.getElementById("cartTotal");
+
+  const toastElement =
+    document.getElementById("toast");
+
+  const drawer =
+    document.getElementById("drawer");
+
+  const overlay =
+    document.getElementById("overlay");
+
+  const cartElement =
+    document.getElementById("cart");
+
+  const searchPanel =
+    document.getElementById("searchPanel");
+
+  const searchInput =
+    document.getElementById("searchInput");
 
 
-  grid.innerHTML =
-    filteredProducts.length
+  /* ==================================================
+     MOSTRAR PRODUCTOS
+     ================================================== */
 
-      ? filteredProducts
-          .map(
-            p => `
+  function renderProducts(list = products) {
 
-              <article
-                class="product"
-                data-id="${p.id}"
+    const filteredProducts =
+      list.filter(product => {
+
+        return (
+          currentFilter === "all" ||
+          product.category === currentFilter
+        );
+
+      });
+
+
+    if (!filteredProducts.length) {
+
+      productGrid.innerHTML = `
+
+        <div class="no-products">
+
+          <p>
+            No encontramos productos
+            en esta categoría.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    productGrid.innerHTML =
+      filteredProducts
+        .map(product => {
+
+          return `
+
+            <article
+              class="product"
+              data-id="${product.id}"
+            >
+
+              <div
+                class="product-img ${product.class}"
               >
 
-                <div
-                  class="product-img ${p.class}"
+                <img
+                  src="${product.image}"
+                  alt="${product.name}"
+                  loading="lazy"
+                  onerror="
+                    this.style.display='none';
+                  "
                 >
 
-                  <img
-                    src="${p.image}"
-                    alt="${p.name}"
-                    loading="lazy"
-                  >
-
-                </div>
+              </div>
 
 
-                <div class="product-info">
+              <div class="product-info">
 
-                  <p class="product-name">
-                    ${p.name}
-                  </p>
+                <p class="product-name">
+                  ${product.name}
+                </p>
 
-                  <p class="product-price">
-                    ${money(p.price)}
-                  </p>
+                <p class="product-price">
+                  ${money(product.price)}
+                </p>
 
-                  <p class="product-stock">
-                    ${p.stock}
-                    unidades disponibles
-                  </p>
+                <p class="product-stock">
+                  ${product.stock}
+                  unidades disponibles
+                </p>
 
-                </div>
+              </div>
 
-              </article>
+            </article>
 
-            `
-          )
-          .join("")
+          `;
 
-      : `
-          <p>
-            No encontramos productos.
-          </p>
-        `;
+        })
+        .join("");
 
 
-  /* CLICK EN PRODUCTOS */
+    /* ==================================================
+       CLICK PRODUCTO
+       ================================================== */
 
-  grid
-    .querySelectorAll(".product")
-    .forEach(el => {
+    productGrid
+      .querySelectorAll(".product")
+      .forEach(productCard => {
 
-      el.addEventListener(
-        "click",
-        () => {
+        productCard.addEventListener(
+          "click",
+          () => {
 
-          openProduct(
-            Number(el.dataset.id)
-          );
+            const id =
+              Number(
+                productCard.dataset.id
+              );
 
-        }
-      );
+            openProduct(id);
 
-    });
+          }
+        );
 
-}
+      });
 
-
-/* ==================================================
-   MODAL DEL PRODUCTO
-   ================================================== */
-
-function openProduct(id) {
-
-  selectedProduct =
-    products.find(
-      p => p.id === id
-    );
-
-
-  if (!selectedProduct) {
-    return;
   }
 
 
-  selectedSize = "M";
-
-
-  /* NOMBRE */
-
-  document.getElementById(
-    "modalName"
-  ).textContent =
-    selectedProduct.name;
-
-
-  /* DESCRIPCIÓN */
-
-  document.getElementById(
-    "modalDescription"
-  ).textContent =
-    selectedProduct.desc;
-
-
-  /* PRECIO */
-
-  document.getElementById(
-    "modalPrice"
-  ).textContent =
-    money(
-      selectedProduct.price
-    );
-
-
   /* ==================================================
-     IMAGEN
+     ABRIR PRODUCTO
      ================================================== */
 
-  const modalImage =
-    document.getElementById(
-      "modalImage"
-    );
+  function openProduct(id) {
+
+    selectedProduct =
+      products.find(
+        product =>
+          product.id === id
+      );
 
 
-  modalImage.className =
-    "modal-image";
+    if (!selectedProduct) {
+      return;
+    }
 
 
-  modalImage.innerHTML = `
-    <img
-      src="${selectedProduct.image}"
-      alt="${selectedProduct.name}"
-      class="modal-product-img"
-    >
-  `;
+    selectedSize = "M";
 
 
-  /* ==================================================
-     TALLAS
-     ================================================== */
+    /* NOMBRE */
 
-  document.getElementById(
-    "sizes"
-  ).innerHTML =
+    if (modalName) {
 
-    ["S", "M", "L", "XL"]
+      modalName.textContent =
+        selectedProduct.name;
 
-      .map(
-        size => `
-
-          <button
-            type="button"
-            class="size ${
-              size === "M"
-                ? "selected"
-                : ""
-            }"
-            data-size="${size}"
-          >
-            ${size}
-          </button>
-
-        `
-      )
-      .join("");
+    }
 
 
-  /* ==================================================
-     SELECCIÓN DE TALLAS
-     ================================================== */
+    /* DESCRIPCIÓN */
 
-  document
-    .querySelectorAll(".size")
-    .forEach(button => {
+    if (modalDescription) {
 
-      button.onclick = () => {
+      modalDescription.textContent =
+        selectedProduct.desc;
 
-        selectedSize =
-          button.dataset.size;
+    }
 
 
-        document
-          .querySelectorAll(".size")
-          .forEach(
-            x =>
-              x.classList.remove(
-                "selected"
-              )
-          );
+    /* PRECIO */
 
+    if (modalPrice) {
 
-        button.classList.add(
-          "selected"
+      modalPrice.textContent =
+        money(
+          selectedProduct.price
         );
 
-      };
-
-    });
+    }
 
 
-  /* ==================================================
-     ABRIR MODAL
-     ================================================== */
+    /* ==================================================
+       IMAGEN
+       ================================================== */
 
-  const modal =
-    document.getElementById(
-      "productModal"
-    );
+    if (modalImage) {
 
-
-  modal.classList.add("open");
-
-  modal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
+      modalImage.className =
+        "modal-image";
 
 
-  document.body.classList.add(
-    "modal-open"
-  );
+      modalImage.innerHTML = `
 
-}
+        <img
+          src="${selectedProduct.image}"
+          alt="${selectedProduct.name}"
+          class="modal-product-img"
+        >
 
+      `;
 
-/* ==================================================
-   CERRAR MODAL
-   ================================================== */
-
-function closeProductModal() {
-
-  const modal =
-    document.getElementById(
-      "productModal"
-    );
+    }
 
 
-  modal.classList.remove(
-    "open"
-  );
+    /* ==================================================
+       TALLAS
+       ================================================== */
+
+    if (sizes) {
+
+      /*
+       * Para accesorios y gorras
+       * no necesitamos seleccionar talla.
+       */
+
+      if (
+        selectedProduct.category === "accessory" ||
+        selectedProduct.category === "cap"
+      ) {
+
+        sizes.innerHTML = `
+
+          <p class="no-size">
+            Talla única
+          </p>
+
+        `;
+
+        selectedSize = "ÚNICA";
+
+      } else {
+
+        sizes.innerHTML =
+          ["S", "M", "L", "XL"]
+            .map(size => {
+
+              return `
+
+                <button
+                  type="button"
+                  class="size ${
+                    size === "M"
+                      ? "selected"
+                      : ""
+                  }"
+                  data-size="${size}"
+                >
+
+                  ${size}
+
+                </button>
+
+              `;
+
+            })
+            .join("");
 
 
-  modal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
+        sizes
+          .querySelectorAll(".size")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                selectedSize =
+                  button.dataset.size;
 
 
-  document.body.classList.remove(
-    "modal-open"
-  );
+                sizes
+                  .querySelectorAll(".size")
+                  .forEach(
+                    sizeButton => {
 
-}
+                      sizeButton
+                        .classList
+                        .remove(
+                          "selected"
+                        );
+
+                    }
+                  );
 
 
-/* ==================================================
-   CERRAR MODAL CON ESC
-   ================================================== */
+                button.classList.add(
+                  "selected"
+                );
 
-document.addEventListener(
-  "keydown",
-  event => {
+              }
+            );
 
-    if (
-      event.key === "Escape"
-    ) {
+          });
 
-      closeProductModal();
+      }
+
+    }
+
+
+    /* ==================================================
+       ABRIR MODAL
+       ================================================== */
+
+    if (productModal) {
+
+      productModal.classList.add(
+        "open"
+      );
+
+
+      productModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      document.body.classList.add(
+        "modal-open"
+      );
 
     }
 
   }
-);
 
 
-/* ==================================================
-   CERRAR AL HACER CLICK FUERA
-   ================================================== */
+  /* ==================================================
+     CERRAR MODAL
+     ================================================== */
 
-document
-  .getElementById("productModal")
-  .addEventListener(
-    "click",
+  function closeProductModal() {
+
+    if (!productModal) {
+      return;
+    }
+
+
+    productModal.classList.remove(
+      "open"
+    );
+
+
+    productModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+    document.body.classList.remove(
+      "modal-open"
+    );
+
+  }
+
+
+  /* ==================================================
+     ESC PARA CERRAR
+     ================================================== */
+
+  document.addEventListener(
+    "keydown",
     event => {
 
       if (
-        event.target.id ===
-        "productModal"
+        event.key === "Escape"
       ) {
 
         closeProductModal();
@@ -447,82 +640,72 @@ document
   );
 
 
-/* ==================================================
-   CARRITO
-   ================================================== */
+  /* ==================================================
+     CLICK AFUERA DEL MODAL
+     ================================================== */
 
-function saveCart() {
+  if (productModal) {
 
-  localStorage.setItem(
-    "hypefriends-cart",
-    JSON.stringify(cart)
-  );
+    productModal.addEventListener(
+      "click",
+      event => {
 
-}
+        if (
+          event.target ===
+          productModal
+        ) {
 
+          closeProductModal();
 
-function renderCart() {
+        }
 
-  /* CONTADOR */
-
-  document.getElementById(
-    "cartCount"
-  ).textContent =
-
-    cart.reduce(
-      (total, item) =>
-        total + item.qty,
-      0
+      }
     );
 
+  }
 
-  /* ÁREA DEL CARRITO */
 
-  const area =
-    document.getElementById(
-      "cartItems"
+  /* ==================================================
+     GUARDAR CARRITO
+     ================================================== */
+
+  function saveCart() {
+
+    localStorage.setItem(
+      "hypefriends-cart",
+      JSON.stringify(cart)
     );
 
+  }
 
-  area.innerHTML =
 
-    cart.length
+  /* ==================================================
+     MOSTRAR CARRITO
+     ================================================== */
 
-      ? cart
-          .map(
-            (item, index) => `
+  function renderCart() {
 
-              <div class="cart-item">
+    /* CONTADOR */
 
-                <h4>
-                  ${item.name}
-                </h4>
+    if (cartCount) {
 
-                <small>
-                  Talla: ${item.size}
-                  · Cantidad: ${item.qty}
-                </small>
+      cartCount.textContent =
+        cart.reduce(
+          (total, item) =>
+            total + item.qty,
+          0
+        );
 
-                <p>
-                  ${money(
-                    item.price *
-                    item.qty
-                  )}
-                </p>
+    }
 
-                <button
-                  onclick="removeItem(${index})"
-                >
-                  ELIMINAR
-                </button>
 
-              </div>
+    /* PRODUCTOS */
 
-            `
-          )
-          .join("")
+    if (cartItems) {
 
-      : `
+      if (!cart.length) {
+
+        cartItems.innerHTML = `
 
           <p
             style="
@@ -530,537 +713,826 @@ function renderCart() {
               margin-top:25px;
             "
           >
+
             Tu bolsa está vacía.
+
           </p>
 
         `;
 
+      } else {
 
-  /* TOTAL */
+        cartItems.innerHTML =
+          cart
+            .map(
+              (item, index) => `
 
-  document.getElementById(
-    "cartTotal"
-  ).textContent =
+                <div
+                  class="cart-item"
+                >
 
-    money(
-      cart.reduce(
-        (total, item) =>
-          total +
-          item.price *
-          item.qty,
-        0
-      )
-    );
+                  <h4>
+                    ${item.name}
+                  </h4>
 
-}
+                  <small>
+                    Talla:
+                    ${item.size}
+                    · Cantidad:
+                    ${item.qty}
+                  </small>
 
+                  <p>
+                    ${money(
+                      item.price *
+                      item.qty
+                    )}
+                  </p>
 
-/* ==================================================
-   ELIMINAR DEL CARRITO
-   ================================================== */
+                  <button
+                    type="button"
+                    onclick="
+                      removeItem(${index})
+                    "
+                  >
 
-window.removeItem = index => {
+                    ELIMINAR
 
-  cart.splice(
-    index,
-    1
-  );
+                  </button>
 
+                </div>
 
-  saveCart();
+              `
+            )
+            .join("");
 
-  renderCart();
+      }
 
-};
-
-
-/* ==================================================
-   AGREGAR AL CARRITO
-   ================================================== */
-
-function addSelected() {
-
-  if (!selectedProduct) {
-    return;
-  }
-
-
-  const found =
-    cart.find(
-      item =>
-        item.id ===
-          selectedProduct.id &&
-        item.size ===
-          selectedSize
-    );
+    }
 
 
-  if (found) {
+    /* TOTAL */
 
-    found.qty++;
+    if (cartTotal) {
 
-  } else {
+      cartTotal.textContent =
+        money(
+          cart.reduce(
+            (total, item) =>
+              total +
+              item.price *
+              item.qty,
+            0
+          )
+        );
 
-    cart.push({
-
-      ...selectedProduct,
-
-      size: selectedSize,
-
-      qty: 1
-
-    });
+    }
 
   }
 
 
-  saveCart();
+  /* ==================================================
+     ELIMINAR
+     ================================================== */
 
-  renderCart();
+  window.removeItem = index => {
 
-  closeProductModal();
-
-  toast(
-    "AGREGADO A TU BOLSA"
-  );
-
-}
-
-
-/* ==================================================
-   TOAST
-   ================================================== */
-
-function toast(message) {
-
-  const toastElement =
-    document.getElementById(
-      "toast"
+    cart.splice(
+      index,
+      1
     );
 
 
-  toastElement.textContent =
-    message;
+    saveCart();
+
+    renderCart();
+
+  };
 
 
-  toastElement.classList.add(
-    "show"
-  );
+  /* ==================================================
+     AGREGAR AL CARRITO
+     ================================================== */
+
+  function addSelected() {
+
+    if (!selectedProduct) {
+      return;
+    }
 
 
-  setTimeout(
-    () => {
+    const found =
+      cart.find(
+        item =>
+          item.id ===
+            selectedProduct.id &&
+          item.size ===
+            selectedSize
+      );
 
-      toastElement.classList.remove(
+
+    if (found) {
+
+      found.qty++;
+
+    } else {
+
+      cart.push({
+
+        ...selectedProduct,
+
+        size: selectedSize,
+
+        qty: 1
+
+      });
+
+    }
+
+
+    saveCart();
+
+    renderCart();
+
+    closeProductModal();
+
+    toast(
+      "AGREGADO A TU BOLSA"
+    );
+
+  }
+
+
+  /* ==================================================
+     TOAST
+     ================================================== */
+
+  function toast(message) {
+
+    if (!toastElement) {
+      return;
+    }
+
+
+    toastElement.textContent =
+      message;
+
+
+    toastElement.classList.add(
+      "show"
+    );
+
+
+    setTimeout(
+      () => {
+
+        toastElement.classList.remove(
+          "show"
+        );
+
+      },
+      2400
+    );
+
+  }
+
+
+  /* ==================================================
+     CERRAR PANELES
+     ================================================== */
+
+  function closePanels() {
+
+    if (drawer) {
+
+      drawer.classList.remove(
+        "open"
+      );
+
+    }
+
+
+    if (cartElement) {
+
+      cartElement.classList.remove(
+        "open"
+      );
+
+    }
+
+
+    if (overlay) {
+
+      overlay.classList.remove(
         "show"
       );
 
-    },
-    2400
-  );
+    }
 
-}
+  }
 
 
-/* ==================================================
-   MENÚ
-   ================================================== */
+  /* ==================================================
+     MENÚ
+     ================================================== */
 
-const drawer =
-  document.getElementById(
-    "drawer"
-  );
+  const menuBtn =
+    document.getElementById(
+      "menuBtn"
+    );
 
-
-const overlay =
-  document.getElementById(
-    "overlay"
-  );
-
-
-const cartElement =
-  document.getElementById(
-    "cart"
-  );
-
-
-const searchPanel =
-  document.getElementById(
-    "searchPanel"
-  );
-
-
-const searchInput =
-  document.getElementById(
-    "searchInput"
-  );
-
-
-/* ABRIR MENÚ */
-
-document.getElementById(
-  "menuBtn"
-).onclick = () => {
-
-  drawer.classList.add(
-    "open"
-  );
-
-  overlay.classList.add(
-    "show"
-  );
-
-};
-
-
-/* CERRAR MENÚ */
-
-document.getElementById(
-  "closeMenu"
-).onclick =
-  closePanels;
-
-
-/* OVERLAY */
-
-overlay.onclick =
-  closePanels;
-
-
-/* LINKS DEL MENÚ */
-
-document
-  .querySelectorAll(".nav-link")
-  .forEach(
-    link =>
-      link.onclick =
-        closePanels
-  );
-
-
-function closePanels() {
-
-  drawer.classList.remove(
-    "open"
-  );
-
-  cartElement.classList.remove(
-    "open"
-  );
-
-  overlay.classList.remove(
-    "show"
-  );
-
-}
-
-
-/* ==================================================
-   BÚSQUEDA
-   ================================================== */
-
-document.getElementById(
-  "searchBtn"
-).onclick = () => {
-
-  searchPanel.classList.add(
-    "open"
-  );
-
-  searchInput.focus();
-
-};
-
-
-document.getElementById(
-  "closeSearch"
-).onclick = () => {
-
-  searchPanel.classList.remove(
-    "open"
-  );
-
-};
-
-
-searchInput.oninput = event => {
-
-  const query =
-    event.target.value
-      .toLowerCase()
-      .trim();
-
-
-  const results =
-    products.filter(
-      product =>
-
-        product.name
-          .toLowerCase()
-          .includes(query)
-
-        ||
-
-        product.category
-          .toLowerCase()
-          .includes(query)
-
+  const closeMenu =
+    document.getElementById(
+      "closeMenu"
     );
 
 
-  renderProducts(
-    results
-  );
+  if (menuBtn) {
 
-};
+    menuBtn.addEventListener(
+      "click",
+      () => {
 
+        if (drawer) {
 
-/* ==================================================
-   FILTROS
-   ================================================== */
+          drawer.classList.add(
+            "open"
+          );
 
-document
-  .querySelectorAll(".filter")
-  .forEach(button => {
-
-    button.onclick = () => {
-
-      currentFilter =
-        button.dataset.filter;
+        }
 
 
-      document
-        .querySelectorAll(".filter")
-        .forEach(
-          element =>
-            element.classList.remove(
-              "active"
-            )
-        );
+        if (overlay) {
 
+          overlay.classList.add(
+            "show"
+          );
 
-      button.classList.add(
-        "active"
-      );
+        }
 
-
-      renderProducts();
-
-    };
-
-  });
-
-
-/* ==================================================
-   CARRITO
-   ================================================== */
-
-document.getElementById(
-  "cartBtn"
-).onclick = () => {
-
-  cartElement.classList.add(
-    "open"
-  );
-
-  overlay.classList.add(
-    "show"
-  );
-
-};
-
-
-document.getElementById(
-  "closeCart"
-).onclick =
-  closePanels;
-
-
-/* ==================================================
-   MODAL
-   ================================================== */
-
-document.getElementById(
-  "modalClose"
-).onclick =
-  closeProductModal;
-
-
-document.getElementById(
-  "modalAddBtn"
-).onclick =
-  addSelected;
-
-
-/* ==================================================
-   VER COLECCIÓN
-   ================================================== */
-
-document.getElementById(
-  "collectionBtn"
-).onclick = () => {
-
-  document
-    .getElementById(
-      "catalogo"
-    )
-    .scrollIntoView({
-      behavior: "smooth"
-    });
-
-};
-
-
-/* ==================================================
-   DROP
-   ================================================== */
-
-document.getElementById(
-  "notifyBtn"
-).onclick = () => {
-
-  toast(
-    "TE AVISAREMOS DEL PRÓXIMO DROP"
-  );
-
-};
-
-
-/* ==================================================
-   NEWSLETTER
-   ================================================== */
-
-document.getElementById(
-  "newsletterForm"
-).onsubmit = event => {
-
-  event.preventDefault();
-
-
-  toast(
-    "SUSCRIPCIÓN RECIBIDA"
-  );
-
-
-  event.target.reset();
-
-};
-
-
-/* ==================================================
-   CHECKOUT
-   ================================================== */
-
-document.getElementById(
-  "checkoutBtn"
-).onclick = () => {
-
-  if (cart.length) {
-
-    toast(
-      "PRÓXIMO PASO: CONECTAR PASARELA DE PAGO REAL"
-    );
-
-  } else {
-
-    toast(
-      "TU BOLSA ESTÁ VACÍA"
+      }
     );
 
   }
 
-};
+
+  if (closeMenu) {
+
+    closeMenu.addEventListener(
+      "click",
+      closePanels
+    );
+
+  }
 
 
-/* ==================================================
-   CUENTA REGRESIVA
-   ================================================== */
+  if (overlay) {
 
-function countdown() {
+    overlay.addEventListener(
+      "click",
+      closePanels
+    );
 
-  const target =
-    new Date(
-      "2026-10-01T18:00:00-06:00"
-    ).getTime();
+  }
 
 
-  const now =
-    Date.now();
+  /* ==================================================
+     LINKS DEL MENÚ
+     ================================================== */
+
+  document
+    .querySelectorAll(".nav-link")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        closePanels
+      );
+
+    });
 
 
-  const difference =
-    Math.max(
-      0,
-      target - now
+  /* ==================================================
+     BÚSQUEDA
+     ================================================== */
+
+  const searchBtn =
+    document.getElementById(
+      "searchBtn"
+    );
+
+  const closeSearch =
+    document.getElementById(
+      "closeSearch"
     );
 
 
-  /* DÍAS */
+  if (searchBtn) {
 
-  document.getElementById(
-    "days"
-  ).textContent =
+    searchBtn.addEventListener(
+      "click",
+      () => {
 
-    String(
-      Math.floor(
-        difference /
-        86400000
-      )
-    ).padStart(
-      2,
-      "0"
+        if (searchPanel) {
+
+          searchPanel.classList.add(
+            "open"
+          );
+
+        }
+
+
+        if (searchInput) {
+
+          searchInput.focus();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if (closeSearch) {
+
+    closeSearch.addEventListener(
+      "click",
+      () => {
+
+        if (searchPanel) {
+
+          searchPanel.classList.remove(
+            "open"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if (searchInput) {
+
+    searchInput.addEventListener(
+      "input",
+      event => {
+
+        const query =
+          event.target.value
+            .toLowerCase()
+            .trim();
+
+
+        const results =
+          products.filter(
+            product => {
+
+              return (
+
+                product.name
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                product.category
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                product.desc
+                  .toLowerCase()
+                  .includes(query)
+
+              );
+
+            }
+          );
+
+
+        renderProducts(
+          results
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     FILTROS DEL CATÁLOGO
+     ================================================== */
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          let filter =
+            button.dataset.filter;
+
+
+          /* ==================================================
+             EQUIVALENCIAS
+             ================================================== */
+
+          const aliases = {
+
+            "todo": "all",
+            "todos": "all",
+
+            "hoodies": "hoodie",
+
+            "camisetas": "tee",
+            "tees": "tee",
+
+            "gorras": "cap",
+            "caps": "cap",
+
+            "shorts": "short",
+
+            "accesorios": "accessory",
+            "accessories": "accessory"
+
+          };
+
+
+          if (
+            aliases[filter]
+          ) {
+
+            filter =
+              aliases[filter];
+
+          }
+
+
+          currentFilter =
+            filter;
+
+
+          /* BOTÓN ACTIVO */
+
+          document
+            .querySelectorAll(".filter")
+            .forEach(
+              element => {
+
+                element.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          /* MOSTRAR PRODUCTOS */
+
+          renderProducts();
+
+        }
+      );
+
+    });
+
+
+  /* ==================================================
+     CARRITO
+     ================================================== */
+
+  const cartBtn =
+    document.getElementById(
+      "cartBtn"
+    );
+
+  const closeCart =
+    document.getElementById(
+      "closeCart"
     );
 
 
-  /* HORAS */
+  if (cartBtn) {
 
-  document.getElementById(
-    "hours"
-  ).textContent =
+    cartBtn.addEventListener(
+      "click",
+      () => {
 
-    String(
-      Math.floor(
-        difference /
-        3600000
-      ) % 24
-    ).padStart(
-      2,
-      "0"
+        if (cartElement) {
+
+          cartElement.classList.add(
+            "open"
+          );
+
+        }
+
+
+        if (overlay) {
+
+          overlay.classList.add(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if (closeCart) {
+
+    closeCart.addEventListener(
+      "click",
+      closePanels
+    );
+
+  }
+
+
+  /* ==================================================
+     MODAL
+     ================================================== */
+
+  const modalClose =
+    document.getElementById(
+      "modalClose"
     );
 
 
-  /* MINUTOS */
-
-  document.getElementById(
-    "minutes"
-  ).textContent =
-
-    String(
-      Math.floor(
-        difference /
-        60000
-      ) % 60
-    ).padStart(
-      2,
-      "0"
+  const modalAddBtn =
+    document.getElementById(
+      "modalAddBtn"
     );
 
-}
+
+  if (modalClose) {
+
+    modalClose.addEventListener(
+      "click",
+      closeProductModal
+    );
+
+  }
 
 
-setInterval(
-  countdown,
-  1000
-);
+  if (modalAddBtn) {
+
+    modalAddBtn.addEventListener(
+      "click",
+      addSelected
+    );
+
+  }
 
 
-countdown();
+  /* ==================================================
+     VER COLECCIÓN
+     ================================================== */
+
+  const collectionBtn =
+    document.getElementById(
+      "collectionBtn"
+    );
 
 
-/* ==================================================
-   INICIAR
-   ================================================== */
+  if (collectionBtn) {
 
-renderProducts();
+    collectionBtn.addEventListener(
+      "click",
+      () => {
 
-renderCart();
+        const catalog =
+          document.getElementById(
+            "catalogo"
+          );
+
+
+        if (catalog) {
+
+          catalog.scrollIntoView({
+            behavior: "smooth"
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     DROP
+     ================================================== */
+
+  const notifyBtn =
+    document.getElementById(
+      "notifyBtn"
+    );
+
+
+  if (notifyBtn) {
+
+    notifyBtn.addEventListener(
+      "click",
+      () => {
+
+        toast(
+          "TE AVISAREMOS DEL PRÓXIMO DROP"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     NEWSLETTER
+     ================================================== */
+
+  const newsletterForm =
+    document.getElementById(
+      "newsletterForm"
+    );
+
+
+  if (newsletterForm) {
+
+    newsletterForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+
+        toast(
+          "SUSCRIPCIÓN RECIBIDA"
+        );
+
+
+        event.target.reset();
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     CHECKOUT
+     ================================================== */
+
+  const checkoutBtn =
+    document.getElementById(
+      "checkoutBtn"
+    );
+
+
+  if (checkoutBtn) {
+
+    checkoutBtn.addEventListener(
+      "click",
+      () => {
+
+        if (cart.length) {
+
+          toast(
+            "PRÓXIMO PASO: CONECTAR PASARELA DE PAGO REAL"
+          );
+
+        } else {
+
+          toast(
+            "TU BOLSA ESTÁ VACÍA"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* ==================================================
+     CUENTA REGRESIVA
+     ================================================== */
+
+  function countdown() {
+
+    const target =
+      new Date(
+        "2026-10-01T18:00:00-06:00"
+      ).getTime();
+
+
+    const now =
+      Date.now();
+
+
+    const difference =
+      Math.max(
+        0,
+        target - now
+      );
+
+
+    const days =
+      document.getElementById(
+        "days"
+      );
+
+    const hours =
+      document.getElementById(
+        "hours"
+      );
+
+    const minutes =
+      document.getElementById(
+        "minutes"
+      );
+
+
+    if (days) {
+
+      days.textContent =
+        String(
+          Math.floor(
+            difference /
+            86400000
+          )
+        ).padStart(
+          2,
+          "0"
+        );
+
+    }
+
+
+    if (hours) {
+
+      hours.textContent =
+        String(
+          Math.floor(
+            difference /
+            3600000
+          ) % 24
+        ).padStart(
+          2,
+          "0"
+        );
+
+    }
+
+
+    if (minutes) {
+
+      minutes.textContent =
+        String(
+          Math.floor(
+            difference /
+            60000
+          ) % 60
+        ).padStart(
+          2,
+          "0"
+        );
+
+    }
+
+  }
+
+
+  setInterval(
+    countdown,
+    1000
+  );
+
+
+  countdown();
+
+
+  /* ==================================================
+     INICIAR
+     ================================================== */
+
+  renderProducts();
+
+  renderCart();
+
+});
