@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 12,
       category: "tee",
       class: "tee",
-      image: "img/polo.jpg.jpeg",
+      image: "img/polo.rp.jpg.jpeg",
       desc: "Polo de edición limitada."
     },
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 20,
       category: "tee",
       class: "tee",
-      image: "img/camisa-ch-azul.jpg.jpeg",
+      image: "img/camisach-azul.jpg.jpeg",
       desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
     },
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 15,
       category: "tee",
       class: "tee",
-      image: "img/camisa-ch.jpg.jpeg",
+      image: "img/camisach-negra.jpg.jpeg",
       desc: "Chrome Hearts Multicolor Long-Sleeve Black."
     },
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 18,
       category: "tee",
       class: "tee",
-      image: "img/supreme-ducati.jpg.jpeg",
+      image: "img/ducatixsupreme.jpg.jpeg",
       desc: "Jersey de fútbol Supreme Ducati en negro."
     },
 
@@ -94,13 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     {
       id: 6,
-      name: "SIGNATURE CAP",
-      price: 26000,
+      name: "CAP CHROME HEARTS",
+      price: 15000,
       stock: 9,
       category: "cap",
       class: "cap",
-      image: "img/cap-signature.jpg.jpeg",
-      desc: "Gorra Signature Hypefriends."
+      image: "img/cap-ch.jpg.jpeg",
+      desc: "Gorra estilo urbano Chrome Hearts."
     },
 
     {
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 8,
       category: "short",
       class: "short",
-      image: "img/short-corteiz.jpg.jpeg",
+      image: "img/short-corteizz.jpg.jpeg",
       desc: "Corteiz Baggy Denim Shorts Stonewash."
     },
 
