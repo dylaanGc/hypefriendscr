@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 5,
       name: "CAMISETA CHROME HEARTS",
-      price: 30000,
+      price: 25000,
       stock: 15,
       category: "tee",
       class: "tee",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 8,
       name: "CAMISA SUPREME DUCATI",
-      price: 29000,
+      price: 25000,
       stock: 18,
       category: "tee",
       class: "tee",
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 4,
       name: "HOODIE SUPREME MAISON MARGIELA",
-      price: 45000,
+      price: 20000,
       stock: 6,
       category: "hoodie",
       class: "hoodie",
