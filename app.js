@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 8,
       category: "short",
       class: "short",
-      image: "img/short-corteiz.jpg.jpeg",
+      image: "img/short-white.jpg.jpeg",
       desc: "Corteiz Baggy Denim Shorts Stonewash."
     },
 
