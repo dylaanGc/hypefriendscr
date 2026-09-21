@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 6,
       category: "hoodie",
       class: "hoodie",
-      image: "img/hoodie-core.jpeg",
+      image: "img/maison.jpg.jpeg",
       desc: "Edición Essentials con unidades limitadas."
     },
 
