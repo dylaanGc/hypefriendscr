@@ -6,35 +6,35 @@ const products = [
 
   {
     id: 1,
-    name: "ESSENTIAL HOODIE BLACK",
-    price: 45000,
+    name: "POLO RALPH LAUREN ",
+    price: 18000,
     stock: 12,
     category: "hoodie",
     class: "hoodie",
     image: "img/polo.jpg.jpeg",
-    desc: "Hoodie heavyweight de edición limitada."
+    desc: "Polo Paris de edición limitada."
   },
 
   {
     id: 2,
-    name: "HYPE TEE WHITE",
+    name: "CAMISETA CHROME HEARTS",
     price: 28000,
     stock: 20,
     category: "tee",
     class: "tee",
     image: "img/camisa-ch-azul.jpg.jpeg",
-    desc: "Camiseta premium con corte urbano."
+    desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
   },
 
   {
     id: 3,
-    name: "HF CAP 001",
+    name: "SHORT CORTEIZ ",
     price: 25000,
     stock: 8,
     category: "cap",
     class: "cap",
     image: "img/short-corteiz.jpeg",
-    desc: "Gorra estructurada para uso diario."
+    desc: "Corteiz Baggy Denim Shorts Stonewash."
   },
 
   {
@@ -50,13 +50,13 @@ const products = [
 
   {
     id: 5,
-    name: "DROP TEE 001",
+    name: "CAMISETA CHROME HEARTS",
     price: 30000,
     stock: 15,
     category: "tee",
     class: "tee",
     image: "img/camisa-ch.jpg.jpeg",
-    desc: "Drop limitado Hypefriends 001."
+    desc: "Chrome Hearts Multicolor Long-Sleeve Black."
   },
 
   {
@@ -83,13 +83,15 @@ const products = [
 
   {
     id: 8,
-    name: "MONO TEE",
+    name: "CAMISA SUPREME DUCATI",
     price: 29000,
     stock: 18,
     category: "tee",
     class: "tee",
     image: "img/supreme-ducati.jpg.jpeg",
-    desc: "Camiseta minimalista Hypefriends."
+    desc: "Jersey de fútbol Supreme Ducati en negra
+
+."
   }
 
 ];
