@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 12,
       category: "tee",
       class: "tee",
-      image: "img/polo.rp.jpg.jpeg",
+      image: "img/polo.rp.jpg",
       desc: "Polo de edición limitada."
     },
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 20,
       category: "tee",
       class: "tee",
-      image: "img/camisach-azul.jpg.jpeg",
+      image: "img/camisach-azul.jpg",
       desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
     },
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 15,
       category: "tee",
       class: "tee",
-      image: "img/camisach-negra.jpg.jpeg",
+      image: "img/camisach-negra.jpg",
       desc: "Chrome Hearts Multicolor Long-Sleeve Black."
     },
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 18,
       category: "tee",
       class: "tee",
-      image: "img/ducatixsupreme.jpg.jpeg",
+      image: "img/ducatixsupreme.jpg",
       desc: "Jersey de fútbol Supreme Ducati en negro."
     },
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 6,
       category: "hoodie",
       class: "hoodie",
-      image: "img/maison.jpg.jpg",
+      image: "img/maison.jpg",
       desc: "Supreme Maison Margiela Hoodie."
     },
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 9,
       category: "cap",
       class: "cap",
-      image: "img/cap-ch.jpg.jpeg",
+      image: "img/cap-ch.jpg",
       desc: "Gorra estilo urbano Chrome Hearts."
     },
 
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stock: 8,
       category: "short",
       class: "short",
-      image: "img/short-corteizz.jpg.jpeg",
+      image: "img/short-corteizz.jpg",
       desc: "Corteiz Baggy Denim Shorts Stonewash."
     },
 
@@ -159,13 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     {
       id: 12,
-      name: "HYPEFRIENDS TENNIS CHAIN",
+      name: "SHOULDER BAG GOYAR",
       price: 35000,
       stock: 8,
       category: "accessory",
       class: "accessory",
-      image: "img/cadena-tennis.jpeg",
-      desc: "Cadena Tennis plateada con diseño premium Hypefriends."
+      image: "img/bolso.goyar.jpeg",
+      desc: "Shoulder bag Goyar color verde."
     },
 
     {
