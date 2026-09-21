@@ -44,7 +44,7 @@ const products = [
     stock: 6,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-grey.jpg.jpeg",
+    image: "img/hoodie-gry.jpg.jpeg",
     desc: "Edición Essentials con unidades limitadas."
   },
 
@@ -77,7 +77,7 @@ const products = [
     stock: 5,
     category: "hoodie",
     class: "hoodie",
-    image: "img/hoodie-core.jpg.jpeg",
+    image: "img/hoodie-coe.jpg.jpeg",
     desc: "Hoodie premium de gramaje pesado."
   },
 
