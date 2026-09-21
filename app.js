@@ -33,7 +33,7 @@ const products = [
     stock: 8,
     category: "cap",
     class: "cap",
-    image: "img/cap-001.jpg.jpeg",
+    image: "img/short-corteiz.jpeg",
     desc: "Gorra estructurada para uso diario."
   },
 
