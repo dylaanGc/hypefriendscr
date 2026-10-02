@@ -1501,63 +1501,119 @@ footer a {
 
 }
 /* ==================================================
-   EDITORIAL - 4 IMÁGENES
+   HYPEFRIENDS - EDITORIAL / CARRUSEL
    ================================================== */
 
+/*
+   Este bloque reemplaza visualmente el antiguo
+   grid de .editorial-strip y lo convierte en
+   un carrusel de una imagen por vez.
+*/
+
 .editorial-strip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  display: flex !important;
 
   width: 100%;
-  height: 460px;
+  max-width: 100%;
 
-  overflow: hidden;
+  height: 420px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Una imagen por desplazamiento */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* Deslizamiento táctil */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+
+  /* Ocultar scrollbar */
+  scrollbar-width: none;
 
   background: #090909;
+
 }
 
+
+/* Ocultar scrollbar en Chrome / Edge / Safari */
+
+.editorial-strip::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ==================================================
+   CADA IMAGEN
+   ================================================== */
+
 .editorial-item {
+
   position: relative;
 
-  width: 100%;
-  height: 460px;
+  flex: 0 0 100%;
 
-  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+
+  height: 420px;
 
   overflow: hidden;
 
-  border-right: 1px solid rgba(0,0,0,.08);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+
   background: #111;
+
+  border: 0;
+
 }
 
-.editorial-item:last-child {
-  border-right: 0;
-}
+
+/* ==================================================
+   IMAGEN
+   ================================================== */
 
 .editorial-item img {
-  display: block;
 
   position: absolute;
 
-  top: 0;
-  left: 0;
+  inset: 0;
 
   width: 100%;
   height: 100%;
+
+  max-width: 100%;
+
+  display: block;
 
   object-fit: cover;
   object-position: center;
 
   margin: 0;
   padding: 0;
+
+  transform: scale(1);
+
+  transition:
+    transform .6s ease;
+
 }
 
+
+/* ==================================================
+   OSCURECER IMAGEN
+   ================================================== */
+
 .editorial-overlay {
+
   position: absolute;
 
   inset: 0;
 
-  z-index: 2;
+  z-index: 1;
 
   pointer-events: none;
 
@@ -1567,25 +1623,35 @@ footer a {
       rgba(0,0,0,.88) 0%,
       rgba(0,0,0,.35) 45%,
       rgba(0,0,0,.05) 75%,
-      transparent 100%
+      rgba(0,0,0,0) 100%
     );
+
 }
 
+
+/* ==================================================
+   TEXTO SOBRE LA IMAGEN
+   ================================================== */
+
 .editorial-content {
+
   position: absolute;
 
   left: 28px;
   right: 28px;
   bottom: 28px;
 
-  z-index: 3;
+  z-index: 2;
 
   color: #fff;
 
   pointer-events: none;
+
 }
 
+
 .editorial-content span {
+
   display: block;
 
   font-family:
@@ -1593,16 +1659,24 @@ footer a {
     Impact,
     sans-serif;
 
-  font-size: clamp(30px, 3vw, 55px);
+  font-size:
+    clamp(
+      42px,
+      7vw,
+      82px
+    );
 
   line-height: .9;
 
   letter-spacing: -2px;
 
   color: #fff;
+
 }
 
+
 .editorial-content small {
+
   display: block;
 
   margin-top: 12px;
@@ -1612,179 +1686,30 @@ footer a {
     Arial,
     sans-serif;
 
-  font-size: 8px;
+  font-size: 9px;
 
   line-height: 1.3;
 
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 
-  color: rgba(255,255,255,.85);
-}
+  color: rgba(
+    255,
+    255,
+    255,
+    .85
+  );
 
-.editorial-item:hover img {
-  transform: scale(1.04);
 }
 
 
 /* ==================================================
-   DROPS
+   EFECTO SUAVE AL PASAR EL MOUSE
    ================================================== */
 
-.drop-grid {
-  display: grid;
+.editorial-item:hover img {
 
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  transform: scale(1.04);
 
-  width: 100%;
-
-  gap: 18px;
-
-  margin-top: 26px;
-
-  align-items: start;
-}
-
-.drop-card {
-  display: block;
-
-  width: 100%;
-
-  min-width: 0;
-
-  max-width: 100%;
-
-  background: #fff;
-
-  border: 1px solid #ddd;
-
-  overflow: hidden;
-}
-
-
-/* CONTENEDOR DE CADA IMAGEN */
-
-.drop-image {
-  position: relative;
-
-  display: block;
-
-  width: 100%;
-
-  height: 390px;
-
-  min-height: 390px;
-
-  max-height: 390px;
-
-  overflow: hidden;
-
-  background: #d0d0d0;
-}
-
-
-/* IMAGEN DEL DROP */
-
-.drop-image img {
-  position: absolute;
-
-  top: 0;
-  left: 0;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  min-width: 0;
-  min-height: 0;
-
-  max-width: none;
-  max-height: none;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  margin: 0;
-  padding: 0;
-}
-
-
-/* FONDOS DE LOS DROPS */
-
-.drop-one {
-  background:
-    linear-gradient(
-      145deg,
-      #252525,
-      #777 48%,
-      #111
-    );
-}
-
-.drop-two {
-  background:
-    linear-gradient(
-      145deg,
-      #e4e4e2,
-      #999 48%,
-      #202020
-    );
-}
-
-
-/* INFORMACIÓN DEL DROP */
-
-.drop-info {
-  display: block;
-
-  width: 100%;
-
-  padding: 25px;
-
-  background: #fff;
-}
-
-.drop-info h3 {
-  margin: 0;
-
-  font-size: 20px;
-}
-
-.drop-status {
-  font-size: 10px;
-
-  letter-spacing: 1.5px;
-
-  color: var(--orange);
-
-  font-weight: 800;
-}
-
-.countdown {
-  display: flex;
-
-  gap: 24px;
-
-  margin: 22px 0;
-}
-
-.countdown div {
-  display: flex;
-
-  flex-direction: column;
-}
-
-.countdown b {
-  font-size: 28px;
-}
-
-.countdown small {
-  font-size: 9px;
-
-  color: #777;
-
-  letter-spacing: 1px;
 }
 
 
@@ -1792,31 +1717,22 @@ footer a {
    TABLET
    ================================================== */
 
-@media (max-width: 800px) {
+@media (min-width: 601px) {
 
   .editorial-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    height: 420px;
+    height: 460px;
+
   }
 
   .editorial-item {
-    height: 420px;
-  }
 
+    flex: 0 0 100%;
 
-  .drop-grid {
-    grid-template-columns: 1fr;
+    width: 100%;
 
-    gap: 18px;
-  }
+    height: 460px;
 
-  .drop-image {
-    height: 300px;
-
-    min-height: 300px;
-
-    max-height: 300px;
   }
 
 }
@@ -1826,13 +1742,14 @@ footer a {
    TELÉFONO
    ================================================== */
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
 
   .editorial-strip {
 
-    display: flex;
+    display: flex !important;
 
     width: 100%;
+    max-width: 100%;
 
     height: 420px;
 
@@ -1844,118 +1761,173 @@ footer a {
     -webkit-overflow-scrolling: touch;
 
     scrollbar-width: none;
+
   }
 
+
   .editorial-strip::-webkit-scrollbar {
+
     display: none;
+
   }
+
 
   .editorial-item {
 
     flex: 0 0 100%;
 
     width: 100%;
+    max-width: 100%;
 
     height: 420px;
 
     scroll-snap-align: center;
 
     scroll-snap-stop: always;
+
   }
 
 
   .editorial-item img {
+
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+
   }
 
 
   .editorial-content {
+
     left: 20px;
     right: 20px;
     bottom: 24px;
+
   }
+
 
   .editorial-content span {
+
     font-size: 48px;
+
+    letter-spacing: -1.5px;
+
   }
 
 
-  /* DROPS EN TELÉFONO */
+  .editorial-content small {
 
-  .drop-grid {
-    grid-template-columns: 1fr;
+    margin-top: 9px;
 
-    width: 100%;
+    font-size: 8px;
 
-    gap: 15px;
-  }
+    letter-spacing: 2px;
 
-  .drop-card {
-    width: 100%;
-
-    max-width: 100%;
-  }
-
-  .drop-image {
-    width: 100%;
-
-    height: 260px;
-
-    min-height: 260px;
-
-    max-height: 260px;
-  }
-
-  .drop-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
   }
 
 }
 
 
 /* ==================================================
-   TELÉFONOS PEQUEÑOS
+   TELÉFONOS MUY PEQUEÑOS
    ================================================== */
 
 @media (max-width: 380px) {
 
   .editorial-strip {
+
     height: 380px;
+
   }
+
 
   .editorial-item {
+
     height: 380px;
+
   }
 
+
   .editorial-content {
+
     left: 16px;
     right: 16px;
     bottom: 20px;
+
   }
+
 
   .editorial-content span {
+
     font-size: 40px;
+
   }
 
+
   .editorial-content small {
+
     font-size: 7px;
 
     letter-spacing: 1.5px;
+
   }
 
+}
+/* ==================================================
+   DROP - MOSTRAR IMAGEN COMPLETA
+   ================================================== */
+
+.drop-image {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  aspect-ratio: auto !important;
+
+  overflow: hidden;
+  background: #111;
+}
+
+
+.drop-image img {
+  position: static !important;
+
+  display: block !important;
+
+  width: 100% !important;
+  height: auto !important;
+
+  max-width: 100% !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+/* ==================================================
+   TELÉFONO
+   ================================================== */
+
+@media (max-width: 600px) {
 
   .drop-image {
-    height: 240px;
+    width: 100% !important;
+    height: auto !important;
 
-    min-height: 240px;
+    aspect-ratio: auto !important;
+  }
 
-    max-height: 240px;
+  .drop-image img {
+    width: 100% !important;
+    height: auto !important;
+
+    object-fit: contain !important;
   }
 
 }
