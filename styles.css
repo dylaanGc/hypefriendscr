@@ -1501,47 +1501,22 @@ footer a {
 
 }
 /* ==================================================
-   HYPEFRIENDS - EDITORIAL / CARRUSEL
+   HYPEFRIENDS - EDITORIAL
+   PC = 4 IMÁGENES
+   TELÉFONO = CARRUSEL
    ================================================== */
 
-/*
-   Este bloque reemplaza visualmente el antiguo
-   grid de .editorial-strip y lo convierte en
-   un carrusel de una imagen por vez.
-*/
-
 .editorial-strip {
-
-  display: flex !important;
-
   width: 100%;
   max-width: 100%;
-
   height: 420px;
 
-  overflow-x: auto;
-  overflow-y: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 
-  /* Una imagen por desplazamiento */
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-
-  /* Deslizamiento táctil */
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
-
-  /* Ocultar scrollbar */
-  scrollbar-width: none;
+  overflow: hidden;
 
   background: #090909;
-
-}
-
-
-/* Ocultar scrollbar en Chrome / Edge / Safari */
-
-.editorial-strip::-webkit-scrollbar {
-  display: none;
 }
 
 
@@ -1550,25 +1525,14 @@ footer a {
    ================================================== */
 
 .editorial-item {
-
   position: relative;
 
-  flex: 0 0 100%;
-
   width: 100%;
-  max-width: 100%;
-
   height: 420px;
 
   overflow: hidden;
 
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-
   background: #111;
-
-  border: 0;
-
 }
 
 
@@ -1577,15 +1541,12 @@ footer a {
    ================================================== */
 
 .editorial-item img {
-
   position: absolute;
 
   inset: 0;
 
   width: 100%;
   height: 100%;
-
-  max-width: 100%;
 
   display: block;
 
@@ -1597,9 +1558,7 @@ footer a {
 
   transform: scale(1);
 
-  transition:
-    transform .6s ease;
-
+  transition: transform .6s ease;
 }
 
 
@@ -1608,7 +1567,6 @@ footer a {
    ================================================== */
 
 .editorial-overlay {
-
   position: absolute;
 
   inset: 0;
@@ -1625,33 +1583,29 @@ footer a {
       rgba(0,0,0,.05) 75%,
       rgba(0,0,0,0) 100%
     );
-
 }
 
 
 /* ==================================================
-   TEXTO SOBRE LA IMAGEN
+   TEXTO SOBRE IMAGEN
    ================================================== */
 
 .editorial-content {
-
   position: absolute;
 
-  left: 28px;
-  right: 28px;
-  bottom: 28px;
+  left: 20px;
+  right: 20px;
+  bottom: 25px;
 
   z-index: 2;
 
   color: #fff;
 
   pointer-events: none;
-
 }
 
 
 .editorial-content span {
-
   display: block;
 
   font-family:
@@ -1659,57 +1613,42 @@ footer a {
     Impact,
     sans-serif;
 
-  font-size:
-    clamp(
-      42px,
-      7vw,
-      82px
-    );
+  font-size: clamp(32px, 3vw, 55px);
 
   line-height: .9;
 
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
 
   color: #fff;
-
 }
 
 
 .editorial-content small {
-
   display: block;
 
-  margin-top: 12px;
+  margin-top: 10px;
 
   font-family:
     Inter,
     Arial,
     sans-serif;
 
-  font-size: 9px;
+  font-size: 8px;
 
   line-height: 1.3;
 
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 
-  color: rgba(
-    255,
-    255,
-    255,
-    .85
-  );
-
+  color: rgba(255,255,255,.85);
 }
 
 
 /* ==================================================
-   EFECTO SUAVE AL PASAR EL MOUSE
+   EFECTO PC AL PASAR EL MOUSE
    ================================================== */
 
 .editorial-item:hover img {
-
   transform: scale(1.04);
-
 }
 
 
@@ -1717,22 +1656,16 @@ footer a {
    TABLET
    ================================================== */
 
-@media (min-width: 601px) {
+@media (min-width: 601px) and (max-width: 1023px) {
 
   .editorial-strip {
+    height: 420px;
 
-    height: 460px;
-
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .editorial-item {
-
-    flex: 0 0 100%;
-
-    width: 100%;
-
-    height: 460px;
-
+    height: 420px;
   }
 
 }
@@ -1740,6 +1673,7 @@ footer a {
 
 /* ==================================================
    TELÉFONO
+   MANTENER CARRUSEL
    ================================================== */
 
 @media (max-width: 600px) {
@@ -1757,18 +1691,20 @@ footer a {
     overflow-y: hidden;
 
     scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 
     -webkit-overflow-scrolling: touch;
 
+    touch-action: pan-x;
+
     scrollbar-width: none;
 
+    background: #090909;
   }
 
 
   .editorial-strip::-webkit-scrollbar {
-
     display: none;
-
   }
 
 
@@ -1781,20 +1717,28 @@ footer a {
 
     height: 420px;
 
-    scroll-snap-align: center;
+    overflow: hidden;
 
+    scroll-snap-align: center;
     scroll-snap-stop: always;
 
+    background: #111;
   }
 
 
   .editorial-item img {
 
+    position: absolute;
+
+    inset: 0;
+
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+    object-position: center;
 
+    transform: scale(1);
   }
 
 
@@ -1803,7 +1747,6 @@ footer a {
     left: 20px;
     right: 20px;
     bottom: 24px;
-
   }
 
 
@@ -1812,7 +1755,6 @@ footer a {
     font-size: 48px;
 
     letter-spacing: -1.5px;
-
   }
 
 
@@ -1823,7 +1765,6 @@ footer a {
     font-size: 8px;
 
     letter-spacing: 2px;
-
   }
 
 }
@@ -1836,98 +1777,26 @@ footer a {
 @media (max-width: 380px) {
 
   .editorial-strip {
-
     height: 380px;
-
   }
-
 
   .editorial-item {
-
     height: 380px;
-
   }
 
-
   .editorial-content {
-
     left: 16px;
     right: 16px;
     bottom: 20px;
-
   }
-
 
   .editorial-content span {
-
     font-size: 40px;
-
   }
-
 
   .editorial-content small {
-
     font-size: 7px;
-
     letter-spacing: 1.5px;
-
-  }
-
-}
-/* ==================================================
-   DROP - MOSTRAR IMAGEN COMPLETA
-   ================================================== */
-
-.drop-image {
-  width: 100% !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-
-  aspect-ratio: auto !important;
-
-  overflow: hidden;
-  background: #111;
-}
-
-
-.drop-image img {
-  position: static !important;
-
-  display: block !important;
-
-  width: 100% !important;
-  height: auto !important;
-
-  max-width: 100% !important;
-  max-height: none !important;
-
-  object-fit: contain !important;
-  object-position: center !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-
-/* ==================================================
-   TELÉFONO
-   ================================================== */
-
-@media (max-width: 600px) {
-
-  .drop-image {
-    width: 100% !important;
-    height: auto !important;
-
-    aspect-ratio: auto !important;
-  }
-
-  .drop-image img {
-    width: 100% !important;
-    height: auto !important;
-
-    object-fit: contain !important;
   }
 
 }
