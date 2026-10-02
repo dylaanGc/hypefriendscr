@@ -1538,17 +1538,6 @@ footer a {
     object-position: center;
 }
 
-/* ==================================================
-EFECTO SUAVE AL PASAR EL MOUSE
-================================================== */
-
-.editorial-item:hover img {
-
-transform: scale(1.04);
-
-}
-
-
 /* -------------------------
    TABLET
    ------------------------- */
@@ -1679,10 +1668,16 @@ transform: scale(1.04);
    EFECTO SUAVE AL PASAR EL MOUSE
    ================================================== */
 
-.editorial-item:hover img {
+.editorial {
+  overflow: hidden;
+}
 
+.editorial img {
+  transition: transform 0.4s ease;
+}
+
+.editorial:hover img {
   transform: scale(1.04);
-
 }
 
 
