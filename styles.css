@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap');
 
 
-/* ===============================
+/* ==================================================
    VARIABLES
-   =============================== */
+================================================== */
 
 :root {
   --black: #090909;
@@ -15,9 +15,9 @@
 }
 
 
-/* ===============================
+/* ==================================================
    RESET
-   =============================== */
+================================================== */
 
 * {
   box-sizing: border-box;
@@ -29,10 +29,8 @@ html {
 
 body {
   margin: 0;
-
   background: var(--white);
   color: var(--ink);
-
   font-family: Inter, Arial, sans-serif;
 }
 
@@ -46,25 +44,22 @@ input {
 }
 
 
-/* ===============================
+/* ==================================================
    HEADER
-   =============================== */
+================================================== */
 
 .site-header {
   height: 72px;
-
   background: #fff;
 
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-
   align-items: center;
 
   padding: 0 28px;
 
   position: sticky;
   top: 0;
-
   z-index: 20;
 
   border-bottom: 1px solid #ddd;
@@ -74,24 +69,17 @@ input {
 .footer-logo {
   font-weight: 800;
   letter-spacing: 2px;
-
   text-decoration: none;
-
   color: var(--ink);
-
   font-size: 17px;
 }
 
 .icon-btn {
   background: none;
   border: 0;
-
   font-size: 27px;
-
   cursor: pointer;
-
   justify-self: start;
-
   color: inherit;
 }
 
@@ -100,9 +88,9 @@ input {
 }
 
 
-/* ===============================
-   ANNOUNCEMENT
-   =============================== */
+/* ==================================================
+   ANUNCIO
+================================================== */
 
 .announcement {
   height: 32px;
@@ -113,18 +101,16 @@ input {
   text-align: center;
 
   font-size: 10px;
-
   letter-spacing: 1px;
-
   font-weight: 800;
 
   padding: 10px;
 }
 
 
-/* ===============================
+/* ==================================================
    HERO
-   =============================== */
+================================================== */
 
 .hero {
   height: 480px;
@@ -132,13 +118,11 @@ input {
   background: #191919;
 
   position: relative;
-
   overflow: hidden;
 
   color: #fff;
 
   display: flex;
-
   align-items: center;
 
   padding: 60px;
@@ -150,7 +134,6 @@ input {
   content: "";
 
   position: absolute;
-
   inset: 0;
 
   background:
@@ -176,7 +159,6 @@ input {
   color: var(--orange);
 
   font-size: 10px;
-
   font-weight: 800;
 
   letter-spacing: 2px;
@@ -187,15 +169,12 @@ input {
 .hero h1,
 h2 {
   font-family: "Archivo Black", Impact, sans-serif;
-
   letter-spacing: .5px;
-
   margin: 0;
 }
 
 .hero h1 {
   font-size: clamp(52px, 8vw, 105px);
-
   line-height: .9;
 }
 
@@ -211,11 +190,9 @@ h2 {
 
 .text-link {
   color: #fff;
-
   text-decoration: none;
 
   font-size: 13px;
-
   font-weight: 800;
 
   letter-spacing: .5px;
@@ -227,7 +204,6 @@ h2 {
 
 .hero-noise {
   position: absolute;
-
   inset: 0;
 
   background:
@@ -241,152 +217,146 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    EDITORIAL
-   =============================== */
+   PC = 4
+   TABLET = 2
+   CELULAR = CARRUSEL
+================================================== */
 
 .editorial-strip {
   display: grid;
 
   grid-template-columns: repeat(4, 1fr);
 
-  height: 550px;
-
-  background: #d8d8d6;
+  width: 100%;
+  height: 420px;
 
   overflow: hidden;
+
+  background: #090909;
 }
 
-.editorial {
+.editorial-item {
   position: relative;
 
+  width: 100%;
+  height: 420px;
+
   overflow: hidden;
 
-  border-right: 1px solid rgba(0,0,0,.08);
+  background: #111;
+
+  border-right: 1px solid rgba(255,255,255,.08);
 }
 
-.person::before {
-  content: "";
+.editorial-item:last-child {
+  border-right: none;
+}
 
+
+/* ==================================================
+   IMAGENES EDITORIAL
+================================================== */
+
+.editorial-item img {
   position: absolute;
 
   inset: 0;
 
-  background:
-    radial-gradient(
-      ellipse at 50% 28%,
-      #eee 0 8%,
-      transparent 9%
-    ),
-    radial-gradient(
-      ellipse at 50% 42%,
-      #6e6e6e 0 8%,
-      transparent 9%
-    ),
-    linear-gradient(
-      135deg,
-      #222 0 38%,
-      #bdbdbd 39% 62%,
-      #151515 63%
-    );
+  width: 100%;
+  height: 100%;
 
-  filter: grayscale(1);
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  transform: scale(1);
+
+  transition: transform .6s ease;
 }
 
-.person::after {
-  content: "";
-
+.editorial-overlay {
   position: absolute;
 
-  width: 70%;
-  height: 75%;
+  inset: 0;
 
-  left: 15%;
-  bottom: -8%;
+  z-index: 1;
+
+  pointer-events: none;
 
   background:
     linear-gradient(
-      135deg,
-      #111,
-      #454545
+      to top,
+      rgba(0,0,0,.88) 0%,
+      rgba(0,0,0,.35) 45%,
+      rgba(0,0,0,.05) 75%,
+      rgba(0,0,0,0) 100%
     );
-
-  border-radius: 48% 48% 0 0;
-
-  filter: grayscale(1);
-
-  opacity: .92;
 }
 
-.person span {
+.editorial-content {
   position: absolute;
+
+  left: 18px;
+  right: 18px;
+  bottom: 22px;
 
   z-index: 2;
 
-  bottom: 30px;
-  left: 18px;
+  color: #fff;
 
-  color: rgba(255,255,255,.22);
-
-  font-family: "Archivo Black";
-
-  font-size: clamp(20px, 4vw, 48px);
-
-  writing-mode: vertical-rl;
+  pointer-events: none;
 }
 
-.p2::before {
-  background:
-    radial-gradient(
-      ellipse at 50% 23%,
-      #ddd 0 10%,
-      transparent 11%
-    ),
-    radial-gradient(
-      ellipse at 50% 35%,
-      #737373 0 7%,
-      transparent 8%
-    ),
-    linear-gradient(
-      100deg,
-      #8c8c8c,
-      #eee
-    );
+.editorial-content span {
+  display: block;
+
+  font-family:
+    "Archivo Black",
+    Impact,
+    sans-serif;
+
+  font-size: clamp(28px, 3vw, 52px);
+
+  line-height: .9;
+
+  letter-spacing: -1.5px;
+
+  color: #fff;
 }
 
-.p3::before {
-  background:
-    radial-gradient(
-      ellipse at 54% 22%,
-      #aaa 0 9%,
-      transparent 10%
-    ),
-    linear-gradient(
-      110deg,
-      #eee 0 30%,
-      #4d4d4d 31% 70%,
-      #eee 71%
-    );
+.editorial-content small {
+  display: block;
+
+  margin-top: 10px;
+
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
+  font-size: 7px;
+
+  line-height: 1.3;
+
+  letter-spacing: 2px;
+
+  color: rgba(255,255,255,.85);
 }
 
-.p4::before {
-  background:
-    radial-gradient(
-      ellipse at 60% 25%,
-      #ddd 0 10%,
-      transparent 11%
-    ),
-    linear-gradient(
-      100deg,
-      #e8e8e8 0 50%,
-      #111 51%
-    );
+.editorial-item:hover img {
+  transform: scale(1.04);
 }
 
 
-/* ===============================
+/* ==================================================
    SECCIONES
-   =============================== */
+================================================== */
 
 .section {
   padding: 72px 5vw;
@@ -397,63 +367,152 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    DROPS
-   =============================== */
+   IMPORTANTE
+   IMAGEN Y TEXTO TOTALMENTE SEPARADOS
+================================================== */
 
 .drop-grid {
+  width: 100%;
+
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
-
-  margin-top: 26px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
   gap: 18px;
+
+  margin-top: 26px;
 }
 
+
+/* TARJETA */
+
 .drop-card {
+  width: 100%;
+
+  min-width: 0;
+
   background: #fff;
 
   border: 1px solid #ddd;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  position: relative;
 }
+
+
+/* ==================================================
+   CONTENEDOR DE IMAGEN DEL DROP
+================================================== */
 
 .drop-image {
+  position: relative;
+
+  width: 100%;
+
   height: 390px;
 
-  background: #d0d0d0;
+  min-height: 390px;
+
+  max-height: 390px;
+
+  overflow: hidden;
+
+  flex: 0 0 390px;
+
+  background: #111;
+
+  display: block;
 }
 
-.drop-one {
-  background:
-    linear-gradient(
-      145deg,
-      #252525,
-      #777 48%,
-      #111
-    );
+
+/* ==================================================
+   IMAGEN REAL DEL DROP
+================================================== */
+
+.drop-image img {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+  max-height: none;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 1;
 }
 
-.drop-two {
-  background:
-    linear-gradient(
-      145deg,
-      #e4e4e2,
-      #999 48%,
-      #202020
-    );
-}
+
+/* ==================================================
+   INFORMACION DEL DROP
+   ESTA PARTE YA NO SE PUEDE MONTAR SOBRE LA IMAGEN
+================================================== */
 
 .drop-info {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 220px;
+
   padding: 25px;
+
+  background: #fff;
+
+  z-index: 5;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: flex-start;
 }
+
+
+/* ==================================================
+   TITULO DEL DROP
+================================================== */
 
 .drop-info h3 {
   margin: 0;
 
+  color: #17181b;
+
   font-size: 20px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
 }
 
+
+/* ==================================================
+   ESTADO
+================================================== */
+
 .drop-status {
+  margin: 0 0 10px;
+
   font-size: 10px;
 
   letter-spacing: 1.5px;
@@ -463,12 +522,32 @@ h2 {
   font-weight: 800;
 }
 
+
+/* ==================================================
+   TEXTO DEL DROP
+================================================== */
+
+.drop-info > p:not(.drop-status) {
+  margin: 14px 0;
+
+  color: #333;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* ==================================================
+   COUNTDOWN
+================================================== */
+
 .countdown {
   display: flex;
 
   gap: 24px;
 
-  margin: 22px 0;
+  margin: 12px 0 22px;
 }
 
 .countdown div {
@@ -478,7 +557,11 @@ h2 {
 }
 
 .countdown b {
+  color: #17181b;
+
   font-size: 28px;
+
+  line-height: 1;
 }
 
 .countdown small {
@@ -487,7 +570,14 @@ h2 {
   color: #777;
 
   letter-spacing: 1px;
+
+  margin-top: 5px;
 }
+
+
+/* ==================================================
+   BOTONES
+================================================== */
 
 .btn {
   border: 1px solid var(--black);
@@ -516,9 +606,9 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    CATÁLOGO
-   =============================== */
+================================================== */
 
 .catalog-section {
   background: #efefed;
@@ -563,9 +653,9 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    FILTROS
-   =============================== */
+================================================== */
 
 .filters {
   display: flex;
@@ -600,14 +690,14 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    PRODUCTOS
-   =============================== */
+================================================== */
 
 .product-grid {
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 
   gap: 15px;
 }
@@ -621,7 +711,9 @@ h2 {
 }
 
 
-/* IMAGEN DEL CATÁLOGO */
+/* ==================================================
+   IMAGEN DEL PRODUCTO
+================================================== */
 
 .product-img {
   width: 100%;
@@ -637,9 +729,6 @@ h2 {
   overflow: hidden;
 }
 
-
-/* IMAGEN REAL */
-
 .product-img img {
   width: 100%;
   height: 100%;
@@ -650,9 +739,6 @@ h2 {
 
   object-position: center;
 }
-
-
-/* TEXTO SOBRE IMAGEN */
 
 .product-img::after {
   content: "HYPEFRIENDS";
@@ -674,7 +760,9 @@ h2 {
 }
 
 
-/* FONDOS */
+/* ==================================================
+   FONDOS PRODUCTOS
+================================================== */
 
 .hoodie {
   background:
@@ -711,9 +799,9 @@ h2 {
 }
 
 
-/* ===============================
-   INFORMACIÓN PRODUCTO
-   =============================== */
+/* ==================================================
+   INFORMACION PRODUCTO
+================================================== */
 
 .product-info {
   padding: 15px;
@@ -744,9 +832,9 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    NEWSLETTER
-   =============================== */
+================================================== */
 
 .newsletter {
   padding: 80px 5vw;
@@ -781,9 +869,9 @@ h2 {
 }
 
 
-/* ===============================
+/* ==================================================
    FOOTER
-   =============================== */
+================================================== */
 
 footer {
   background: #08090a;
@@ -830,9 +918,9 @@ footer a {
 }
 
 
-/* ===============================
-   MENÚ
-   =============================== */
+/* ==================================================
+   MENÚ LATERAL
+================================================== */
 
 .drawer,
 .cart {
@@ -902,9 +990,9 @@ footer a {
 }
 
 
-/* ===============================
+/* ==================================================
    OVERLAY
-   =============================== */
+================================================== */
 
 .overlay {
   position: fixed;
@@ -923,9 +1011,9 @@ footer a {
 }
 
 
-/* ===============================
+/* ==================================================
    BÚSQUEDA
-   =============================== */
+================================================== */
 
 .search-panel {
   position: fixed;
@@ -964,9 +1052,9 @@ footer a {
 }
 
 
-/* ===============================
+/* ==================================================
    CARRITO
-   =============================== */
+================================================== */
 
 .cart {
   right: 0;
@@ -1038,7 +1126,7 @@ footer a {
 
 /* ==================================================
    MODAL PRODUCTO
-   ================================================== */
+================================================== */
 
 .product-modal {
   position: fixed;
@@ -1064,9 +1152,9 @@ footer a {
 }
 
 
-/* ===============================
-   TARJETA DEL MODAL
-   =============================== */
+/* ==================================================
+   TARJETA MODAL
+================================================== */
 
 .modal-card {
   position: relative;
@@ -1087,9 +1175,9 @@ footer a {
 }
 
 
-/* ===============================
-   BOTÓN CERRAR
-   =============================== */
+/* ==================================================
+   BOTON CERRAR MODAL
+================================================== */
 
 .modal-close {
   position: absolute;
@@ -1115,9 +1203,9 @@ footer a {
 }
 
 
-/* ===============================
-   IMAGEN DEL MODAL
-   =============================== */
+/* ==================================================
+   IMAGEN MODAL
+================================================== */
 
 .modal-image {
   width: 100%;
@@ -1136,9 +1224,6 @@ footer a {
   overflow: hidden;
 }
 
-
-/* ESTA ES LA PARTE IMPORTANTE */
-
 .modal-image img {
   display: block;
 
@@ -1156,9 +1241,9 @@ footer a {
 }
 
 
-/* ===============================
-   INFORMACIÓN DEL MODAL
-   =============================== */
+/* ==================================================
+   INFORMACION MODAL
+================================================== */
 
 .modal-copy {
   min-width: 0;
@@ -1191,9 +1276,9 @@ footer a {
 }
 
 
-/* ===============================
+/* ==================================================
    TALLAS
-   =============================== */
+================================================== */
 
 .sizes {
   display: flex;
@@ -1231,9 +1316,9 @@ footer a {
 }
 
 
-/* ===============================
+/* ==================================================
    TOAST
-   =============================== */
+================================================== */
 
 #toast {
   position: fixed;
@@ -1270,7 +1355,7 @@ footer a {
 
 /* ==================================================
    TABLET
-   ================================================== */
+================================================== */
 
 @media (max-width: 800px) {
 
@@ -1280,23 +1365,68 @@ footer a {
     padding: 40px 25px;
   }
 
-  .editorial-strip {
-    height: 420px;
-  }
-
   .section {
     padding: 55px 20px;
   }
 
+
+  /* EDITORIAL */
+
+  .editorial-strip {
+    grid-template-columns: repeat(2, 1fr);
+
+    height: 420px;
+
+    overflow: hidden;
+  }
+
+  .editorial-item {
+    height: 420px;
+  }
+
+
+  /* DROPS */
+
   .drop-grid {
     grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .drop-card {
+    width: 100%;
+  }
+
+  .drop-image {
+    width: 100%;
+
+    height: 300px;
+
+    min-height: 300px;
+
+    max-height: 300px;
+
+    flex-basis: 300px;
+  }
+
+  .drop-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+
+  .drop-info {
+    min-height: auto;
+
+    padding: 22px;
   }
 
 
   /* PRODUCTOS */
 
   .product-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 12px;
   }
@@ -1308,17 +1438,14 @@ footer a {
   }
 
 
-  .drop-image {
-    height: 280px;
-  }
-
+  /* FOOTER */
 
   footer {
     grid-template-columns: 1fr 1fr;
   }
 
 
-  /* MODAL TABLET */
+  /* MODAL */
 
   .modal-card {
     width: min(680px,100%);
@@ -1348,15 +1475,14 @@ footer a {
   .modal-copy {
     padding: 35px 25px;
   }
-
 }
 
 
 /* ==================================================
-   TELÉFONOS
-   ================================================== */
+   TELEFONO
+================================================== */
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
 
   .site-header {
     padding: 0 16px;
@@ -1373,12 +1499,155 @@ footer a {
   }
 
 
-  .editorial-strip {
-    grid-template-columns: repeat(4,65vw);
+  /* EDITORIAL CARRUSEL */
 
-    overflow: auto;
+  .editorial-strip {
+    display: flex !important;
+
+    width: 100%;
+
+    height: 420px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+
+    scroll-behavior: smooth;
+
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-x;
+
+    scrollbar-width: none;
+
+    background: #090909;
   }
 
+  .editorial-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .editorial-item {
+    flex: 0 0 100%;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: 420px;
+
+    overflow: hidden;
+
+    scroll-snap-align: center;
+
+    scroll-snap-stop: always;
+
+    border-right: none;
+  }
+
+  .editorial-item img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+  }
+
+  .editorial-content {
+    left: 20px;
+    right: 20px;
+    bottom: 24px;
+  }
+
+  .editorial-content span {
+    font-size: 48px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .editorial-content small {
+    margin-top: 9px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+  }
+
+
+  /* DROPS */
+
+  .drop-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .drop-card {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  .drop-image {
+    width: 100%;
+
+    height: 280px;
+
+    min-height: 280px;
+
+    max-height: 280px;
+
+    flex: 0 0 280px;
+  }
+
+  .drop-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+  }
+
+  .drop-info {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 22px 20px;
+
+    background: #fff;
+
+    position: relative;
+
+    z-index: 5;
+  }
+
+  .drop-info h3 {
+    font-size: 18px;
+  }
+
+  .drop-info > p:not(.drop-status) {
+    font-size: 13px;
+  }
+
+  .countdown {
+    gap: 18px;
+  }
+
+  .countdown b {
+    font-size: 25px;
+  }
+
+
+  /* CATALOGO */
 
   .section-head {
     align-items: flex-start;
@@ -1387,20 +1656,8 @@ footer a {
   }
 
 
-  .newsletter form {
-    flex-direction: column;
-  }
-
-
-  footer {
-    grid-template-columns: 1fr;
-  }
-
-
-  /* PRODUCTOS */
-
   .product-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 10px;
   }
@@ -1429,9 +1686,21 @@ footer a {
   }
 
 
-  /* ===============================
-     MODAL TELÉFONO
-     =============================== */
+  /* NEWSLETTER */
+
+  .newsletter form {
+    flex-direction: column;
+  }
+
+
+  /* FOOTER */
+
+  footer {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* MODAL */
 
   .product-modal {
     padding: 10px;
@@ -1452,7 +1721,6 @@ footer a {
 
     overflow-y: auto;
   }
-
 
   .modal-image {
     width: 100%;
@@ -1480,7 +1748,6 @@ footer a {
     object-position: center;
   }
 
-
   .modal-copy {
     padding: 28px 22px;
   }
@@ -1498,295 +1765,12 @@ footer a {
   .sizes {
     margin: 20px 0;
   }
-
-}
-/* ==================================================
-   HYPEFRIENDS - EDITORIAL
-   PC = 4 IMÁGENES
-   TABLET = 2 IMÁGENES
-   TELÉFONO = CARRUSEL
-   ================================================== */
-
-
-/* ==================================================
-   PC
-   ================================================== */
-
-.editorial-strip {
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  width: 100%;
-  height: 420px;
-
-  overflow: hidden;
-
-  background: #090909;
-}
-
-
-.editorial-item {
-  position: relative;
-
-  width: 100%;
-  height: 420px;
-
-  overflow: hidden;
-
-  background: #111;
-
-  border-right: 1px solid rgba(255,255,255,.08);
-}
-
-
-.editorial-item:last-child {
-  border-right: none;
 }
 
 
 /* ==================================================
-   IMÁGENES
-   ================================================== */
-
-.editorial-item img {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-  object-position: center;
-
-  margin: 0;
-  padding: 0;
-
-  transform: scale(1);
-
-  transition: transform .6s ease;
-}
-
-
-/* ==================================================
-   OSCURECER IMAGEN
-   ================================================== */
-
-.editorial-overlay {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,.88) 0%,
-      rgba(0,0,0,.35) 45%,
-      rgba(0,0,0,.05) 75%,
-      rgba(0,0,0,0) 100%
-    );
-}
-
-
-/* ==================================================
-   TEXTO
-   ================================================== */
-
-.editorial-content {
-  position: absolute;
-
-  left: 18px;
-  right: 18px;
-  bottom: 22px;
-
-  z-index: 2;
-
-  color: #fff;
-
-  pointer-events: none;
-}
-
-
-.editorial-content span {
-  display: block;
-
-  font-family:
-    "Archivo Black",
-    Impact,
-    sans-serif;
-
-  font-size: clamp(28px, 3vw, 52px);
-
-  line-height: .9;
-
-  letter-spacing: -1.5px;
-
-  color: #fff;
-}
-
-
-.editorial-content small {
-  display: block;
-
-  margin-top: 10px;
-
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
-
-  font-size: 7px;
-
-  line-height: 1.3;
-
-  letter-spacing: 2px;
-
-  color: rgba(255,255,255,.85);
-}
-
-
-/* ==================================================
-   EFECTO PC
-   ================================================== */
-
-.editorial-item:hover img {
-  transform: scale(1.04);
-}
-
-
-/* ==================================================
-   TABLET
-   ================================================== */
-
-@media (min-width: 601px) and (max-width: 1023px) {
-
-  .editorial-strip {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    height: 420px;
-
-    overflow: hidden;
-  }
-
-
-  .editorial-item {
-    height: 420px;
-  }
-
-}
-
-
-/* ==================================================
-   TELÉFONO
-   AQUÍ SÍ SE MANTIENE EL CARRUSEL
-   ================================================== */
-
-@media (max-width: 600px) {
-
-  .editorial-strip {
-
-    display: flex !important;
-
-    width: 100%;
-
-    height: 420px;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    scroll-snap-type: x mandatory;
-
-    scroll-behavior: smooth;
-
-    -webkit-overflow-scrolling: touch;
-
-    touch-action: pan-x;
-
-    scrollbar-width: none;
-
-    background: #090909;
-  }
-
-
-  .editorial-strip::-webkit-scrollbar {
-    display: none;
-  }
-
-
-  .editorial-item {
-
-    flex: 0 0 100%;
-
-    width: 100%;
-    max-width: 100%;
-
-    height: 420px;
-
-    overflow: hidden;
-
-    scroll-snap-align: center;
-
-    scroll-snap-stop: always;
-
-    border-right: none;
-  }
-
-
-  .editorial-item img {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    object-position: center;
-  }
-
-
-  .editorial-content {
-
-    left: 20px;
-    right: 20px;
-    bottom: 24px;
-  }
-
-
-  .editorial-content span {
-
-    font-size: 48px;
-
-    letter-spacing: -1.5px;
-  }
-
-
-  .editorial-content small {
-
-    margin-top: 9px;
-
-    font-size: 8px;
-
-    letter-spacing: 2px;
-  }
-
-}
-
-
-/* ==================================================
-   TELÉFONOS MUY PEQUEÑOS
-   ================================================== */
+   TELEFONOS MUY PEQUEÑOS
+================================================== */
 
 @media (max-width: 380px) {
 
@@ -1794,110 +1778,40 @@ footer a {
     height: 380px;
   }
 
-
   .editorial-item {
     height: 380px;
   }
 
-
   .editorial-content {
-
     left: 16px;
     right: 16px;
     bottom: 20px;
   }
 
-
   .editorial-content span {
     font-size: 40px;
   }
 
-
   .editorial-content small {
-
     font-size: 7px;
 
     letter-spacing: 1.5px;
   }
 
-}
-/* ==================================================
-   CORRECCIÓN DE DROPS
-   NO AFECTA EL EDITORIAL
-   ================================================== */
 
-.drop-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-top: 26px;
-}
-
-.drop-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  overflow: hidden;
-}
-
-.drop-image {
-  width: 100% !important;
-  height: 390px !important;
-  min-height: 390px !important;
-  max-height: 390px !important;
-
-  overflow: hidden !important;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #111;
-}
-
-.drop-image img {
-  display: block !important;
-
-  width: 100% !important;
-  height: 100% !important;
-
-  max-width: 100% !important;
-  max-height: 100% !important;
-
-  object-fit: cover !important;
-  object-position: center !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.drop-info {
-  padding: 25px;
-}
-
-
-/* ==================================================
-   TELÉFONO
-   ================================================== */
-
-@media (max-width: 800px) {
-
-  .drop-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
+  /* DROPS */
 
   .drop-image {
-    width: 100% !important;
-    height: 280px !important;
-    min-height: 280px !important;
-    max-height: 280px !important;
+    height: 250px;
+
+    min-height: 250px;
+
+    max-height: 250px;
+
+    flex-basis: 250px;
   }
 
-  .drop-image img {
-    width: 100% !important;
-    height: 100% !important;
-
-    object-fit: cover !important;
+  .drop-info {
+    padding: 20px 16px;
   }
-
 }
