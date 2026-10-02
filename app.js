@@ -1,10 +1,11 @@
 /* ==================================================
    HYPEFRIENDS
    APP.JS
-   CATÁLOGO COMPLETO
+   CATÁLOGO COMPLETO + DROP 001
    ================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
   /* ==================================================
      PRODUCTOS
@@ -24,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "tee",
       class: "tee",
       image: "img/polo.rp.jpg",
-      desc: "Polo de edición limitada."
+      desc: "Polo de edición limitada.",
+      drop: false
     },
 
     {
@@ -35,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "tee",
       class: "tee",
       image: "img/camisach-azul.jpg",
-      desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul."
+      desc: "Camiseta de béisbol Chrome Hearts CH en blanco y azul.",
+      drop: false
     },
 
     {
@@ -46,7 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "tee",
       class: "tee",
       image: "img/camisach-negra.jpg",
-      desc: "Chrome Hearts Multicolor Long-Sleeve Black."
+      desc: "Chrome Hearts Multicolor Long-Sleeve Black.",
+      drop: false
     },
 
     {
@@ -57,7 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "tee",
       class: "tee",
       image: "img/ducatixsupreme.jpg",
-      desc: "Jersey de fútbol Supreme Ducati en negro."
+      desc: "Jersey de fútbol Supreme Ducati en negro.",
+      drop: false
     },
 
 
@@ -73,7 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "hoodie",
       class: "hoodie",
       image: "img/maison.jpg",
-      desc: "Supreme Maison Margiela Hoodie."
+      desc: "Supreme Maison Margiela Hoodie.",
+
+      /* =========================
+         DROP 001
+         ========================= */
+
+      drop: true
     },
 
     {
@@ -84,7 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "hoodie",
       class: "hoodie",
       image: "img/hoodie-core.jpg.jpeg",
-      desc: "Hoodie premium de gramaje pesado."
+      desc: "Hoodie premium de gramaje pesado.",
+
+      /* =========================
+         DROP 001
+         ========================= */
+
+      drop: true
     },
 
 
@@ -100,7 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "cap",
       class: "cap",
       image: "img/cap-ch.jpg",
-      desc: "Gorra estilo urbano Chrome Hearts."
+      desc: "Gorra estilo urbano Chrome Hearts.",
+      drop: false
     },
 
     {
@@ -111,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "cap",
       class: "cap",
       image: "img/cap-black.jpeg",
-      desc: "Gorra Hypefriends en color negro."
+      desc: "Gorra Hypefriends en color negro.",
+      drop: false
     },
 
 
@@ -127,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "short",
       class: "short",
       image: "img/short-corteizz.jpg",
-      desc: "Corteiz Baggy Denim Shorts Stonewash."
+      desc: "Corteiz Baggy Denim Shorts Stonewash.",
+      drop: false
     },
 
     {
@@ -138,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "short",
       class: "short",
       image: "img/short-essential.jpeg",
-      desc: "Short Essential de corte relajado en negro."
+      desc: "Short Essential de corte relajado en negro.",
+      drop: false
     },
 
     {
@@ -149,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "short",
       class: "short",
       image: "img/short-denim.jpeg",
-      desc: "Short denim baggy de estilo urbano."
+      desc: "Short denim baggy de estilo urbano.",
+      drop: false
     },
 
 
@@ -165,7 +187,8 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "accessory",
       class: "accessory",
       image: "img/bolso.goyar.jpeg",
-      desc: "Shoulder bag Goyar color verde."
+      desc: "Shoulder bag Goyar color verde.",
+      drop: false
     },
 
     {
@@ -176,7 +199,13 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "accessory",
       class: "accessory",
       image: "img/collar-hypefriends.jpeg",
-      desc: "Dije Hypefriends de tamaño compacto."
+      desc: "Dije Hypefriends de tamaño compacto.",
+
+      /* =========================
+         DROP 001
+         ========================= */
+
+      drop: true
     },
 
     {
@@ -187,10 +216,37 @@ document.addEventListener("DOMContentLoaded", () => {
       category: "accessory",
       class: "accessory",
       image: "img/bolso-hypefriends.jpeg",
-      desc: "Bolso Crossbody Hypefriends para uso diario."
+      desc: "Bolso Crossbody Hypefriends para uso diario.",
+      drop: false
     }
 
   ];
+
+
+  /* ==================================================
+     DROP 001
+     ================================================== */
+
+  /*
+     FECHA DEL LANZAMIENTO
+
+     29 DE NOVIEMBRE DE 2026
+     6:00 PM
+     HORA DE COSTA RICA (-06:00)
+  */
+
+  const DROP_DATE =
+    new Date(
+      "2026-11-29T18:00:00-06:00"
+    ).getTime();
+
+
+  /*
+     CONTROL PARA SABER SI YA SE MOSTRÓ
+     EL DROP
+  */
+
+  let dropReleased = false;
 
 
   /* ==================================================
@@ -202,6 +258,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedProduct = null;
 
   let selectedSize = "M";
+
+
+  /* ==================================================
+     SABER SI EL DROP YA ESTÁ DISPONIBLE
+     ================================================== */
+
+  function dropIsLive() {
+
+    return Date.now() >= DROP_DATE;
+
+  }
 
 
   /* ==================================================
@@ -284,8 +351,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderProducts(list = products) {
 
-    const filteredProducts =
+
+    /* ==================================================
+       OCULTAR PRODUCTOS DEL DROP ANTES DEL LANZAMIENTO
+       ================================================== */
+
+    const availableProducts =
       list.filter(product => {
+
+        /*
+           Si el producto pertenece al DROP
+           y todavía no ha llegado la fecha,
+           no se muestra.
+        */
+
+        if (
+          product.drop === true &&
+          !dropIsLive()
+        ) {
+
+          return false;
+
+        }
+
+        return true;
+
+      });
+
+
+    /* ==================================================
+       APLICAR FILTRO
+       ================================================== */
+
+    const filteredProducts =
+      availableProducts.filter(product => {
 
         return (
           currentFilter === "all" ||
@@ -294,6 +393,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       });
 
+
+    /* ==================================================
+       SI NO HAY PRODUCTOS
+       ================================================== */
 
     if (!filteredProducts.length) {
 
@@ -314,6 +417,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* ==================================================
+       CREAR PRODUCTOS
+       ================================================== */
 
     productGrid.innerHTML =
       filteredProducts
@@ -412,10 +519,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /*
+       SEGURIDAD EXTRA
+
+       Si alguien intenta abrir manualmente
+       un producto del DROP antes de tiempo,
+       no se permite.
+    */
+
+    if (
+      selectedProduct.drop === true &&
+      !dropIsLive()
+    ) {
+
+      toast(
+        "ESTE DROP TODAVÍA NO ESTÁ DISPONIBLE"
+      );
+
+      return;
+
+    }
+
+
     selectedSize = "M";
 
 
-    /* NOMBRE */
+    /* ==================================================
+       NOMBRE
+       ================================================== */
 
     if (modalName) {
 
@@ -425,7 +556,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* DESCRIPCIÓN */
+    /* ==================================================
+       DESCRIPCIÓN
+       ================================================== */
 
     if (modalDescription) {
 
@@ -435,7 +568,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* PRECIO */
+    /* ==================================================
+       PRECIO
+       ================================================== */
 
     if (modalPrice) {
 
@@ -685,7 +820,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderCart() {
 
-    /* CONTADOR */
+    /* ==================================================
+       CONTADOR
+       ================================================== */
 
     if (cartCount) {
 
@@ -699,7 +836,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* PRODUCTOS */
+    /* ==================================================
+       PRODUCTOS
+       ================================================== */
 
     if (cartItems) {
 
@@ -771,7 +910,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* TOTAL */
+    /* ==================================================
+       TOTAL
+       ================================================== */
 
     if (cartTotal) {
 
@@ -818,6 +959,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!selectedProduct) {
       return;
+    }
+
+
+    /* ==================================================
+       SEGURIDAD DROP
+       ================================================== */
+
+    if (
+      selectedProduct.drop === true &&
+      !dropIsLive()
+    ) {
+
+      toast(
+        "ESTE DROP TODAVÍA NO ESTÁ DISPONIBLE"
+      );
+
+      return;
+
     }
 
 
@@ -1074,6 +1233,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  /* ==================================================
+     BÚSQUEDA DE PRODUCTOS
+     ================================================== */
+
   if (searchInput) {
 
     searchInput.addEventListener(
@@ -1089,6 +1252,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const results =
           products.filter(
             product => {
+
+              /*
+                 Ocultar productos del DROP
+                 antes del lanzamiento.
+              */
+
+              if (
+                product.drop === true &&
+                !dropIsLive()
+              ) {
+
+                return false;
+
+              }
+
 
               return (
 
@@ -1179,7 +1357,9 @@ document.addEventListener("DOMContentLoaded", () => {
             filter;
 
 
-          /* BOTÓN ACTIVO */
+          /* ==================================================
+             BOTÓN ACTIVO
+             ================================================== */
 
           document
             .querySelectorAll(".filter")
@@ -1199,7 +1379,9 @@ document.addEventListener("DOMContentLoaded", () => {
           );
 
 
-          /* MOSTRAR PRODUCTOS */
+          /* ==================================================
+             MOSTRAR PRODUCTOS
+             ================================================== */
 
           renderProducts();
 
@@ -1330,13 +1512,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
       }
+
     );
 
   }
 
 
   /* ==================================================
-     DROP
+     DROP - RECORDARME
      ================================================== */
 
   const notifyBtn =
@@ -1350,6 +1533,36 @@ document.addEventListener("DOMContentLoaded", () => {
     notifyBtn.addEventListener(
       "click",
       () => {
+
+        if (dropIsLive()) {
+
+          /*
+             Si ya llegó la fecha,
+             llevamos al usuario al catálogo.
+          */
+
+          const catalog =
+            document.getElementById(
+              "catalogo"
+            );
+
+
+          if (catalog) {
+
+            catalog.scrollIntoView({
+              behavior: "smooth"
+            });
+
+          }
+
+          toast(
+            "DROP 001 DISPONIBLE AHORA"
+          );
+
+          return;
+
+        }
+
 
         toast(
           "TE AVISAREMOS DEL PRÓXIMO DROP"
@@ -1388,6 +1601,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.target.reset();
 
       }
+
     );
 
   }
@@ -1435,12 +1649,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function countdown() {
 
-    const target =
-      new Date(
-        "2026-11-29T18:00:00-06:00"
-      ).getTime();
-
-
     const now =
       Date.now();
 
@@ -1448,7 +1656,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const difference =
       Math.max(
         0,
-        target - now
+        DROP_DATE - now
       );
 
 
@@ -1468,6 +1676,10 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
 
+    /* ==================================================
+       DÍAS
+       ================================================== */
+
     if (days) {
 
       days.textContent =
@@ -1483,6 +1695,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* ==================================================
+       HORAS
+       ================================================== */
 
     if (hours) {
 
@@ -1500,6 +1716,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* ==================================================
+       MINUTOS
+       ================================================== */
+
     if (minutes) {
 
       minutes.textContent =
@@ -1515,8 +1735,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* ==================================================
+       LANZAMIENTO
+       ================================================== */
+
+    if (
+      difference === 0 &&
+      !dropReleased
+    ) {
+
+      dropReleased = true;
+
+
+      /*
+         Volvemos a mostrar el catálogo.
+         Los productos con drop:true
+         aparecerán automáticamente.
+      */
+
+      renderProducts();
+
+
+      toast(
+        "DROP 001 YA ESTÁ DISPONIBLE"
+      );
+
+    }
+
   }
 
+
+  /* ==================================================
+     INICIAR CUENTA REGRESIVA
+     ================================================== */
 
   setInterval(
     countdown,
@@ -1528,11 +1780,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ==================================================
-     INICIAR
+     INICIAR CATÁLOGO
      ================================================== */
 
   renderProducts();
 
+
+  /* ==================================================
+     INICIAR CARRITO
+     ================================================== */
+
   renderCart();
+
 
 });
