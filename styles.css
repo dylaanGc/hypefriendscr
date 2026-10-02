@@ -1500,119 +1500,159 @@ footer a {
   }
 
 }
-/* =========================================
-   CARRUSEL / GALERÍA DE IMÁGENES
-   ========================================= */
+/* =========================================================
+   EDITORIAL / CARRUSEL
+   PC = 4 IMÁGENES
+   TELÉFONO = CARRUSEL HORIZONTAL
+   ========================================================= */
 
-.carousel {
+/* -------------------------
+   PC Y ESCRITORIO
+   ------------------------- */
+
+.editorial-strip {
     width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    height: 550px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.editorial-strip > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 550px;
     overflow: hidden;
     position: relative;
+    margin: 0;
+    padding: 0;
 }
 
-.carousel-track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 100%;
-    gap: 0;
-}
-
-/* Cada imagen */
-.carousel-slide {
-    width: 100%;
-    min-width: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 520px;
+.editorial-strip > * img {
     display: block;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover;
     object-position: center;
 }
 
 
-/* =========================================
-   PC / ESCRITORIO
-   4 IMÁGENES VISIBLES
-   ========================================= */
+/* -------------------------
+   TABLET
+   ------------------------- */
 
-@media (min-width: 769px) {
+@media (max-width: 800px) {
 
-    .carousel {
-        overflow: hidden;
-    }
+    .editorial-strip {
+        display: flex !important;
 
-    .carousel-track {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        transform: none !important;
-    }
-
-    .carousel-slide {
         width: 100%;
-        min-width: 0;
-    }
+        height: 420px;
 
-    .carousel-slide img {
-        width: 100%;
-        height: 520px;
-        object-fit: cover;
-    }
-}
-
-
-/* =========================================
-   TELÉFONOS
-   MANTENER CARRUSEL HORIZONTAL
-   ========================================= */
-
-@media (max-width: 768px) {
-
-    .carousel {
-        width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
 
         scroll-snap-type: x mandatory;
+
         -webkit-overflow-scrolling: touch;
 
         scrollbar-width: none;
     }
 
-    .carousel::-webkit-scrollbar {
+    .editorial-strip::-webkit-scrollbar {
         display: none;
     }
 
-    .carousel-track {
-        display: flex;
-        width: max-content;
+    .editorial-strip > * {
+        flex: 0 0 75vw;
 
-        transform: none !important;
-    }
+        width: 75vw !important;
+        min-width: 75vw !important;
 
-    .carousel-slide {
-        flex: 0 0 88vw;
-        width: 88vw;
+        height: 420px;
 
         scroll-snap-align: center;
     }
 
-    .carousel-slide img {
-        width: 100%;
-        height: 480px;
+    .editorial-strip > * img {
+        width: 100% !important;
+        height: 100% !important;
+
         object-fit: cover;
+        object-position: center;
     }
 }
 
 
-/* =========================================
-   TELÉFONOS PEQUEÑOS
-   ========================================= */
+/* -------------------------
+   TELÉFONO
+   ------------------------- */
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
+
+    .editorial-strip {
+        display: flex !important;
+
+        width: 100%;
+
+        height: 430px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scroll-snap-type: x mandatory;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none;
+    }
+
+    .editorial-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    .editorial-strip > * {
+        flex: 0 0 88vw;
+
+        width: 88vw !important;
+        min-width: 88vw !important;
+
+        height: 430px;
+
+        scroll-snap-align: center;
+    }
+
+    .editorial-strip > * img {
+        width: 100% !important;
+        height: 100% !important;
+
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+
+/* -------------------------
+   TELÉFONOS PEQUEÑOS
+   ------------------------- */
+
+@media (max-width: 380px) {
+
+    .editorial-strip {
+        height: 400px;
+    }
+
+    .editorial-strip > * {
+        flex: 0 0 90vw;
+
+        width: 90vw !important;
+        min-width: 90vw !important;
+
+        height: 400px;
+    }
+}
 
     .carousel-slide {
         flex: 0 0 90vw;
