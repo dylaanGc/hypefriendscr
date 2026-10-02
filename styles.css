@@ -1501,17 +1501,14 @@ footer a {
 
 }
 /* ==================================================
-   HYPEFRIENDS - EDITORIAL
+   EDITORIAL - 4 IMÁGENES
    ================================================== */
 
-/* CONTENEDOR DE LAS 4 IMÁGENES */
 .editorial-strip {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
   width: 100%;
-  max-width: 100%;
-
   height: 460px;
 
   overflow: hidden;
@@ -1519,67 +1516,48 @@ footer a {
   background: #090909;
 }
 
-
-/* ==================================================
-   CADA IMAGEN
-   ================================================== */
-
 .editorial-item {
   position: relative;
 
   width: 100%;
   height: 460px;
 
+  min-width: 0;
+
   overflow: hidden;
 
+  border-right: 1px solid rgba(0,0,0,.08);
   background: #111;
-
-  border: 0;
 }
 
-
-/* ==================================================
-   IMAGEN REAL
-   ================================================== */
+.editorial-item:last-child {
+  border-right: 0;
+}
 
 .editorial-item img {
+  display: block;
+
   position: absolute;
 
-  inset: 0;
+  top: 0;
+  left: 0;
 
-  display: block !important;
-
-  width: 100% !important;
-  height: 100% !important;
-
-  max-width: none !important;
-  max-height: none !important;
+  width: 100%;
+  height: 100%;
 
   object-fit: cover;
   object-position: center;
 
   margin: 0;
   padding: 0;
-
-  opacity: 1 !important;
-  visibility: visible !important;
-
-  transform: scale(1);
-
-  transition: transform .6s ease;
 }
-
-
-/* ==================================================
-   OSCURECER UN POCO LA IMAGEN
-   ================================================== */
 
 .editorial-overlay {
   position: absolute;
 
   inset: 0;
 
-  z-index: 1;
+  z-index: 2;
 
   pointer-events: none;
 
@@ -1589,14 +1567,9 @@ footer a {
       rgba(0,0,0,.88) 0%,
       rgba(0,0,0,.35) 45%,
       rgba(0,0,0,.05) 75%,
-      rgba(0,0,0,0) 100%
+      transparent 100%
     );
 }
-
-
-/* ==================================================
-   TEXTO SOBRE LA IMAGEN
-   ================================================== */
 
 .editorial-content {
   position: absolute;
@@ -1605,13 +1578,12 @@ footer a {
   right: 28px;
   bottom: 28px;
 
-  z-index: 2;
+  z-index: 3;
 
   color: #fff;
 
   pointer-events: none;
 }
-
 
 .editorial-content span {
   display: block;
@@ -1629,7 +1601,6 @@ footer a {
 
   color: #fff;
 }
-
 
 .editorial-content small {
   display: block;
@@ -1650,13 +1621,170 @@ footer a {
   color: rgba(255,255,255,.85);
 }
 
-
-/* ==================================================
-   EFECTO AL PASAR EL MOUSE
-   ================================================== */
-
 .editorial-item:hover img {
   transform: scale(1.04);
+}
+
+
+/* ==================================================
+   DROPS
+   ================================================== */
+
+.drop-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  width: 100%;
+
+  gap: 18px;
+
+  margin-top: 26px;
+
+  align-items: start;
+}
+
+.drop-card {
+  display: block;
+
+  width: 100%;
+
+  min-width: 0;
+
+  max-width: 100%;
+
+  background: #fff;
+
+  border: 1px solid #ddd;
+
+  overflow: hidden;
+}
+
+
+/* CONTENEDOR DE CADA IMAGEN */
+
+.drop-image {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+
+  height: 390px;
+
+  min-height: 390px;
+
+  max-height: 390px;
+
+  overflow: hidden;
+
+  background: #d0d0d0;
+}
+
+
+/* IMAGEN DEL DROP */
+
+.drop-image img {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  max-width: none;
+  max-height: none;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+/* FONDOS DE LOS DROPS */
+
+.drop-one {
+  background:
+    linear-gradient(
+      145deg,
+      #252525,
+      #777 48%,
+      #111
+    );
+}
+
+.drop-two {
+  background:
+    linear-gradient(
+      145deg,
+      #e4e4e2,
+      #999 48%,
+      #202020
+    );
+}
+
+
+/* INFORMACIÓN DEL DROP */
+
+.drop-info {
+  display: block;
+
+  width: 100%;
+
+  padding: 25px;
+
+  background: #fff;
+}
+
+.drop-info h3 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+.drop-status {
+  font-size: 10px;
+
+  letter-spacing: 1.5px;
+
+  color: var(--orange);
+
+  font-weight: 800;
+}
+
+.countdown {
+  display: flex;
+
+  gap: 24px;
+
+  margin: 22px 0;
+}
+
+.countdown div {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.countdown b {
+  font-size: 28px;
+}
+
+.countdown small {
+  font-size: 9px;
+
+  color: #777;
+
+  letter-spacing: 1px;
 }
 
 
@@ -1664,26 +1792,31 @@ footer a {
    TABLET
    ================================================== */
 
-@media (max-width: 1000px) and (min-width: 601px) {
+@media (max-width: 800px) {
 
   .editorial-strip {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    height: 460px;
-
-    overflow: hidden;
+    height: 420px;
   }
 
   .editorial-item {
-    width: 100%;
-    height: 460px;
+    height: 420px;
   }
 
-  .editorial-item img {
-    width: 100% !important;
-    height: 100% !important;
 
-    object-fit: cover;
+  .drop-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .drop-image {
+    height: 300px;
+
+    min-height: 300px;
+
+    max-height: 300px;
   }
 
 }
@@ -1693,14 +1826,13 @@ footer a {
    TELÉFONO
    ================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 520px) {
 
   .editorial-strip {
 
-    display: flex !important;
+    display: flex;
 
     width: 100%;
-    max-width: 100%;
 
     height: 420px;
 
@@ -1708,53 +1840,35 @@ footer a {
     overflow-y: hidden;
 
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
 
     -webkit-overflow-scrolling: touch;
 
     scrollbar-width: none;
-
-    background: #090909;
   }
-
 
   .editorial-strip::-webkit-scrollbar {
     display: none;
   }
-
 
   .editorial-item {
 
     flex: 0 0 100%;
 
     width: 100%;
-    max-width: 100%;
 
     height: 420px;
 
     scroll-snap-align: center;
-    scroll-snap-stop: always;
 
-    overflow: hidden;
+    scroll-snap-stop: always;
   }
 
 
   .editorial-item img {
-
-    position: absolute;
-
-    inset: 0;
-
-    width: 100% !important;
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
 
     object-fit: cover;
-    object-position: center;
-
-    display: block !important;
-
-    opacity: 1 !important;
-    visibility: visible !important;
   }
 
 
@@ -1764,26 +1878,49 @@ footer a {
     bottom: 24px;
   }
 
-
   .editorial-content span {
     font-size: 48px;
-    letter-spacing: -1.5px;
   }
 
 
-  .editorial-content small {
-    margin-top: 9px;
+  /* DROPS EN TELÉFONO */
 
-    font-size: 8px;
+  .drop-grid {
+    grid-template-columns: 1fr;
 
-    letter-spacing: 2px;
+    width: 100%;
+
+    gap: 15px;
+  }
+
+  .drop-card {
+    width: 100%;
+
+    max-width: 100%;
+  }
+
+  .drop-image {
+    width: 100%;
+
+    height: 260px;
+
+    min-height: 260px;
+
+    max-height: 260px;
+  }
+
+  .drop-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
   }
 
 }
 
 
 /* ==================================================
-   TELÉFONOS MUY PEQUEÑOS
+   TELÉFONOS PEQUEÑOS
    ================================================== */
 
 @media (max-width: 380px) {
@@ -1808,231 +1945,17 @@ footer a {
 
   .editorial-content small {
     font-size: 7px;
+
     letter-spacing: 1.5px;
   }
-   
-/* ==================================================
-   CORRECCIÓN FINAL - DROPS
-   ================================================== */
 
-.drop-grid {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 18px !important;
-  width: 100% !important;
-  margin-top: 26px !important;
-}
-
-.drop-card {
-  width: 100% !important;
-  min-width: 0 !important;
-  overflow: hidden !important;
-  background: #fff !important;
-}
-
-.drop-image {
-  width: 100% !important;
-  height: 390px !important;
-  min-height: 0 !important;
-  max-height: 390px !important;
-  overflow: hidden !important;
-  position: relative !important;
-  background: #111 !important;
-}
-
-.drop-image img {
-  display: block !important;
-
-  position: absolute !important;
-  inset: 0 !important;
-
-  width: 100% !important;
-  height: 100% !important;
-
-  max-width: 100% !important;
-  max-height: 100% !important;
-
-  object-fit: cover !important;
-  object-position: center !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-
-/* ==================================================
-   TABLET
-   ================================================== */
-
-@media (max-width: 800px) {
-
-  .drop-grid {
-    grid-template-columns: 1fr !important;
-    gap: 18px !important;
-  }
 
   .drop-image {
-    width: 100% !important;
-    height: 280px !important;
-    max-height: 280px !important;
+    height: 240px;
+
+    min-height: 240px;
+
+    max-height: 240px;
   }
-
-}
-
-
-/* ==================================================
-   TELÉFONO
-   ================================================== */
-
-@media (max-width: 520px) {
-
-  .drop-grid {
-    grid-template-columns: 1fr !important;
-    width: 100% !important;
-  }
-
-  .drop-image {
-    width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    aspect-ratio: 16 / 10 !important;
-  }
-
-  .drop-image img {
-    position: absolute !important;
-
-    width: 100% !important;
-    height: 100% !important;
-
-    object-fit: cover !important;
-  }
-
-}
-/* ==================================================
-   FIX DEFINITIVO - SECCIÓN DROPS
-   ================================================== */
-
-/* La cuadrícula siempre debe tener dos tarjetas iguales */
-.drop-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 18px !important;
-    width: 100% !important;
-    align-items: start !important;
-}
-
-
-/* Las tarjetas no pueden crecer por culpa de la imagen */
-.drop-card {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    height: auto !important;
-    overflow: hidden !important;
-}
-
-
-/* CONTENEDOR DE LA IMAGEN */
-.drop-image {
-    position: relative !important;
-
-    width: 100% !important;
-
-    height: 390px !important;
-    min-height: 390px !important;
-    max-height: 390px !important;
-
-    overflow: hidden !important;
-
-    padding: 0 !important;
-    margin: 0 !important;
-
-    background: #111 !important;
-}
-
-
-/* TODAS las imágenes dentro de los Drops */
-.drop-card img,
-.drop-image img {
-    display: block !important;
-
-    position: absolute !important;
-
-    top: 0 !important;
-    left: 0 !important;
-
-    width: 100% !important;
-    height: 100% !important;
-
-    min-width: 0 !important;
-    min-height: 0 !important;
-
-    max-width: none !important;
-    max-height: none !important;
-
-    object-fit: cover !important;
-    object-position: center !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-
-/* Información debajo de la imagen */
-.drop-info {
-    position: relative !important;
-
-    width: 100% !important;
-
-    padding: 25px !important;
-
-    background: #fff !important;
-}
-
-
-/* ==================================================
-   TABLET
-   ================================================== */
-
-@media (max-width: 800px) {
-
-    .drop-grid {
-        grid-template-columns: 1fr !important;
-        gap: 18px !important;
-    }
-
-    .drop-image {
-        height: 300px !important;
-        min-height: 300px !important;
-        max-height: 300px !important;
-    }
-
-}
-
-
-/* ==================================================
-   TELÉFONO
-   ================================================== */
-
-@media (max-width: 520px) {
-
-    .drop-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
-
-    .drop-image {
-        height: 260px !important;
-        min-height: 260px !important;
-        max-height: 260px !important;
-    }
-
-    .drop-card img,
-    .drop-image img {
-        width: 100% !important;
-        height: 100% !important;
-
-        object-fit: cover !important;
-    }
 
 }
