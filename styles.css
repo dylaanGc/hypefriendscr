@@ -1500,205 +1500,128 @@ footer a {
   }
 
 }
-/* ==================================================
-   HYPEFRIENDS - EDITORIAL / CARRUSEL
-   ================================================== */
+/* =========================================
+   CARRUSEL / GALERÍA DE IMÁGENES
+   ========================================= */
 
-/*
-   Este bloque reemplaza visualmente el antiguo
-   grid de .editorial-strip y lo convierte en
-   un carrusel de una imagen por vez.
-*/
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
 
-.editorial-strip {
+.carousel-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    gap: 0;
+}
 
-  display: flex !important;
+/* Cada imagen */
+.carousel-slide {
+    width: 100%;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+}
 
-  width: 100%;
-  max-width: 100%;
-
-  height: 420px;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  /* Una imagen por desplazamiento */
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-
-  /* Deslizamiento táctil */
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
-
-  /* Ocultar scrollbar */
-  scrollbar-width: none;
-
-  background: #090909;
-
+.carousel-slide img {
+    width: 100%;
+    height: 520px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
 }
 
 
-/* Ocultar scrollbar en Chrome / Edge / Safari */
+/* =========================================
+   PC / ESCRITORIO
+   4 IMÁGENES VISIBLES
+   ========================================= */
 
-.editorial-strip::-webkit-scrollbar {
-  display: none;
+@media (min-width: 769px) {
+
+    .carousel {
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        transform: none !important;
+    }
+
+    .carousel-slide {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+    }
 }
 
 
-/* ==================================================
-   CADA IMAGEN
-   ================================================== */
+/* =========================================
+   TELÉFONOS
+   MANTENER CARRUSEL HORIZONTAL
+   ========================================= */
 
-.editorial-item {
+@media (max-width: 768px) {
 
-  position: relative;
+    .carousel {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
 
-  flex: 0 0 100%;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
 
-  width: 100%;
-  max-width: 100%;
+        scrollbar-width: none;
+    }
 
-  height: 420px;
+    .carousel::-webkit-scrollbar {
+        display: none;
+    }
 
-  overflow: hidden;
+    .carousel-track {
+        display: flex;
+        width: max-content;
 
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
+        transform: none !important;
+    }
 
-  background: #111;
+    .carousel-slide {
+        flex: 0 0 88vw;
+        width: 88vw;
 
-  border: 0;
+        scroll-snap-align: center;
+    }
 
+    .carousel-slide img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+    }
 }
 
 
-/* ==================================================
-   IMAGEN
-   ================================================== */
+/* =========================================
+   TELÉFONOS PEQUEÑOS
+   ========================================= */
 
-.editorial-item img {
+@media (max-width: 480px) {
 
-  position: absolute;
+    .carousel-slide {
+        flex: 0 0 90vw;
+        width: 90vw;
+    }
 
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  max-width: 100%;
-
-  display: block;
-
-  object-fit: cover;
-  object-position: center;
-
-  margin: 0;
-  padding: 0;
-
-  transform: scale(1);
-
-  transition:
-    transform .6s ease;
-
-}
-
-
-/* ==================================================
-   OSCURECER IMAGEN
-   ================================================== */
-
-.editorial-overlay {
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,.88) 0%,
-      rgba(0,0,0,.35) 45%,
-      rgba(0,0,0,.05) 75%,
-      rgba(0,0,0,0) 100%
-    );
-
-}
-
-
-/* ==================================================
-   TEXTO SOBRE LA IMAGEN
-   ================================================== */
-
-.editorial-content {
-
-  position: absolute;
-
-  left: 28px;
-  right: 28px;
-  bottom: 28px;
-
-  z-index: 2;
-
-  color: #fff;
-
-  pointer-events: none;
-
-}
-
-
-.editorial-content span {
-
-  display: block;
-
-  font-family:
-    "Archivo Black",
-    Impact,
-    sans-serif;
-
-  font-size:
-    clamp(
-      42px,
-      7vw,
-      82px
-    );
-
-  line-height: .9;
-
-  letter-spacing: -2px;
-
-  color: #fff;
-
-}
-
-
-.editorial-content small {
-
-  display: block;
-
-  margin-top: 12px;
-
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
-
-  font-size: 9px;
-
-  line-height: 1.3;
-
-  letter-spacing: 3px;
-
-  color: rgba(
-    255,
-    255,
-    255,
-    .85
-  );
-
+    .carousel-slide img {
+        height: 420px;
+    }
 }
 
 
@@ -1713,167 +1636,6 @@ footer a {
 }
 
 
-/* ==================================================
-   TABLET
-   ================================================== */
-
-@media (min-width: 601px) {
-
-  .editorial-strip {
-
-    height: 460px;
-
-  }
-
-  .editorial-item {
-
-    flex: 0 0 100%;
-
-    width: 100%;
-
-    height: 460px;
-
-  }
-
-}
-
-
-/* ==================================================
-   TELÉFONO
-   ================================================== */
-
-@media (max-width: 600px) {
-
-  .editorial-strip {
-
-    display: flex !important;
-
-    width: 100%;
-    max-width: 100%;
-
-    height: 420px;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    scroll-snap-type: x mandatory;
-
-    -webkit-overflow-scrolling: touch;
-
-    scrollbar-width: none;
-
-  }
-
-
-  .editorial-strip::-webkit-scrollbar {
-
-    display: none;
-
-  }
-
-
-  .editorial-item {
-
-    flex: 0 0 100%;
-
-    width: 100%;
-    max-width: 100%;
-
-    height: 420px;
-
-    scroll-snap-align: center;
-
-    scroll-snap-stop: always;
-
-  }
-
-
-  .editorial-item img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-  }
-
-
-  .editorial-content {
-
-    left: 20px;
-    right: 20px;
-    bottom: 24px;
-
-  }
-
-
-  .editorial-content span {
-
-    font-size: 48px;
-
-    letter-spacing: -1.5px;
-
-  }
-
-
-  .editorial-content small {
-
-    margin-top: 9px;
-
-    font-size: 8px;
-
-    letter-spacing: 2px;
-
-  }
-
-}
-
-
-/* ==================================================
-   TELÉFONOS MUY PEQUEÑOS
-   ================================================== */
-
-@media (max-width: 380px) {
-
-  .editorial-strip {
-
-    height: 380px;
-
-  }
-
-
-  .editorial-item {
-
-    height: 380px;
-
-  }
-
-
-  .editorial-content {
-
-    left: 16px;
-    right: 16px;
-    bottom: 20px;
-
-  }
-
-
-  .editorial-content span {
-
-    font-size: 40px;
-
-  }
-
-
-  .editorial-content small {
-
-    font-size: 7px;
-
-    letter-spacing: 1.5px;
-
-  }
-
-}
 /* ==================================================
    DROP - MOSTRAR IMAGEN COMPLETA
    ================================================== */
