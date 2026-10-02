@@ -1908,3 +1908,131 @@ footer a {
   }
 
 }
+/* ==================================================
+   FIX DEFINITIVO - SECCIÓN DROPS
+   ================================================== */
+
+/* La cuadrícula siempre debe tener dos tarjetas iguales */
+.drop-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
+    align-items: start !important;
+}
+
+
+/* Las tarjetas no pueden crecer por culpa de la imagen */
+.drop-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: hidden !important;
+}
+
+
+/* CONTENEDOR DE LA IMAGEN */
+.drop-image {
+    position: relative !important;
+
+    width: 100% !important;
+
+    height: 390px !important;
+    min-height: 390px !important;
+    max-height: 390px !important;
+
+    overflow: hidden !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    background: #111 !important;
+}
+
+
+/* TODAS las imágenes dentro de los Drops */
+.drop-card img,
+.drop-image img {
+    display: block !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* Información debajo de la imagen */
+.drop-info {
+    position: relative !important;
+
+    width: 100% !important;
+
+    padding: 25px !important;
+
+    background: #fff !important;
+}
+
+
+/* ==================================================
+   TABLET
+   ================================================== */
+
+@media (max-width: 800px) {
+
+    .drop-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .drop-image {
+        height: 300px !important;
+        min-height: 300px !important;
+        max-height: 300px !important;
+    }
+
+}
+
+
+/* ==================================================
+   TELÉFONO
+   ================================================== */
+
+@media (max-width: 520px) {
+
+    .drop-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .drop-image {
+        height: 260px !important;
+        min-height: 260px !important;
+        max-height: 260px !important;
+    }
+
+    .drop-card img,
+    .drop-image img {
+        width: 100% !important;
+        height: 100% !important;
+
+        object-fit: cover !important;
+    }
+
+}
