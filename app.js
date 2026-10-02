@@ -1437,7 +1437,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const target =
       new Date(
-        "2026-10-01T18:00:00-06:00"
+        "2026-11-29T18:00:00-06:00"
       ).getTime();
 
 
