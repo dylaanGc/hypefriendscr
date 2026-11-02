@@ -17,6 +17,18 @@
     name="description"
     content="HYPEFRIENDS — Streetwear y drops exclusivos."
   />
+  <meta
+    name="supabase-url"
+    content="https://ynowgseafcpcfgvsmkub.supabase.co"
+  />
+  <meta
+    name="supabase-publishable-key"
+    content="sb_publishable_2DSB2bN-_Q4JAm5WO4QruA_E4sXrEuH"
+  />
+  <meta
+    name="turnstile-site-key"
+    content=""
+  />
 
   <title>HYPEFRIENDS — Streetwear & Drops Exclusivos</title>
   <link rel="icon" type="image/jpeg" href="img/1.png">
@@ -683,6 +695,60 @@
 
     </div>
 
+    <section
+      class="checkout-modal"
+      id="checkoutModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="checkoutTitle"
+      aria-hidden="true"
+    >
+      <div class="checkout-card">
+        <button class="icon-btn checkout-close" id="checkoutClose" type="button" aria-label="Cerrar checkout">×</button>
+        <div id="checkoutFormView">
+          <p class="eyebrow">COMPRA SEGURA</p>
+          <h2 id="checkoutTitle">FINALIZAR COMPRA</h2>
+          <div id="checkoutQuote" class="checkout-quote">Calculando disponibilidad y envío…</div>
+          <form id="checkoutForm" class="checkout-form">
+            <label>Nombre completo<input id="checkoutName" name="name" maxlength="200" autocomplete="name" required></label>
+            <div class="checkout-contact-grid">
+              <label>Teléfono<input id="checkoutPhone" name="phone" type="tel" maxlength="50" autocomplete="tel" placeholder="8888-8888"></label>
+              <label>Correo<input id="checkoutEmail" name="email" type="email" maxlength="320" autocomplete="email"></label>
+            </div>
+            <p class="checkout-helper">Indica al menos un medio de contacto.</p>
+            <label>Zona de entrega<select id="checkoutDeliveryZone" name="deliveryZone" required>
+              <option value="gam">Dentro del GAM · ₡2.000 de envío</option>
+              <option value="outside_gam">Fuera del GAM · ₡3.500 de envío</option>
+            </select></label>
+            <p class="checkout-helper">Envío gratis en compras superiores a ₡50.000.</p>
+            <label>Dirección de entrega<textarea id="checkoutAddress" name="address" maxlength="1000" autocomplete="street-address" required></textarea></label>
+            <label>Método de pago<select id="checkoutPaymentMethod" name="paymentMethod" required>
+              <option value="bank_transfer">Transferencia bancaria</option>
+              <option value="sinpe_movil">SINPE Móvil</option>
+              <option value="cash_on_delivery">Pago contra entrega</option>
+            </select></label>
+            <div id="checkoutPaymentHint" class="checkout-payment-hint"></div>
+            <label id="checkoutProofLabel">Comprobante de pago (opcional)
+              <input id="checkoutProof" name="proof" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
+            </label>
+            <label>Notas del pedido (opcional)<textarea id="checkoutNotes" name="notes" maxlength="2000"></textarea></label>
+            <div id="turnstileWidget"></div>
+            <p id="checkoutError" class="checkout-error" role="status" aria-live="polite"></p>
+            <button id="checkoutSubmit" class="btn dark checkout-submit" type="submit" disabled>CONTINUAR</button>
+            <button id="checkoutBack" class="btn outline checkout-back" type="button">VOLVER AL CARRITO</button>
+          </form>
+        </div>
+        <div id="checkoutSuccessView" class="checkout-success" hidden>
+          <p class="eyebrow">PEDIDO REGISTRADO</p>
+          <h2 id="checkoutSuccessTitle">GRACIAS POR TU COMPRA</h2>
+          <p id="checkoutSuccessNumber"></p>
+          <p id="checkoutSuccessInstructions"></p>
+          <p class="checkout-helper">El pago quedará pendiente hasta que HYPEFRIENDS verifique el dinero recibido.</p>
+          <button id="checkoutDone" class="btn dark checkout-submit" type="button">SEGUIR COMPRANDO</button>
+        </div>
+      </div>
+    </section>
+
 
     <div id="cartItems"></div>
 
@@ -824,6 +890,7 @@
   ========================================== -->
 
   <script src="app.js"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 
 </body>
 </html>

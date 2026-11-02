@@ -1,4 +1,4 @@
-/* ==================================================
+﻿/* ==================================================
    HYPEFRIENDS
    APP.JS
    CATÁLOGO COMPLETO + DROP 001
@@ -344,6 +344,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput =
     document.getElementById("searchInput");
 
+  const checkoutModal = document.getElementById("checkoutModal");
+  const checkoutForm = document.getElementById("checkoutForm");
+  const checkoutError = document.getElementById("checkoutError");
+  const checkoutSubmit = document.getElementById("checkoutSubmit");
+  const checkoutQuote = document.getElementById("checkoutQuote");
+  const checkoutEndpoint = `${document.querySelector('meta[name="supabase-url"]')?.content.replace(/\/+$/, "")}/functions/v1/create-web-order`;
+  const supabasePublishableKey = document.querySelector('meta[name="supabase-publishable-key"]')?.content.trim() || "";
+  const turnstileSiteKey = document.querySelector('meta[name="turnstile-site-key"]')?.content.trim() || "";
+  let checkoutQuoteData = null;
+  let checkoutQuoteRequestId = 0;
+  let checkoutTurnstileId = null;
+  let checkoutTurnstileToken = "";
+  let checkoutBusy = false;
+
 
   /* ==================================================
      MOSTRAR PRODUCTOS
@@ -373,6 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
           return false;
 
         }
+
+        if (product.storeActive === false) return false;
 
         return true;
 
@@ -460,8 +476,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </p>
 
                 <p class="product-stock">
-                  ${product.stock}
-                  unidades disponibles
+                  ${Number(product.stock) > 0
+                    ? `${product.stock} unidades disponibles`
+                    : "AGOTADO"}
                 </p>
 
               </div>
@@ -633,8 +650,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } else {
 
+        const availableSizes =
+          selectedProduct.availableSizes?.length
+            ? selectedProduct.availableSizes
+            : ["S", "M", "L", "XL"];
+        selectedSize =
+          availableSizes.includes("M")
+            ? "M"
+            : availableSizes[0];
+
         sizes.innerHTML =
-          ["S", "M", "L", "XL"]
+          availableSizes
             .map(size => {
 
               return `
@@ -642,7 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button
                   type="button"
                   class="size ${
-                    size === "M"
+                    size === selectedSize
                       ? "selected"
                       : ""
                   }"
@@ -931,6 +957,294 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  async function callCheckoutApi(payload, proof = null) {
+    if (!supabasePublishableKey || !checkoutEndpoint.startsWith("https://")) {
+      throw new Error("El sitio todavía no tiene configurado el endpoint de pedidos.");
+    }
+    const headers = {
+      apikey: supabasePublishableKey,
+      Authorization: 'Bearer ' + supabasePublishableKey,
+    };
+    let body = JSON.stringify(payload);
+    if (proof) {
+      const form = new FormData();
+      form.append("order", JSON.stringify(payload));
+      form.append("proof", proof);
+      body = form;
+    }
+    const response = await fetch(checkoutEndpoint, {
+      method: "POST",
+      headers,
+      body,
+      cache: "no-store",
+    });
+    let result;
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("El checkout no respondió correctamente. Vuelve a intentarlo.");
+    }
+    if (!response.ok) {
+      throw new Error(result.error || "No se pudo procesar el pedido.");
+    }
+    return result;
+  }
+
+  function cartLines() {
+    return cart.map(item => ({
+      id: Number(item.id),
+      size: String(item.size || ""),
+      qty: Number(item.qty),
+    }));
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>'"]/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      "\"": "&quot;",
+    })[character]);
+  }
+
+  function renderCheckoutQuote(quote) {
+    const rows = (quote.items || []).map(item =>
+      `<div class="checkout-quote-row"><span>${item.qty} × ${escapeHtml(item.productName)} · ${escapeHtml(item.size)}</span><b>${money(item.unitPrice * item.qty)}</b></div>`
+    ).join("");
+    checkoutQuote.innerHTML = `${rows}<div class="checkout-quote-row"><span>Envío</span><b>${money(quote.shippingAmount)}</b></div><div class="checkout-quote-row checkout-quote-total"><span>Total</span><b>${money(quote.total)}</b></div>`;
+  }
+
+  function updateCheckoutPaymentHint() {
+    const method = document.getElementById("checkoutPaymentMethod")?.value;
+    const proofLabel = document.getElementById("checkoutProofLabel");
+    const hint = document.getElementById("checkoutPaymentHint");
+    if (proofLabel) proofLabel.hidden = method === "cash_on_delivery";
+    if (hint) {
+      hint.textContent = method === "cash_on_delivery"
+        ? "El pago quedará pendiente hasta confirmar la entrega y el cobro."
+        : "El pago quedará pendiente hasta verificar la transferencia o el SINPE. Puedes adjuntar un comprobante; enviarlo no confirma el pago.";
+    }
+  }
+
+  async function refreshCheckoutQuote() {
+    const requestId = ++checkoutQuoteRequestId;
+    checkoutQuoteData = null;
+    updateCheckoutSubmit();
+    checkoutQuote.textContent = "Calculando disponibilidad y envío…";
+    checkoutError.textContent = "";
+    try {
+      const quote = await callCheckoutApi({
+        action: "quote",
+        deliveryZone: document.getElementById("checkoutDeliveryZone").value,
+        items: cartLines(),
+      });
+      if (requestId !== checkoutQuoteRequestId) return;
+      checkoutQuoteData = quote;
+      renderCheckoutQuote(quote);
+      updateCheckoutSubmit();
+    } catch (error) {
+      if (requestId !== checkoutQuoteRequestId) return;
+      checkoutQuote.textContent = "";
+      checkoutError.textContent = error.message;
+    }
+  }
+
+  function updateCheckoutSubmit() {
+    checkoutSubmit.disabled = checkoutBusy || !checkoutQuoteData || !checkoutTurnstileToken;
+    checkoutSubmit.textContent = checkoutBusy ? "PROCESANDO PEDIDO…" : "CONFIRMAR PEDIDO";
+  }
+
+  function prepareCheckoutTurnstile() {
+    const widget = document.getElementById("turnstileWidget");
+    if (!turnstileSiteKey) {
+      checkoutError.textContent = "Falta configurar la clave pública de Cloudflare Turnstile para aceptar pedidos.";
+      return;
+    }
+    const renderWidget = () => {
+      if (!window.turnstile) return false;
+      if (checkoutTurnstileId !== null) {
+        window.turnstile.reset(checkoutTurnstileId);
+        checkoutTurnstileToken = "";
+        updateCheckoutSubmit();
+        return true;
+      }
+      checkoutTurnstileId = window.turnstile.render(widget, {
+        sitekey: turnstileSiteKey,
+        action: "checkout",
+        callback(token) {
+          checkoutTurnstileToken = token;
+          checkoutError.textContent = "";
+          updateCheckoutSubmit();
+        },
+        "expired-callback"() {
+          checkoutTurnstileToken = "";
+          updateCheckoutSubmit();
+        },
+        "error-callback"() {
+          checkoutTurnstileToken = "";
+          checkoutError.textContent = "No se pudo cargar la verificación anti-robots.";
+          updateCheckoutSubmit();
+        },
+      });
+      return true;
+    };
+    if (renderWidget()) return;
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      if (renderWidget() || attempts >= 40) {
+        window.clearInterval(timer);
+        if (attempts >= 40 && !window.turnstile) {
+          checkoutError.textContent = "No se pudo cargar Cloudflare Turnstile. Recarga la página.";
+        }
+      }
+    }, 250);
+  }
+
+  async function openCheckout() {
+    if (!cart.length) {
+      toast("TU BOLSA ESTÁ VACÍA");
+      return;
+    }
+    closePanels();
+    checkoutModal.classList.add("open");
+    checkoutModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    document.getElementById("checkoutFormView").hidden = false;
+    document.getElementById("checkoutSuccessView").hidden = true;
+    checkoutError.textContent = "";
+    checkoutTurnstileToken = "";
+    checkoutSubmit.disabled = true;
+    updateCheckoutPaymentHint();
+    prepareCheckoutTurnstile();
+    await refreshCheckoutQuote();
+  }
+
+  function closeCheckout() {
+    if (checkoutBusy) return;
+    checkoutModal.classList.remove("open");
+    checkoutModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
+  function checkoutIdentity() {
+    const storageKey = "hypefriends-checkout-attempt";
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+      if (validUuid(saved?.orderId) && validUuid(saved?.checkoutReference)) return saved;
+      const identity = {
+        orderId: crypto.randomUUID(),
+        checkoutReference: crypto.randomUUID(),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(identity));
+      return identity;
+    } catch {
+      throw new Error("Activa el almacenamiento del navegador para proteger el pedido contra duplicados.");
+    }
+  }
+
+  function validUuid(value) {
+    return typeof value === "string" &&
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+  }
+
+  async function submitCheckout(event) {
+    event.preventDefault();
+    if (checkoutBusy || !checkoutQuoteData) return;
+    if (!checkoutTurnstileToken) {
+      checkoutError.textContent = "Completa la verificación anti-robots.";
+      return;
+    }
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const proof = document.getElementById("checkoutProof").files?.[0] || null;
+    const allowedProofTypes = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+    if (proof && (!allowedProofTypes.includes(proof.type) || proof.size > 10 * 1024 * 1024)) {
+      checkoutError.textContent = "El comprobante debe ser JPG, PNG, WebP o PDF de hasta 10 MB.";
+      return;
+    }
+    const paymentMethod = String(formData.get("paymentMethod"));
+    if (paymentMethod === "cash_on_delivery" && proof) {
+      checkoutError.textContent = "No adjuntes un comprobante para el pago contra entrega.";
+      return;
+    }
+    checkoutBusy = true;
+    checkoutError.textContent = "";
+    updateCheckoutSubmit();
+    try {
+      const identity = checkoutIdentity();
+      const response = await callCheckoutApi({
+        action: "create",
+        ...identity,
+        items: cartLines(),
+        deliveryZone: String(formData.get("deliveryZone")),
+        customerName: String(formData.get("name") || "").trim(),
+        customerPhone: String(formData.get("phone") || "").trim(),
+        customerEmail: String(formData.get("email") || "").trim(),
+        shippingAddress: String(formData.get("address") || "").trim(),
+        customerNotes: String(formData.get("notes") || "").trim(),
+        paymentMethod,
+        turnstileToken: checkoutTurnstileToken,
+      }, proof);
+      localStorage.removeItem("hypefriends-checkout-attempt");
+      cart = [];
+      saveCart();
+      renderCart();
+      document.getElementById("checkoutFormView").hidden = true;
+      document.getElementById("checkoutSuccessView").hidden = false;
+      document.getElementById("checkoutSuccessNumber").textContent = `Número de pedido: ${response.orderNumber}`;
+      document.getElementById("checkoutSuccessInstructions").textContent = response.paymentInstructions ||
+        "HYPEFRIENDS se pondrá en contacto para coordinar la entrega y el pago.";
+      document.getElementById("checkoutSuccessTitle").textContent = response.alreadyCreated
+        ? "TU PEDIDO YA ESTABA REGISTRADO"
+        : "GRACIAS POR TU COMPRA";
+    } catch (error) {
+      checkoutError.textContent = error.message;
+      checkoutTurnstileToken = "";
+      if (checkoutTurnstileId !== null && window.turnstile) {
+        window.turnstile.reset(checkoutTurnstileId);
+      }
+    } finally {
+      checkoutBusy = false;
+      updateCheckoutSubmit();
+    }
+  }
+
+  async function refreshStoreCatalog() {
+    try {
+      const response = await callCheckoutApi({ action: "catalog" });
+      for (const remoteProduct of response.products || []) {
+        let product = products.find(row => String(row.id) === remoteProduct.store_product_id);
+        if (!product) {
+          product = {
+            id: remoteProduct.store_product_id,
+            category: remoteProduct.category || "accessory",
+            class: remoteProduct.category || "accessory",
+            image: "img/icon.svg",
+            desc: "",
+            drop: false
+          };
+          products.push(product);
+        }
+        product.name = remoteProduct.product_name;
+        product.price = Number(remoteProduct.unit_price);
+        product.stock = Number(remoteProduct.available_stock);
+        product.availableSizes = remoteProduct.available_sizes;
+        product.inStock = Boolean(remoteProduct.in_stock);
+        product.storeActive = Boolean(remoteProduct.active);
+        product.category = remoteProduct.category || product.category;
+        product.class = remoteProduct.category || product.class;
+        if (remoteProduct.image_url) product.image = remoteProduct.image_url;
+        if (remoteProduct.description) product.desc = remoteProduct.description;
+      }
+      renderProducts();
+      renderCart();
+    } catch (error) {
+      console.error("Store catalog refresh:", error);
+    }
+  }
+
 
   /* ==================================================
      ELIMINAR
@@ -979,6 +1293,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    if (Number(selectedProduct.stock) <= 0) {
+      toast("ESTE PRODUCTO ESTÁ AGOTADO");
+      return;
+    }
 
     const found =
       cart.find(
@@ -991,6 +1309,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (found) {
+
+      if (found.qty >= Number(selectedProduct.stock)) {
+        toast("NO HAY SUFICIENTES UNIDADES DISPONIBLES");
+        return;
+      }
 
       found.qty++;
 
@@ -1616,31 +1939,25 @@ document.addEventListener("DOMContentLoaded", () => {
       "checkoutBtn"
     );
 
-
   if (checkoutBtn) {
-
     checkoutBtn.addEventListener(
       "click",
-      () => {
-
-        if (cart.length) {
-
-          toast(
-            "PRÓXIMO PASO: CONECTAR PASARELA DE PAGO REAL"
-          );
-
-        } else {
-
-          toast(
-            "TU BOLSA ESTÁ VACÍA"
-          );
-
-        }
-
-      }
+      openCheckout
     );
-
   }
+
+  checkoutForm.addEventListener("submit", submitCheckout);
+  document.getElementById("checkoutClose").addEventListener("click", closeCheckout);
+  document.getElementById("checkoutBack").addEventListener("click", closeCheckout);
+  document.getElementById("checkoutDone").addEventListener("click", closeCheckout);
+  document.getElementById("checkoutPaymentMethod").addEventListener("change", updateCheckoutPaymentHint);
+  document.getElementById("checkoutDeliveryZone").addEventListener("change", refreshCheckoutQuote);
+  checkoutModal.addEventListener("click", event => {
+    if (event.target === checkoutModal) closeCheckout();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && checkoutModal.classList.contains("open")) closeCheckout();
+  });
 
 
   /* ==================================================
@@ -1755,6 +2072,8 @@ document.addEventListener("DOMContentLoaded", () => {
       */
 
       renderProducts();
+
+      refreshStoreCatalog();
 
 
       toast(
