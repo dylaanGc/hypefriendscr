@@ -1052,7 +1052,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateCheckoutSubmit() {
     checkoutSubmit.disabled = checkoutBusy || !checkoutQuoteData || !checkoutTurnstileToken;
-    checkoutSubmit.textContent = checkoutBusy ? "PROCESANDO PEDIDO…" : "CONFIRMAR PEDIDO";
+    if (checkoutBusy) {
+      checkoutSubmit.textContent = "PROCESANDO PEDIDO…";
+    } else if (!checkoutQuoteData) {
+      checkoutSubmit.textContent = "ACTUALIZANDO COTIZACIÓN…";
+    } else if (!checkoutTurnstileToken) {
+      checkoutSubmit.textContent = "COMPLETA LA VERIFICACIÓN";
+    } else {
+      checkoutSubmit.textContent = "CONFIRMAR PEDIDO";
+    }
   }
 
   function prepareCheckoutTurnstile() {
