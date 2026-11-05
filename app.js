@@ -972,12 +972,25 @@ document.addEventListener("DOMContentLoaded", () => {
       form.append("proof", proof);
       body = form;
     }
-    const response = await fetch(checkoutEndpoint, {
-      method: "POST",
-      headers,
-      body,
-      cache: "no-store",
-    });
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), payload.action === "quote" ? 15000 : 30000);
+    let response;
+    try {
+      response = await fetch(checkoutEndpoint, {
+        method: "POST",
+        headers,
+        body,
+        cache: "no-store",
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (error.name === "AbortError") {
+        throw new Error("La conexión tardó demasiado. Revisa tu Internet y vuelve a intentarlo.");
+      }
+      throw new Error("No se pudo conectar con el servidor de pedidos. Revisa tu Internet.");
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
     let result;
     try {
       result = await response.json();
@@ -1033,20 +1046,30 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCheckoutSubmit();
     checkoutQuote.textContent = "Calculando disponibilidad y envío…";
     checkoutError.textContent = "";
-    try {
-      const quote = await callCheckoutApi({
-        action: "quote",
-        deliveryZone: document.getElementById("checkoutDeliveryZone").value,
-        items: cartLines(),
-      });
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
       if (requestId !== checkoutQuoteRequestId) return;
-      checkoutQuoteData = quote;
-      renderCheckoutQuote(quote);
-      updateCheckoutSubmit();
-    } catch (error) {
-      if (requestId !== checkoutQuoteRequestId) return;
-      checkoutQuote.textContent = "";
-      checkoutError.textContent = error.message;
+      try {
+        if (attempt > 1) checkoutQuote.textContent = `Reintentando cotización (${attempt}/3)…`;
+        const quote = await callCheckoutApi({
+          action: "quote",
+          deliveryZone: document.getElementById("checkoutDeliveryZone").value,
+          items: cartLines(),
+        });
+        if (requestId !== checkoutQuoteRequestId) return;
+        checkoutQuoteData = quote;
+        renderCheckoutQuote(quote);
+        updateCheckoutSubmit();
+        return;
+      } catch (error) {
+        if (requestId !== checkoutQuoteRequestId) return;
+        if (attempt < 3) {
+          await new Promise(resolve => window.setTimeout(resolve, attempt * 700));
+          continue;
+        }
+        checkoutQuote.textContent = "";
+        checkoutError.textContent = `${error.message} Puedes cambiar la zona o cerrar y volver a abrir el checkout.`;
+        updateCheckoutSubmit();
+      }
     }
   }
 
