@@ -270,6 +270,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  function productReleaseTime(product) {
+    if (product.dropAvailableAt) {
+      const releaseTime = Date.parse(product.dropAvailableAt);
+      return Number.isNaN(releaseTime) ? null : releaseTime;
+    }
+    return product.drop === true && !dropIsLive() ? DROP_DATE : null;
+  }
+
+  function formatReleaseDate(timestamp) {
+    return new Intl.DateTimeFormat("es-CR", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "America/Costa_Rica",
+    }).format(new Date(timestamp));
+  }
+
+  function normalizeStoreCategory(category) {
+    const value = String(category || "").trim().toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const aliases = {
+      camiseta: "tee",
+      camisetas: "tee",
+      tees: "tee",
+      hoodies: "hoodie",
+      sudaderas: "hoodie",
+      shorts: "short",
+      gorras: "cap",
+      caps: "cap",
+      accesorios: "accessory",
+      accessories: "accessory",
+      general: "accessory",
+    };
+    return aliases[value] || value || "accessory";
+  }
+
 
   /* ==================================================
      CARRITO
@@ -307,6 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const modalDescription =
     document.getElementById("modalDescription");
+
+  const modalAvailability =
+    document.getElementById("modalAvailability");
 
   const modalPrice =
     document.getElementById("modalPrice");
@@ -368,31 +407,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderProducts(list = products) {
 
 
-    /* ==================================================
-       OCULTAR PRODUCTOS DEL DROP ANTES DEL LANZAMIENTO
-       ================================================== */
-
     const availableProducts =
       list.filter(product => {
-
-        /*
-           Si el producto pertenece al DROP
-           y todavía no ha llegado la fecha,
-           no se muestra.
-        */
-
-        if (product.dropAvailableAt && Date.parse(product.dropAvailableAt) > Date.now()) {
-          return false;
-        }
-
-        if (product.drop === true && !product.dropAvailableAt && !dropIsLive()) {
-
-          return false;
-
-        }
-
         if (product.storeActive === false) return false;
-
+        if (Number(product.stock) <= 0) return false;
         return true;
 
       });
@@ -405,10 +423,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const filteredProducts =
       availableProducts.filter(product => {
 
-        return (
-          currentFilter === "all" ||
-          product.category === currentFilter
-        );
+        return currentFilter === "all" ||
+          normalizeStoreCategory(product.category) === currentFilter;
 
       });
 
@@ -423,10 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="no-products">
 
-          <p>
-            No encontramos productos
-            en esta categoría.
-          </p>
+          <p>No hay productos con existencias disponibles en esta categoría.</p>
 
         </div>
 
@@ -479,9 +492,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </p>
 
                 <p class="product-stock">
-                  ${Number(product.stock) > 0
-                    ? `${product.stock} unidades disponibles`
-                    : "AGOTADO"}
+                  ${productReleaseTime(product) > Date.now()
+                    ? `PRÓXIMAMENTE · ${formatReleaseDate(productReleaseTime(product))} · ${product.stock} disponibles`
+                    : `${product.stock} unidades disponibles`}
                 </p>
 
               </div>
@@ -539,29 +552,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /*
-       SEGURIDAD EXTRA
-
-       Si alguien intenta abrir manualmente
-       un producto del DROP antes de tiempo,
-       no se permite.
-    */
-
-    if (
-      selectedProduct.drop === true &&
-      !dropIsLive()
-    ) {
-
-      toast(
-        "ESTE DROP TODAVÍA NO ESTÁ DISPONIBLE"
-      );
-
-      return;
-
-    }
-
-
     selectedSize = "M";
+    const releaseTime = productReleaseTime(selectedProduct);
+    if (modalAvailability) {
+      modalAvailability.textContent = releaseTime && releaseTime > Date.now()
+        ? `Disponible desde el ${formatReleaseDate(releaseTime)}.`
+        : `${selectedProduct.stock} unidades disponibles.`;
+    }
+    if (modalAddBtn) {
+      modalAddBtn.disabled = Boolean(releaseTime && releaseTime > Date.now());
+      modalAddBtn.textContent = releaseTime && releaseTime > Date.now()
+        ? "DISPONIBLE PRÓXIMAMENTE"
+        : "AGREGAR A LA BOLSA";
+    }
 
 
     /* ==================================================
@@ -1276,8 +1279,8 @@ document.addEventListener("DOMContentLoaded", () => {
         product.inStock = Boolean(remoteProduct.in_stock);
         product.storeActive = Boolean(remoteProduct.active);
         product.dropAvailableAt = remoteProduct.drop_available_at;
-        product.category = remoteProduct.category || product.category;
-        product.class = remoteProduct.category || product.class;
+        product.category = normalizeStoreCategory(remoteProduct.category || product.category);
+        product.class = product.category;
         product.image = remoteProduct.image_url || (sameProduct ? product.image : "img/icon.svg");
         product.desc = remoteProduct.description || (sameProduct ? product.desc : "");
         syncedProducts.push(product);
@@ -1286,8 +1289,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderProducts();
       renderCart();
       if (catalogSyncStatus) {
-        const activeCount = syncedProducts.filter(product => product.storeActive).length;
-        catalogSyncStatus.textContent = `Inventario sincronizado · ${activeCount} productos publicados`;
+        const activeCount = syncedProducts.filter(product => product.storeActive && Number(product.stock) > 0).length;
+        catalogSyncStatus.textContent = `Inventario sincronizado · ${activeCount} productos con stock`;
       }
     } catch (error) {
       console.error("Store catalog refresh:", error);
@@ -1638,19 +1641,7 @@ document.addEventListener("DOMContentLoaded", () => {
           products.filter(
             product => {
 
-              /*
-                 Ocultar productos del DROP
-                 antes del lanzamiento.
-              */
-
-              if (
-                product.drop === true &&
-                !dropIsLive()
-              ) {
-
-                return false;
-
-              }
+              if (product.storeActive === false || Number(product.stock) <= 0) return false;
 
 
               return (
