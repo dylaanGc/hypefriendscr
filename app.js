@@ -347,6 +347,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalAvailability =
     document.getElementById("modalAvailability");
 
+  const modalAddBtn =
+    document.getElementById("modalAddBtn");
+
   const modalPrice =
     document.getElementById("modalPrice");
 
@@ -406,11 +409,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderProducts(list = products) {
 
-
     const availableProducts =
       list.filter(product => {
         if (product.storeActive === false) return false;
-        if (Number(product.stock) <= 0) return false;
         return true;
 
       });
@@ -439,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="no-products">
 
-          <p>No hay productos con existencias disponibles en esta categoría.</p>
+          <p>No hay productos publicados en esta categoría.</p>
 
         </div>
 
@@ -492,9 +493,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 </p>
 
                 <p class="product-stock">
-                  ${productReleaseTime(product) > Date.now()
-                    ? `PRÓXIMAMENTE · ${formatReleaseDate(productReleaseTime(product))} · ${product.stock} disponibles`
-                    : `${product.stock} unidades disponibles`}
+                  ${Number(product.stock) <= 0
+                    ? "AGOTADO"
+                    : productReleaseTime(product) > Date.now()
+                      ? `PRÓXIMAMENTE · ${formatReleaseDate(productReleaseTime(product))} · ${product.stock} disponibles`
+                      : `${product.stock} unidades disponibles`}
                 </p>
 
               </div>
@@ -555,15 +558,11 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedSize = "M";
     const releaseTime = productReleaseTime(selectedProduct);
     if (modalAvailability) {
-      modalAvailability.textContent = releaseTime && releaseTime > Date.now()
-        ? `Disponible desde el ${formatReleaseDate(releaseTime)}.`
-        : `${selectedProduct.stock} unidades disponibles.`;
-    }
-    if (modalAddBtn) {
-      modalAddBtn.disabled = Boolean(releaseTime && releaseTime > Date.now());
-      modalAddBtn.textContent = releaseTime && releaseTime > Date.now()
-        ? "DISPONIBLE PRÓXIMAMENTE"
-        : "AGREGAR A LA BOLSA";
+      modalAvailability.textContent = Number(selectedProduct.stock) <= 0
+        ? "Actualmente agotado."
+        : releaseTime && releaseTime > Date.now()
+          ? `Disponible desde el ${formatReleaseDate(releaseTime)}.`
+          : `${selectedProduct.stock} unidades disponibles.`;
     }
 
 
@@ -722,6 +721,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 button.classList.add(
                   "selected"
                 );
+                updateProductAvailability(selectedProduct, selectedSize);
 
               }
             );
@@ -731,6 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
     }
+    updateProductAvailability(selectedProduct, selectedSize);
 
 
     /* ==================================================
@@ -756,6 +757,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+  }
+
+  function updateProductAvailability(product, size) {
+    if (!modalAddBtn) return;
+    const releaseTime = productReleaseTime(product);
+    const sizeStock = product.sizeStock || {};
+    const availableForSize = Object.keys(sizeStock).length
+      ? Number(sizeStock[size] || 0)
+      : Number(product.stock);
+    const soldOut = !size || availableForSize <= 0;
+    const upcoming = releaseTime && releaseTime > Date.now();
+    modalAddBtn.disabled = Boolean(soldOut || upcoming);
+    modalAddBtn.textContent = soldOut
+      ? "AGOTADO"
+      : upcoming
+        ? "DISPONIBLE PRÓXIMAMENTE"
+        : "AGREGAR A LA BOLSA";
+    if (modalAvailability) {
+      modalAvailability.textContent = soldOut
+        ? "Actualmente agotado."
+        : upcoming
+          ? `Disponible desde el ${formatReleaseDate(releaseTime)}.`
+          : `${availableForSize} unidades disponibles en esta talla.`;
+    }
   }
 
 
@@ -1289,8 +1314,9 @@ document.addEventListener("DOMContentLoaded", () => {
       renderProducts();
       renderCart();
       if (catalogSyncStatus) {
-        const activeCount = syncedProducts.filter(product => product.storeActive && Number(product.stock) > 0).length;
-        catalogSyncStatus.textContent = `Inventario sincronizado · ${activeCount} productos con stock`;
+        const publishedCount = syncedProducts.filter(product => product.storeActive).length;
+        const soldOutCount = syncedProducts.filter(product => product.storeActive && Number(product.stock) <= 0).length;
+        catalogSyncStatus.textContent = `Catálogo sincronizado · ${publishedCount} productos · ${soldOutCount} agotados`;
       }
     } catch (error) {
       console.error("Store catalog refresh:", error);
@@ -1641,7 +1667,7 @@ document.addEventListener("DOMContentLoaded", () => {
           products.filter(
             product => {
 
-              if (product.storeActive === false || Number(product.stock) <= 0) return false;
+              if (product.storeActive === false) return false;
 
 
               return (
@@ -1831,10 +1857,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-  const modalAddBtn =
-    document.getElementById(
-      "modalAddBtn"
-    );
+
 
 
   if (modalClose) {

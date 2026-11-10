@@ -532,6 +532,11 @@ h2 {
   text-align: center;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .section-head {
   display: flex;
 
