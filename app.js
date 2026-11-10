@@ -349,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutError = document.getElementById("checkoutError");
   const checkoutSubmit = document.getElementById("checkoutSubmit");
   const checkoutQuote = document.getElementById("checkoutQuote");
+  const catalogSyncStatus = document.getElementById("catalogSyncStatus");
   const checkoutEndpoint = `${document.querySelector('meta[name="supabase-url"]')?.content.replace(/\/+$/, "")}/functions/v1/create-web-order`;
   const supabasePublishableKey = document.querySelector('meta[name="supabase-publishable-key"]')?.content.trim() || "";
   const turnstileSiteKey = document.querySelector('meta[name="turnstile-site-key"]')?.content.trim() || "";
@@ -357,6 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let checkoutTurnstileId = null;
   let checkoutTurnstileToken = "";
   let checkoutBusy = false;
+  let catalogRefreshInFlight = false;
 
 
   /* ==================================================
@@ -379,10 +381,11 @@ document.addEventListener("DOMContentLoaded", () => {
            no se muestra.
         */
 
-        if (
-          product.drop === true &&
-          !dropIsLive()
-        ) {
+        if (product.dropAvailableAt && Date.parse(product.dropAvailableAt) > Date.now()) {
+          return false;
+        }
+
+        if (product.drop === true && !product.dropAvailableAt && !dropIsLive()) {
 
           return false;
 
@@ -633,34 +636,34 @@ document.addEventListener("DOMContentLoaded", () => {
        * no necesitamos seleccionar talla.
        */
 
+      const sizeStock = selectedProduct.sizeStock || {};
+      const hasSizeStock = Object.keys(sizeStock).length > 0;
+      const stockSizes = (selectedProduct.availableSizes || [])
+        .filter(size => !hasSizeStock || Number(sizeStock[size] || 0) > 0);
+
       if (
         selectedProduct.category === "accessory" ||
         selectedProduct.category === "cap"
       ) {
-
-        sizes.innerHTML = `
-
-          <p class="no-size">
-            Talla única
-          </p>
-
-        `;
-
-        selectedSize = "ÚNICA";
+        selectedSize = stockSizes[0] || (hasSizeStock ? "" : "ÚNICA");
+        sizes.innerHTML = `<p class="no-size">${selectedSize || "Agotado"}${selectedSize && !["ÚNICA","UNSIZE"].includes(selectedSize.toUpperCase()) ? ` · ${selectedSize}` : ""}</p>`;
 
       } else {
 
-        const availableSizes =
-          selectedProduct.availableSizes?.length
-            ? selectedProduct.availableSizes
-            : ["S", "M", "L", "XL"];
+        const availableSizes = stockSizes.length
+          ? stockSizes
+          : hasSizeStock
+            ? []
+            : selectedProduct.availableSizes?.length
+              ? selectedProduct.availableSizes
+              : ["S", "M", "L", "XL"];
         selectedSize =
           availableSizes.includes("M")
             ? "M"
-            : availableSizes[0];
+            : availableSizes[0] || "";
 
-        sizes.innerHTML =
-          availableSizes
+        sizes.innerHTML = availableSizes.length
+          ? availableSizes
             .map(size => {
 
               return `
@@ -682,7 +685,8 @@ document.addEventListener("DOMContentLoaded", () => {
               `;
 
             })
-            .join("");
+            .join("")
+          : `<p class="no-size">Agotado</p>`;
 
 
         sizes
@@ -1243,36 +1247,53 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function refreshStoreCatalog() {
+    if (catalogRefreshInFlight) return;
+    catalogRefreshInFlight = true;
+    if (catalogSyncStatus) catalogSyncStatus.textContent = "Sincronizando inventario…";
     try {
       const response = await callCheckoutApi({ action: "catalog" });
+      const syncedProducts = [];
       for (const remoteProduct of response.products || []) {
-        let product = products.find(row => String(row.id) === remoteProduct.store_product_id);
-        if (!product) {
-          product = {
-            id: remoteProduct.store_product_id,
-            category: remoteProduct.category || "accessory",
-            class: remoteProduct.category || "accessory",
-            image: "img/icon.svg",
-            desc: "",
-            drop: false
-          };
-          products.push(product);
-        }
+        const productId = Number(remoteProduct.store_product_id);
+        const existing = products.find(row => String(row.id) === remoteProduct.store_product_id);
+        const sameProduct = existing?.name === remoteProduct.product_name;
+        const product = existing
+          ? { ...existing }
+          : {
+              id: productId,
+              category: remoteProduct.category || "accessory",
+              class: remoteProduct.category || "accessory",
+              image: "img/icon.svg",
+              desc: "",
+              drop: false
+            };
+        product.id = productId;
         product.name = remoteProduct.product_name;
         product.price = Number(remoteProduct.unit_price);
         product.stock = Number(remoteProduct.available_stock);
-        product.availableSizes = remoteProduct.available_sizes;
+        product.availableSizes = remoteProduct.available_sizes || [];
+        product.sizeStock = remoteProduct.size_stock || {};
         product.inStock = Boolean(remoteProduct.in_stock);
         product.storeActive = Boolean(remoteProduct.active);
+        product.dropAvailableAt = remoteProduct.drop_available_at;
         product.category = remoteProduct.category || product.category;
         product.class = remoteProduct.category || product.class;
-        if (remoteProduct.image_url) product.image = remoteProduct.image_url;
-        if (remoteProduct.description) product.desc = remoteProduct.description;
+        product.image = remoteProduct.image_url || (sameProduct ? product.image : "img/icon.svg");
+        product.desc = remoteProduct.description || (sameProduct ? product.desc : "");
+        syncedProducts.push(product);
       }
+      products.splice(0, products.length, ...syncedProducts);
       renderProducts();
       renderCart();
+      if (catalogSyncStatus) {
+        const activeCount = syncedProducts.filter(product => product.storeActive).length;
+        catalogSyncStatus.textContent = `Inventario sincronizado · ${activeCount} productos publicados`;
+      }
     } catch (error) {
       console.error("Store catalog refresh:", error);
+      if (catalogSyncStatus) catalogSyncStatus.textContent = "No se pudo actualizar el inventario. Revisa tu conexión e inténtalo de nuevo.";
+    } finally {
+      catalogRefreshInFlight = false;
     }
   }
 
@@ -1324,7 +1345,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    if (Number(selectedProduct.stock) <= 0) {
+    if (!selectedSize) {
+      toast("ESTE PRODUCTO NO TIENE TALLAS DISPONIBLES");
+      return;
+    }
+
+    const sizeStock = selectedProduct.sizeStock || {};
+    const hasSizeStock = Object.keys(sizeStock).length > 0;
+    const availableForSize = hasSizeStock
+      ? Number(sizeStock[selectedSize] || 0)
+      : Number(selectedProduct.stock);
+    if (availableForSize <= 0) {
       toast("ESTE PRODUCTO ESTÁ AGOTADO");
       return;
     }
@@ -1341,7 +1372,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (found) {
 
-      if (found.qty >= Number(selectedProduct.stock)) {
+      if (found.qty >= availableForSize) {
         toast("NO HAY SUFICIENTES UNIDADES DISPONIBLES");
         return;
       }
@@ -2141,6 +2172,14 @@ document.addEventListener("DOMContentLoaded", () => {
      ================================================== */
 
   renderCart();
+  refreshStoreCatalog();
+  window.setInterval(() => {
+    if (!document.hidden) refreshStoreCatalog();
+  }, 60000);
+  window.addEventListener("focus", refreshStoreCatalog);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshStoreCatalog();
+  });
 
 
 });

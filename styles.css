@@ -524,6 +524,14 @@ h2 {
   background: #efefed;
 }
 
+.catalog-sync-status {
+  min-height: 1.2em;
+  margin: 18px 0 0;
+  color: #777;
+  font-size: 12px;
+  text-align: center;
+}
+
 .section-head {
   display: flex;
 
