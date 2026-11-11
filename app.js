@@ -271,7 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function productReleaseTime(product) {
-    if (product.dropAvailableAt) {
+    if (product.dropAvailableAt !== undefined) {
+      if (!product.dropAvailableAt) return null;
       const releaseTime = Date.parse(product.dropAvailableAt);
       return Number.isNaN(releaseTime) ? null : releaseTime;
     }
