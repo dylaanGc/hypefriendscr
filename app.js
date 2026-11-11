@@ -1282,6 +1282,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await callCheckoutApi({ action: "catalog" });
       const syncedProducts = [];
       for (const remoteProduct of response.products || []) {
+        const imageUrl = typeof remoteProduct.image_url === "string"
+          ? remoteProduct.image_url.trim()
+          : "";
+        if (!imageUrl) continue;
+
         const productId = Number(remoteProduct.store_product_id);
         const existing = products.find(row => String(row.id) === remoteProduct.store_product_id);
         const sameProduct = existing?.name === remoteProduct.product_name;
@@ -1306,17 +1311,27 @@ document.addEventListener("DOMContentLoaded", () => {
         product.dropAvailableAt = remoteProduct.drop_available_at;
         product.category = normalizeStoreCategory(remoteProduct.category || product.category);
         product.class = product.category;
-        product.image = remoteProduct.image_url || (sameProduct ? product.image : "img/icon.svg");
+        product.image = imageUrl;
         product.desc = remoteProduct.description || (sameProduct ? product.desc : "");
         syncedProducts.push(product);
       }
       products.splice(0, products.length, ...syncedProducts);
+      const activeProductIds = new Set(
+        syncedProducts
+          .filter(product => product.storeActive)
+          .map(product => String(product.id))
+      );
+      const visibleCart = cart.filter(item => activeProductIds.has(String(item.id)));
+      if (visibleCart.length !== cart.length) {
+        cart = visibleCart;
+        saveCart();
+      }
       renderProducts();
       renderCart();
       if (catalogSyncStatus) {
         const publishedCount = syncedProducts.filter(product => product.storeActive).length;
         const soldOutCount = syncedProducts.filter(product => product.storeActive && Number(product.stock) <= 0).length;
-        catalogSyncStatus.textContent = `Catálogo sincronizado · ${publishedCount} productos · ${soldOutCount} agotados`;
+        catalogSyncStatus.textContent = `Catálogo sincronizado · ${publishedCount} productos con foto · ${soldOutCount} agotados`;
       }
     } catch (error) {
       console.error("Store catalog refresh:", error);
