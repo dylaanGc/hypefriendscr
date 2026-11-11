@@ -172,15 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================= */
 
     {
-      id: 12,
-      name: "SHOULDER BAG GOYAR",
-      price: 35000,
-      stock: 8,
-      category: "accessory",
-      class: "accessory",
-      image: "img/bolso.goyar.jpeg",
-      desc: "Shoulder bag Goyar color verde.",
-      drop: false
+ 
     },
 
     {
