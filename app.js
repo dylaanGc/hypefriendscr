@@ -18,15 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ========================= */
 
     {
-      id: 1,
-      name: "POLO RALPH LAUREN",
-      price: 18000,
-      stock: 12,
-      category: "tee",
-      class: "tee",
-      image: "img/polo.rp.jpg",
-      desc: "Polo de edición limitada.",
-      drop: false
+
     },
 
     {
