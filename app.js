@@ -1061,16 +1061,78 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutQuote.innerHTML = `${rows}<div class="checkout-quote-row"><span>Envío</span><b>${money(quote.shippingAmount)}</b></div><div class="checkout-quote-row checkout-quote-total"><span>Total</span><b>${money(quote.total)}</b></div>`;
   }
 
-  function updateCheckoutPaymentHint() {
-    const method = document.getElementById("checkoutPaymentMethod")?.value;
-    const proofLabel = document.getElementById("checkoutProofLabel");
-    const hint = document.getElementById("checkoutPaymentHint");
-    if (proofLabel) proofLabel.hidden = method === "cash_on_delivery";
-    if (hint) {
-      hint.textContent = method === "cash_on_delivery"
-        ? "El pago quedará pendiente hasta confirmar la entrega y el cobro."
-        : "El pago quedará pendiente hasta verificar la transferencia o el SINPE. Puedes adjuntar un comprobante; enviarlo no confirma el pago.";
-    }
+
+function updateCheckoutPaymentHint() {
+  const method = document.getElementById("checkoutPaymentMethod")?.value;
+  const proofLabel = document.getElementById("checkoutProofLabel");
+  const hint = document.getElementById("checkoutPaymentHint");
+
+  if (proofLabel) {
+    proofLabel.hidden = method === "cash_on_delivery";
+  }
+
+  if (!hint) return;
+
+  if (method === "sinpe_movil") {
+    hint.innerHTML = `
+      <div class="payment-instructions">
+        <strong> PAGO POR SINPE MÓVIL</strong>
+
+        <p>Realiza tu pago utilizando los siguientes datos:</p>
+
+        <p><strong>Número SINPE:</strong><br>
+        6329-4571</p>
+
+        <p><strong>Titular:</strong><br>
+        ANTHONY GERARDO MENDEZ LORIA</p>
+
+        <p class="checkout-helper">
+          Una vez realizado el pago, puedes adjuntar el comprobante
+          para facilitar la verificación de tu pedido.
+        </p>
+      </div>
+    `;
+
+  } else if (method === "bank_transfer") {
+    hint.innerHTML = `
+      <div class="payment-instructions">
+        <strong>TRANSFERENCIA BANCARIA — BAC</strong>
+
+        <p>Realiza tu transferencia utilizando estos datos:</p>
+
+        <p><strong>Banco:</strong><br>
+        BAC</p>
+
+        <p><strong>Número de cuenta:</strong><br>
+        964662043</p>
+
+        <p><strong>Cuenta IBAN:</strong><br>
+        CR12010200009646620430</p>
+
+        <p><strong>Titular:</strong><br>
+        ANTHONY GERARDO MENDEZ LORIA</p>
+
+        <p class="checkout-helper">
+          Una vez realizada la transferencia, puedes adjuntar
+          el comprobante para verificar tu pedido.
+        </p>
+      </div>
+    `;
+
+  } else if (method === "cash_on_delivery") {
+    hint.innerHTML = `
+      <div class="payment-instructions">
+        <strong>PAGO CONTRA ENTREGA</strong>
+        <p>
+          El pago se realizará al recibir tu pedido.
+          El pedido quedará pendiente hasta confirmar
+          la entrega y el cobro.
+        </p>
+      </div>
+    `;
+  }
+}
+
   }
 
   async function refreshCheckoutQuote() {
