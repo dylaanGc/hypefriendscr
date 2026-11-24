@@ -1,44 +1,449 @@
-<!-- FOOTER ACTUALIZADO -->
 
-<footer>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Información para clientes de HYPEFRIENDS: envíos, cambios, devoluciones, términos y privacidad.">
+  <title>Información para clientes | HYPEFRIENDS</title>
 
-  <div>
-    <div class="footer-logo">HYPEFRIENDS</div>
-    <p>Streetwear y drops exclusivos.</p>
-  </div>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <div>
-    <p class="footer-label">INFORMACIÓN</p>
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <p class="footer-links">
-      <a href="informacion.html#envios">Política de envíos</a><br>
-      <a href="informacion.html#cambios">Cambios y devoluciones</a><br>
-      <a href="informacion.html#terminos">Términos y condiciones</a><br>
-      <a href="informacion.html#privacidad">Privacidad y protección de datos</a>
+    body {
+      background: #090909;
+      color: #f7f7f5;
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 24px 7%;
+      border-bottom: 1px solid #292929;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .back {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 60px 25px;
+    }
+
+    .tag {
+      color: #c86643;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 7vw, 65px);
+      line-height: 1.1;
+      margin: 15px 0 20px;
+    }
+
+    .intro {
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 45px;
+    }
+
+    .quick-links a {
+      color: #ddd;
+      border: 1px solid #333;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .quick-links a:hover {
+      color: #c86643;
+      border-color: #c86643;
+    }
+
+    section {
+      padding: 35px 0;
+      border-top: 1px solid #292929;
+      scroll-margin-top: 25px;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin: 10px 0 20px;
+    }
+
+    h3 {
+      font-size: 15px;
+      color: white;
+      margin: 25px 0 8px;
+    }
+
+    p, li {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin: 12px 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .contact-box {
+      background: #151515;
+      border: 1px solid #303030;
+      padding: 28px;
+      margin-top: 25px;
+    }
+
+    .contact-box a {
+      color: #c86643;
+      text-decoration: none;
+    }
+
+    .contact-box a:hover {
+      color: white;
+    }
+
+    footer {
+      border-top: 1px solid #292929;
+      padding: 30px;
+      text-align: center;
+      color: #777;
+      font-size: 11px;
+    }
+
+    @media(max-width:600px) {
+      header {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 40px 22px;
+      }
+
+      .quick-links {
+        flex-direction: column;
+      }
+
+      .quick-links a {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html" class="logo">HYPEFRIENDS</a>
+    <a href="index.html" class="back">← VOLVER A LA TIENDA</a>
+  </header>
+
+  <main class="container">
+
+    <span class="tag">HYPEFRIENDS / BUSINESS</span>
+
+    <h1>INFORMACIÓN<br>PARA CLIENTES.</h1>
+
+    <p class="intro">
+      En HYPEFRIENDS queremos ofrecerte una experiencia de compra
+      clara, segura y transparente. Aquí encontrarás nuestras
+      políticas de envíos, cambios, devoluciones, términos
+      y protección de datos.
     </p>
 
-    <p class="footer-label" style="margin-top:18px">
-      ATENCIÓN AL CLIENTE
-    </p>
+    <nav class="quick-links">
+      <a href="#envios">POLÍTICA DE ENVÍOS</a>
+      <a href="#cambios">CAMBIOS Y DEVOLUCIONES</a>
+      <a href="#terminos">TÉRMINOS Y CONDICIONES</a>
+      <a href="#privacidad">PRIVACIDAD</a>
+      <a href="#contacto">CONTACTO</a>
+    </nav>
 
-    <p>
-      <a href="https://wa.me/50663294571" target="_blank" rel="noopener">
-        WhatsApp: +506 6329-4571
-      </a>
-    </p>
+    <!-- POLÍTICA DE ENVÍOS -->
+    <section id="envios">
+      <span class="tag">01 / ENTREGAS</span>
+      <h2>Política de envíos</h2>
 
-    <p>
-      <a href="mailto:hypefriendscr@gmail.com">
-        hypefriendscr@gmail.com
-      </a>
-    </p>
-  </div>
+      <p>
+        Realizamos entregas dentro de Costa Rica, sujetas a la
+        cobertura y disponibilidad del servicio de transporte.
+      </p>
 
-  <div>
-    <p class="footer-label">NAVEGACIÓN</p>
-    <a href="#inicio">Inicio</a>
-    <a href="#catalogo">Catálogo</a>
-    <a href="#drops">Drops</a>
-  </div>
+      <h3>Envío gratuito</h3>
+      <p>
+        Ofrecemos envío gratis en compras superiores a
+        ₡50.000 dentro del Gran Área Metropolitana (GAM).
+      </p>
 
-</footer>
+      <h3>Costos de envío</h3>
+      <ul>
+        <li>Dentro del GAM: ₡2.000.</li>
+        <li>Fuera del GAM: ₡3.500.</li>
+        <li>
+          Compras superiores a ₡50.000 dentro del GAM:
+          envío gratuito.
+        </li>
+      </ul>
+
+      <h3>Tiempo de entrega</h3>
+      <p>
+        El tiempo de entrega depende de la ubicación del cliente,
+        disponibilidad del producto y servicio de transporte.
+        La fecha estimada se comunicará al confirmar el pedido.
+      </p>
+
+      <h3>Información de entrega</h3>
+      <p>
+        El cliente debe proporcionar correctamente su nombre,
+        teléfono y dirección completa. Los datos incorrectos
+        o incompletos pueden ocasionar retrasos.
+      </p>
+
+      <h3>Seguimiento del pedido</h3>
+      <p>
+        Para consultar el estado de tu pedido puedes comunicarte
+        directamente con nuestro equipo por WhatsApp o correo.
+      </p>
+    </section>
+
+    <!-- CAMBIOS Y DEVOLUCIONES -->
+    <section id="cambios">
+      <span class="tag">02 / SERVICIO AL CLIENTE</span>
+      <h2>Cambios y devoluciones</h2>
+
+      <p>
+        Si recibes un producto incorrecto, defectuoso o tienes
+        algún inconveniente con tu pedido, comunícate con nosotros
+        para revisar tu caso.
+      </p>
+
+      <h3>Productos incorrectos o defectuosos</h3>
+      <p>
+        Contacta a nuestro equipo, indica tu número de pedido,
+        explica el inconveniente y adjunta fotografías cuando
+        sea posible.
+      </p>
+
+      <h3>Solicitudes de cambio</h3>
+      <p>
+        Los cambios se revisarán según la disponibilidad del
+        producto, su estado y las condiciones aplicables.
+        Comunícate con nosotros antes de enviar cualquier artículo.
+      </p>
+
+      <h3>Para gestionar una solicitud</h3>
+      <ul>
+        <li>Conserva el producto y sus accesorios.</li>
+        <li>No laves ni modifiques el artículo.</li>
+        <li>Conserva el comprobante de compra.</li>
+        <li>Espera las instrucciones de nuestro equipo.</li>
+      </ul>
+
+      <h3>Devoluciones y reembolsos</h3>
+      <p>
+        Cuando corresponda una devolución o reembolso,
+        coordinaremos el procedimiento directamente con
+        el cliente, conforme a las circunstancias del caso
+        y la legislación costarricense vigente.
+      </p>
+
+      <p>
+        Estas condiciones no limitan los derechos que la
+        legislación de protección al consumidor reconoce
+        a los clientes.
+      </p>
+    </section>
+
+    <!-- TÉRMINOS Y CONDICIONES -->
+    <section id="terminos">
+      <span class="tag">03 / CONDICIONES DE COMPRA</span>
+      <h2>Términos y condiciones</h2>
+
+      <h3>Productos y disponibilidad</h3>
+      <p>
+        HYPEFRIENDS ofrece prendas, accesorios y productos
+        relacionados con la moda streetwear. Algunos artículos
+        pertenecen a colecciones limitadas y pueden contar
+        con unidades reducidas.
+      </p>
+
+      <h3>Precios y moneda</h3>
+      <p>
+        Los precios publicados están expresados en colones
+        costarricenses (₡), salvo que se indique lo contrario.
+        Los costos adicionales se comunicarán antes de
+        confirmar la compra.
+      </p>
+
+      <h3>Pedidos y pagos</h3>
+      <p>
+        El cliente debe proporcionar información correcta
+        al realizar su pedido. Los métodos de pago disponibles
+        incluyen transferencia bancaria, SINPE Móvil y pago
+        contra entrega, sujeto a disponibilidad y coordinación.
+      </p>
+
+      <p>
+        Los pedidos cuyo pago requiera verificación permanecerán
+        pendientes hasta que HYPEFRIENDS confirme la recepción
+        del dinero.
+      </p>
+
+      <h3>Imágenes de los productos</h3>
+      <p>
+        Las fotografías representan los productos ofrecidos.
+        Pueden existir pequeñas diferencias de color o apariencia
+        debido a la iluminación y configuración de las pantallas.
+      </p>
+
+      <h3>Uso de la tienda</h3>
+      <p>
+        El usuario se compromete a utilizar el sitio de forma
+        responsable y a proporcionar información veraz durante
+        el proceso de compra.
+      </p>
+
+      <h3>Propiedad intelectual</h3>
+      <p>
+        Los elementos originales de HYPEFRIENDS, incluyendo
+        diseños gráficos, textos, fotografías e identidad visual,
+        no podrán reproducirse ni utilizarse sin autorización
+        cuando corresponda.
+      </p>
+
+      <h3>Actualizaciones</h3>
+      <p>
+        Estas condiciones podrán actualizarse cuando sea necesario.
+        Las modificaciones se publicarán en esta página.
+      </p>
+    </section>
+
+    <!-- PRIVACIDAD -->
+    <section id="privacidad">
+      <span class="tag">04 / DATOS PERSONALES</span>
+      <h2>Privacidad y protección de datos</h2>
+
+      <p>
+        En HYPEFRIENDS respetamos la privacidad de nuestros
+        clientes y procuramos tratar su información personal
+        de manera responsable.
+      </p>
+
+      <h3>Información que recopilamos</h3>
+      <p>
+        Durante una compra podemos solicitar nombre completo,
+        teléfono, correo electrónico, dirección de entrega
+        e información relacionada con el pedido y el pago.
+      </p>
+
+      <h3>Uso de la información</h3>
+      <ul>
+        <li>Procesar y gestionar pedidos.</li>
+        <li>Coordinar entregas y envíos.</li>
+        <li>Verificar pagos cuando corresponda.</li>
+        <li>Contactar al cliente sobre su compra.</li>
+        <li>Atender consultas, cambios y reclamos.</li>
+        <li>Mejorar la experiencia de compra.</li>
+      </ul>
+
+      <h3>Protección de los datos</h3>
+      <p>
+        Procuramos utilizar medidas razonables para proteger
+        la información personal contra accesos, usos o
+        divulgaciones no autorizadas.
+      </p>
+
+      <h3>Compartir información</h3>
+      <p>
+        Los datos estrictamente necesarios podrán compartirse
+        con proveedores que participen en la gestión del pedido,
+        como servicios de transporte o procesamiento de pagos,
+        cuando sea necesario para completar la compra.
+      </p>
+
+      <h3>Derechos del cliente</h3>
+      <p>
+        Puedes comunicarte con HYPEFRIENDS para consultar sobre
+        tus datos personales o solicitar la actualización o
+        gestión de tu información, conforme a la legislación
+        costarricense aplicable.
+      </p>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="contact-box">
+        <span class="tag">05 / HYPEFRIENDS SUPPORT</span>
+        <h2>¿NECESITAS AYUDA?</h2>
+
+        <p>
+          Si tienes dudas sobre productos, pedidos, pagos,
+          envíos, cambios o devoluciones, puedes comunicarte
+          directamente con nuestro equipo.
+        </p>
+
+        <h3>WhatsApp</h3>
+        <p>
+          <a href="https://wa.me/50663294571"
+             target="_blank" rel="noopener noreferrer">
+            +506 6329-4571 — Escribir por WhatsApp →
+          </a>
+        </p>
+
+        <h3>Correo electrónico</h3>
+        <p>
+          <a href="mailto:hypefriendscr@gmail.com">
+            hypefriendscr@gmail.com — Enviar correo →
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    HYPEFRIENDS © 2026 — STREETWEAR & DROPS EXCLUSIVOS.
+  </footer>
+
+</body>
+</html>
